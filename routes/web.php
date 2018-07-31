@@ -1,5 +1,7 @@
 <?php
 
+
+use App\Events\ExampleEvent;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,4 +19,5 @@ Route::get('/', function () {
 
 Route::get("/socket",function(){
     return "hola";
+    event(new ExampleEvent());
 });

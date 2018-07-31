@@ -18,6 +18,6 @@ Route::get('/', function () {
 });
 
 Route::get("/socket",function(){
-    return "hola";
+    return view("socket");
     event(new ExampleEvent());
 });

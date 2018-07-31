@@ -21,7 +21,7 @@ class ExampleEvent
      */
     public function __construct()
     {
-        //
+        
     }
 
     /**

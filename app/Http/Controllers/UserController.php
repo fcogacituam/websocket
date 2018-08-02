@@ -8,6 +8,9 @@ use App\User;
 
 class UserController extends Controller
 {
+    public function get(){
+        return User::all()->paginate(15);
+    }
     public function usuario(Request $request)
     {
         //acceder datos del token (sesión)

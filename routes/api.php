@@ -1,5 +1,5 @@
 <?php
-$router->group(['middleware' => 'jwt.auth'], function () use ($router) {
+$router->group(['middleware' => 'auth.jwt'], function () use ($router) {
 
     $router->get('{class}', function (Illuminate\Http\Request $request, $class) {
         $controller = app()->make("App\\Http\\Controllers\\" . ucwords($class) . "Controller");

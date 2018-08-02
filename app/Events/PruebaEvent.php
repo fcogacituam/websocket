@@ -10,7 +10,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class ExampleEvent implements ShouldBroadcast
+class PruebaEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -21,7 +21,7 @@ class ExampleEvent implements ShouldBroadcast
      */
     public function __construct()
     {
-        
+        //
     }
 
     /**
@@ -31,6 +31,14 @@ class ExampleEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('');
+        //return new PrivateChannel('channel-name');
+	return new Channel('test-event');
+    }
+
+    public function broadcastWith(){
+	return [
+		'data'=>'key',
+		'message'=>'conectado!'
+	];
     }
 }

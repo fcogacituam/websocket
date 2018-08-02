@@ -53,7 +53,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
+        //'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
@@ -61,7 +61,8 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'jwt-auth' => App\Http\Middleware\Authenticate::class,
+        'jwt.auth' => \Tymon\JWTAuth\Middleware\GetUserFromToken::class,
+        'jwt.refresh' => \Tymon\JWTAuth\Middleware\RefreshToken::class,
         // 'cors' => Nord\Lumen\Cors\CorsMiddleware::class,
     ];
 }

@@ -31,6 +31,12 @@ class ExampleEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('');
+        return new Channel('test-event');
     }
+	public function broadcastWith()
+{
+    return [
+        'data' => 'key'
+    ];
+}
 }

@@ -1,18 +1,44 @@
 <?php
+$router->group(['middleware' => 'jwt-auth'], function () use ($router) {
 
-use Illuminate\Http\Request;
+    $router->get('{class}', function (Illuminate\Http\Request $request, $class) {
+        $controller = app()->make("App\\Http\\Controllers\\" . ucwords($class) . "Controller");
+        return $controller->get($request);
+    });
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+    $router->get('{class}/{id}', function (Illuminate\Http\Request $request, $class, $id) {
+        $controller = app()->make("App\\Http\\Controllers\\" . ucwords($class) . "Controller");
+        return $controller->find($id);
+    });
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+    $router->post('{class}', function (Illuminate\Http\Request $request, $class) {
+        $controller = app()->make("App\\Http\\Controllers\\" . ucwords($class) . "Controller");
+        return $controller->post($request);
+    });
+
+    $router->put('{class}/{id}', function (Illuminate\Http\Request $request, $class, $id) {
+        $controller = app()->make("App\\Http\\Controllers\\" . ucwords($class) . "Controller");
+        return $controller->put($request, $id);
+    });
+
+    $router->patch('{class}/{id}', function (Illuminate\Http\Request $request, $class, $id) {
+        $controller = app()->make("App\\Http\\Controllers\\" . ucwords($class) . "Controller");
+        return $controller->patch($request, $id);
+    });
+
+    $router->delete('{class}/{id}', function (Illuminate\Http\Request $request, $class, $id) {
+        $controller = app()->make("App\\Http\\Controllers\\" . ucwords($class) . "Controller");
+        return $controller->delete($request, $id);
+    });
+
+    // EXTRA
+    $router->post('{class}/{method}', function (Illuminate\Http\Request $request, $class, $method) {
+        $controller = app()->make("App\\Http\\Controllers\\" . ucwords($class) . "Controller");
+        return $controller->$method($request);
+    });
+
+});
+
+Route::get('/prueba',function(){
+	return "esta es la ruta corecta";
 });

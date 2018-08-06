@@ -9,7 +9,6 @@ use App\Preference;
 use Closure;
 use Illuminate\Http\Request;
 use JWTAuth;
-use Tymon\JWTAuth\Exceptions\JWTException;
 
 class Authenticate
 {

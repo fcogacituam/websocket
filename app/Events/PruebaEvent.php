@@ -31,14 +31,12 @@ class PruebaEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        //return new PrivateChannel('channel-name');
-	return new Channel('test-event');
+        return new Channel('test-event');
     }
-
-    public function broadcastWith(){
-	return [
-		'data'=>'key',
-		'message'=>'conectado!'
-	];
-    }
+	public function broadcastWith()
+{
+    return [
+        'data' => 'key'
+    ];
+}
 }

@@ -14,3 +14,13 @@
 Broadcast::channel('App.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
+Broadcast::channel('kprima.{id}',function($user,$kprimaId){
+	return $user;
+});
+Broadcast::channel('kprimas',function(){
+	return[
+		'token' => 'token',
+		'message' => 'mensaje'
+	];
+
+});

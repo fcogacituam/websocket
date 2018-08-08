@@ -14,8 +14,42 @@ class BroadcastServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Broadcast::routes();
+       // Broadcast::routes();
+       // require base_path('routes/channels.php');
+    
 
-        require base_path('routes/channels.php');
+
+	 //PUBLICS
+        Broadcast::channel('messages', function ($user) {
+            //return false;
+            //return "ola q tal";
+            //return $user;
+            return true;
+        });
+
+        //PRIVATES
+        Broadcast::channel('user.{id}', function ($user, $userId) {
+            if ($user->Id == $userId) {
+                return $user;
+            }
+        });
+
+        Broadcast::channel('kprima.{id}', function ($user, $krpimaId) {
+            return "respuesta desde BroadcastServiceProvider";
+           // return [    
+             //   'id' => $krpimaId,
+           // ];
+        });
+
+        //PRESENTIALS
+        Broadcast::channel('clients', function ($user) {
+            $data = ['id' => $user->Id, 'name' => $user->Nombre];
+            return $data;
+        });
+        Broadcast::channel('kprimas', function ($user) {
+            //$data = ['id' => $user->Id, 'name' => $user->Nombre];
+            $kprima = ['id' => Input::get('kprimaId')];
+            return $kprima;
+        });
     }
 }

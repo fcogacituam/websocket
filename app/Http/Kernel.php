@@ -19,6 +19,7 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\TrustProxies::class,
+        // \Nord\Lumen\Cors\CorsServiceProvider::class,
     ];
 
     /**
@@ -40,6 +41,7 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:60,1',
             'bindings',
+            // App\Http\Middleware\Authenticate::class,
         ],
     ];
 
@@ -54,6 +56,7 @@ class Kernel extends HttpKernel
 	'cors' => \Barryvdh\Cors\HandleCors::class,
 	'jwt-auth' => \App\Http\Middleware\Authenticate::class,
         'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
+        //'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
@@ -61,5 +64,9 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        // 'jwt-auth' => App\Http\Middleware\Authenticate::class,
+        'auth.jwt' => \Tymon\JWTAuth\Http\Middleware\Authenticate::class,
+        // 'jwt.refresh' => \Tymon\JWTAuth\Middleware\RefreshToken::class,
+        // 'cors' => Nord\Lumen\Cors\CorsMiddleware::class,
     ];
 }

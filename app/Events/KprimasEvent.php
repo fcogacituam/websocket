@@ -10,7 +10,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class PruebaEvent implements ShouldBroadcast
+class KprimasEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -31,14 +31,6 @@ class PruebaEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('test-event');
-        //return new PrivateChannel('channel-name');
-    }
-
-    public function broadcastWith(){
-	return [
-		'data'=>'key',
-		'message'=>'conectado!'
-	];
+        return new PresenceChannel('kprimas');
     }
 }

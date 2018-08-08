@@ -1,5 +1,5 @@
 {
-	"authHost": "http://localhost/api/configurador/public",
+	"authHost": "https://localhost/api/websocket",
 	"authEndpoint": "/broadcasting/auth",
 	"clients": [
 		{

@@ -43,6 +43,7 @@ Route::get('/prueba',function(){
 	return "esta es la ruta corecta";
 });
 
+
 // //https://www.toptal.com/laravel/restful-laravel-api-tutorial
 // //https://gist.github.com/sohelamin/a85329700f1ecae1b490
 // function resource($router, $uri, $controller)

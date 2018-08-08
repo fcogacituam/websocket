@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Laravel\Lumen\Routing\Controller;
+//use Laravel\Lumen\Routing\Controller;
 use Illuminate\Http\Request;
 use App\User;
 
 class UserController extends Controller
 {
     public function get(){
-        return User::all()->paginate(15);
+        return User::all();
     }
     public function usuario(Request $request)
     {

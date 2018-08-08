@@ -18,7 +18,7 @@ class SocketController extends Controller
 
         $client = new \GuzzleHttp\Client();
 
-        $response = $client->get("https://ecore.widefense.com:6001/apps/$appId/channels", [
+        $response = $client->get("https://ecore.builder.widefense.com:6001/apps/$appId/channels", [
             'headers' => [
                 'Authorization' => "Bearer $key",
             ],
@@ -37,7 +37,7 @@ class SocketController extends Controller
 
         $client = new \GuzzleHttp\Client();
 
-        $response = $client->get("https://ecore.widefense.com:6001/apps/$appId/channels", [
+        $response = $client->get("https://ecore.builder.widefense.com:6001/apps/$appId/channels", [
             'headers' => [
                 'Authorization' => "Bearer $key",
             ],
@@ -66,7 +66,7 @@ class SocketController extends Controller
 
         $client = new \GuzzleHttp\Client();
 
-        $response = $client->get("https://ecore.widefense.com:6001/apps/$appId/channels/presence-clients/users", [
+        $response = $client->get("https://ecore.builder.widefense.com:6001/apps/$appId/channels/presence-clients/users", [
             'headers' => [
                 'Authorization' => "Bearer $key",
             ],
@@ -85,7 +85,7 @@ class SocketController extends Controller
 
         $client = new \GuzzleHttp\Client();
 
-        $response = $client->get("https://ecore.widefense.com:6001/apps/$appId/channels/presence-kprimas/users", [
+        $response = $client->get("https://ecore.builder.widefense.com:6001/apps/$appId/channels/presence-kprimas/users", [
             'headers' => [
                 'Authorization' => "Bearer $key",
             ],

@@ -20,7 +20,7 @@ Vue.component('version-local', require('./components/VersionLocal.vue'));
 
 
 var apiEcore = "../../../api/ecore/public/";
-var apiConfigurador = "../../api/websocket/public/api/";
+var apiConfigurador = "../../../api/websocket/public/api/";
 
 const app = new Vue({
     el: '#app',

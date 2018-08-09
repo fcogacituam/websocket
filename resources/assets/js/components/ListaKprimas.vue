@@ -1,11 +1,6 @@
 <template>
-    <tr>
-        <td>{{kprima.Nombre_cliente}}</td>
 
-        <td>{{kprima.Ip}}</td>
-        <td></td>
-        <td></td>
-    </tr>
+        <td>{{kprima.Nombre_cliente}}</td>
 
 </template>
 

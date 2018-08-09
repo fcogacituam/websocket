@@ -59,19 +59,12 @@
 
         <div class="row">
             <div class="col-md-12">
-                <table class="table table-stripped table-hover">
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Ip</th>
-                            <th>Versiones</th>
-                            <th>Acción</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <lista-kprimas v-for="kprima in kprimas" :key="kprima.Id" :kprima="kprima"></lista-kprimas>
-                    </tbody>
-                </table>
+                <div class="table">
+                    <div class="th">Nombre</div>
+                    <div class="th">Ip</div>
+                    <div class="th">Versiones</div>
+                    <div class="th">Acción</div>
+                </div>
             </div>
         </div>
 

@@ -1,10 +1,11 @@
 <template>
-    <tr>
-        <td>{{kprima.Nombre_cliente}}</td>
-        <td>{{kprima.Ip}}</td>
-        <td></td>
-        <td></td>
-    </tr>
+    <div>
+        <div class="td"> {{kprima.Nombre_cliente}}</div>
+        <div class="td">{{kprima.Ip}}</div>
+        <div class="td"></div>
+        <div class="td"></div>
+       
+    </div>
 </template>
 
 

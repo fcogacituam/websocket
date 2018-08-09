@@ -8,7 +8,11 @@
     <title>Sockets</title>
 </head>
 <body>
-    <h2>Hola desde Sockets</h2>
+    <div id="app">
+        <h2>Hola desde Sockets</h2>
+        <example-component></example-component>
+    </div>
+    
 
  
 </body>

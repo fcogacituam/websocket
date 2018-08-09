@@ -2,6 +2,6 @@
 
 
 Route::get("/socket",function(){
-   // return view("socket");
+    return view("socket");
     broadcast(new \App\Events\PruebaEvent);
 });

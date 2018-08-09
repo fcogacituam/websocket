@@ -12,12 +12,12 @@
     <div id="app">
         <h2>Hola desde Sockets</h2>
          <u>Versionamiento local:</u>
-        <b>{{lastVersion}}</b>
+        <b>@{{lastVersion}}</b>
 
         <table>
             <tr v-for='(repositorio, name) in repositorios_local'>
                 <td style="padding-right: 10px">
-                    {{name}}:
+                    @{{name}}:
                 </td>
 
                 <template v-if="repositorios_local[name].version">

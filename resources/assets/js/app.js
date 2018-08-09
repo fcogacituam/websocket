@@ -137,8 +137,8 @@ const app = new Vue({
             // }
 
             // var extend = $.extend(true, window.store.state.kprimas, kprimas);
-            this.kprimas = response.data;
-            console.log(this.kprimas);
+            self.kprimas = response.data;
+            console.log(self.kprimas);
             // for (var key in extend) {
             //     self.$set(self.state.kprimas, key, extend[key]);
             // }
@@ -190,3 +190,18 @@ const app = new Vue({
     }
     
 });
+function sortVersions(arr) {
+    var versions = [];
+    for (var i = 0; i < arr.length; i++) {
+        //https://stackoverflow.com/questions/82064/a-regex-for-version-number-parsing
+        if (/^(\d+\.)?(\d+\.)?(\*|\d+)$/.test(arr[i])) {
+            versions.push(arr[i]);
+        }
+    }
+    console.log("sortVersions", versions);
+
+    //TODO: CONVERTIR A ECMA5
+    //https://stackoverflow.com/questions/40201533/sort-version-dotted-number-strings-in-javascript
+    return versions.map(a => a.split('.').map(n => +n + 100000).join('.')).sort()
+        .map(a => a.split('.').map(n => +n - 100000).join('.'));
+}

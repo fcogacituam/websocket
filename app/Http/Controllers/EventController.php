@@ -7,7 +7,7 @@ use App\Events\KprimasEvent;
 use App\Events\MessageEvent;
 use App\Events\UserEvent;
 use Illuminate\Http\Request;
-use Laravel\Lumen\Routing\Controller;
+// use Laravel\Lumen\Routing\Controller;
 
 class EventController extends Controller
 {

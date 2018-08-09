@@ -10,8 +10,9 @@
 </head>
 <body>
     <div id="app">
-        <h2>Hola desde Sockets</h2>
-         <u>Versionamiento local:</u>
+        <div class="container">
+            <h2>Hola desde Sockets</h2>
+        <u>Versionamiento local:</u>
         <b>@{{lastVersion}}</b>
 
         <table>
@@ -56,7 +57,30 @@
             </tr>
         </table>
 
-        <lista-kprimas v-for="kprima in kprimas" :key="kprima.Id" :kprima="kprima"></lista-kprimas>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-stripped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Ip</th>
+                            <th>Versiones</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <lista-kprimas v-for="kprima in kprimas" :key="kprima.Id" :kprima="kprima"></lista-kprimas>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        
+        </div>
+        
     </div>
     
 

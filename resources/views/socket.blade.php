@@ -69,9 +69,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <lista-kprimas v-for="kprima in kprimas" :key="kprima.Id" :kprima="kprima"></lista-kprimas>
-                        </tr>
+                        
+                        <lista-kprimas v-for="kprima in kprimas" :key="kprima.Id" :kprima="kprima"></lista-kprimas>
+                       
                         
                     </tbody>
                 </table>

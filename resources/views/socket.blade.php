@@ -60,10 +60,20 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="table">
-                    <div class="th">Nombre</div>
-                    <div class="th">Ip</div>
-                    <div class="th">Versiones</div>
-                    <div class="th">Acción</div>
+                    <div class="thead">
+                        <div class="tr">
+                            <div class="th">Nombre</div>
+                            <div class="th">Ip</div>
+                            <div class="th">Versiones</div>
+                            <div class="th">Acción</div>
+                        </div>
+                    </div>
+                    <div class="tbody">
+                        <lista-kprimas></lista-kprimas>
+                    </div>
+                    
+                    
+
                 </div>
             </div>
         </div>

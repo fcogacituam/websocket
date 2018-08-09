@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class User extends Model implements JWTSubject, AuthenticatableContract, AuthorizableContract
 {
-    use Authenticatable; 
+    use Authenticatable,Authorizable; 
 //Authorizable;
 
     protected $table = "users";

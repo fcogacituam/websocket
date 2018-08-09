@@ -17,6 +17,7 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('version-local', require('./components/VersionLocal.vue'));
+Vue.component('lista-kprimas', require('./components/ListaKprimas.vue'));
 
 
 var apiEcore = "../../../api/ecore/public/";

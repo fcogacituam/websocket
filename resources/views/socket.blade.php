@@ -56,6 +56,7 @@
             </tr>
         </table>
 
+        <lista-kprimas v-for="kprima in kprimas" :key="kprima.Id" :kprima="kprima"></lista-kprimas>
     </div>
     
 

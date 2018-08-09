@@ -22,15 +22,15 @@
 
                 <template v-if="repositorios_local[name].version">
                     <td style="padding-right: 10px">
-                        <b class='version'>{{repositorios_local[name].version.split(/-| /)[0]}}</b>
-                        <span v-if="-1 != repositorios_local[name].version.indexOf('-')">-{{repositorios_local[name].version.split(/-/).slice(1).join('-')}}</span>
+                        <b class='version'>@{{repositorios_local[name].version.split(/-| /)[0]}}</b>
+                        <span v-if="-1 != repositorios_local[name].version.indexOf('-')">-@{{repositorios_local[name].version.split(/-/).slice(1).join('-')}}</span>
                     </td>
 
                     <!-- VERSION INCORRECTA -->
                     <td style="padding-right: 10px">
                         <!-- DIFF VERSION -->
                         <span v-if="repositorios_local[name].diff" :style="{'color': repositorios_local[name].diff > 0 ? 'green' : 'red'}" :title="repositorios_local[name].count - repositorios_local[name].tags[repositorios_local[name].update]">
-                            [{{repositorios_local[name].diff > 0 ? '+' : ''}}{{repositorios_local[name].diff}}]
+                            [@{{repositorios_local[name].diff > 0 ? '+' : ''}}@{{repositorios_local[name].diff}}]
                         </span>
                     </td>
 
@@ -41,8 +41,8 @@
                         <span v-else-if="repositorios_local[name].diff">
                             <!-- UPDATE VERSION -->
                             <a @click="actualizar(name, repositorios_local[name].update)" href="javascript:void(0)">
-                                {{repositorios_local[name].diff > 0 ? 'devolver' : 'actualizar'}} a
-                                <b>{{repositorios_local[name].update}}</b>
+                                @{{repositorios_local[name].diff > 0 ? 'devolver' : 'actualizar'}} a
+                                <b>@{{repositorios_local[name].update}}</b>
                             </a>
                         </span>
 

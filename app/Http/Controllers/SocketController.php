@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 class SocketController extends Controller
 {
 
-    private $appId = "5122c8b7dbde7907";
-    private $key = "d947d3866208002d616e12490ed0a5cc";
+    private $appId = "70a59af8e08e9700";
+    private $key = "41c91abbdb806bbd8e97de13761f4aa2";
 
 
     public function channels(Request $request)
@@ -18,7 +18,7 @@ class SocketController extends Controller
 
         $client = new \GuzzleHttp\Client();
 
-        $response = $client->get("https://ecore.builder.widefense.com:6001/apps/$appId/channels", [
+        $response = $client->get("https://ecore.widefense.com:6001/apps/$appId/channels", [
             'headers' => [
                 'Authorization' => "Bearer $key",
             ],
@@ -37,7 +37,7 @@ class SocketController extends Controller
 
         $client = new \GuzzleHttp\Client();
 
-        $response = $client->get("https://ecore.builder.widefense.com:6001/apps/$appId/channels", [
+        $response = $client->get("https://ecore.widefense.com:6001/apps/$appId/channels", [
             'headers' => [
                 'Authorization' => "Bearer $key",
             ],
@@ -66,7 +66,7 @@ class SocketController extends Controller
 
         $client = new \GuzzleHttp\Client();
 
-        $response = $client->get("https://ecore.builder.widefense.com:6001/apps/$appId/channels/presence-clients/users", [
+        $response = $client->get("https://ecore.widefense.com:6001/apps/$appId/channels/presence-clients/users", [
             'headers' => [
                 'Authorization' => "Bearer $key",
             ],
@@ -85,7 +85,7 @@ class SocketController extends Controller
 
         $client = new \GuzzleHttp\Client();
 
-        $response = $client->get("https://ecore.builder.widefense.com:6001/apps/$appId/channels/presence-kprimas/users", [
+        $response = $client->get("https://ecore.widefense.com:6001/apps/$appId/channels/presence-kprimas/users", [
             'headers' => [
                 'Authorization' => "Bearer $key",
             ],

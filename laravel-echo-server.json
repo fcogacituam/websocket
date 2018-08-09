@@ -1,17 +1,17 @@
 {
-	"authHost": "https://localhost/api/websocket",
+	"authHost": "https://localhost",
 	"authEndpoint": "/broadcasting/auth",
 	"clients": [
 		{
-			"appId": "5122c8b7dbde7907",
-			"key": "d947d3866208002d616e12490ed0a5cc"
+			"appId": "70a59af8e08e9700",
+			"key": "41c91abbdb806bbd8e97de13761f4aa2"
 		}
 	],
 	"database": "redis",
 	"databaseConfig": {
 		"redis": {
-            		"port":"6379",
-			"host": null
+			"port":"6379",
+			"host":null
 		},
 		"sqlite": {
 			"databasePath": "/database/laravel-echo-server.sqlite"
@@ -22,13 +22,13 @@
 	"port": "6001",
 	"protocol": "https",
 	"socketio": {"wsEngine":"ws"},
-	"sslCertPath": "/etc/httpd/conf.d/certificados_builder/widefense_com.crt",
-	"sslKeyPath": "/etc/httpd/conf.d/certificados_builder/widefense_com.key",
-	"sslCertChainPath": "/etc/httpd/conf.d/certificados_builder/DigiCertCA.crt",
+	"sslCertPath": "/etc/httpd/conf.d/certificados_ecore/ecore_widefense_com.crt",
+	"sslKeyPath": "/etc/httpd/conf.d/certificados_ecore/ecore_widefense_com.key",
+	"sslCertChainPath": "/etc/httpd/conf.d/certificados_ecore/DigiCertCA.crt",
 	"sslPassphrase": "",
 	"apiOriginAllow": {
 		"allowCors": true,
-		"allowOrigin": "http://localhost:80",
+		"allowOrigin": "*",
 		"allowMethods": "GET, POST",
 		"allowHeaders": "Origin, Content-Type, X-Auth-Token, X-Requested-With, Accept, Authorization, X-CSRF-TOKEN, X-Socket-Id"
 	}

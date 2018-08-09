@@ -69,14 +69,13 @@
                         </div>
                     </div>
                     <div class="tbody">
-                        <lista-kprimas></lista-kprimas>
+                        <lista-kprimas v-for="kprima in kprimas" :key="kprima.Id" :kprima="kprima"></lista-kprimas>
                     </div>
-                    
-                    
-
                 </div>
             </div>
         </div>
+
+        
 
         
         </div>

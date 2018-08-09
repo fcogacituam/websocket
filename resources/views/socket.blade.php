@@ -56,7 +56,6 @@
             </tr>
         </table>
 
-        <example-component></example-component>
     </div>
     
 

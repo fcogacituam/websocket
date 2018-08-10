@@ -9,4 +9,4 @@ Route::get("/socket",function(){
 
 Route::get("/envioPrueba",function(){
     broadcast(new \App\Events\PruebaEvent);
-})
+});

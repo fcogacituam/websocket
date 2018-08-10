@@ -2,7 +2,11 @@
 
 
 Route::get("/socket",function(){
-    broadcast(new \App\Events\PruebaEvent);
+
     return view("socket");
     
 });
+
+Route::get("/envioPrueba",function(){
+    broadcast(new \App\Events\PruebaEvent);
+})

@@ -13,17 +13,11 @@ class KprimaEvent implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $kprima_id;
-    public $pathname;
-    public $post;
-    public $jwt;
 
 
-    public function __construct($kprima_id,$pathname, $post, $jwt)
+    public function __construct($kprima_id)
     {
       	$this->kprima_id = $kprima_id;
-        $this->pathname = $pathname;
-        $this->post = $post;
-        $this->jwt = $jwt;
     }
 
     /**
@@ -35,13 +29,4 @@ class KprimaEvent implements ShouldBroadcast
     {
         return new PrivateChannel('kprima.'.$this->kprima_id);
     }
-
-
-    public function broadcastWith(){
-        return [
-            'message' => 'mensaje desde Kprima Event',
-            'id' => $this->kprima_id
-        ];
-    }
 }
-

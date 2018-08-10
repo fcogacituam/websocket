@@ -26,6 +26,11 @@ class BroadcastServiceProvider extends ServiceProvider
             //return $user;
             return true;
         });
+         Broadcast::channel('test-event',function(){
+            return [
+                'message'  => 'entre al test event :D'
+            ];
+        });
 
         //PRIVATES
         Broadcast::channel('user.{id}', function ($user, $userId) {

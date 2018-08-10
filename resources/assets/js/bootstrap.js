@@ -59,9 +59,18 @@ import Echo from 'laravel-echo'
 
 window.io = require('socket.io-client');
 
+var url = "https://ecore.widefense.com";
+
+if (!url) {
+    var url = window.location.origin;
+    if (url.includes("widefense.com") && !url.includes("builder")) {
+        url = "https://ecore.widefense.com";
+    }
+}
 window.Echo = new Echo({
         broadcaster: 'socket.io',
-        host: window.location.hostname + ':6001'
+        host:url,
+        client:io
 });
 
 window.Echo.channel('test-event')

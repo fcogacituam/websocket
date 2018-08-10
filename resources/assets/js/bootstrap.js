@@ -69,12 +69,14 @@ if (!url) {
 }
 window.Echo = new Echo({
         broadcaster: 'socket.io',
-        host:url,
-        client:io
+        host:url
 });
 
 window.Echo.channel('test-event')
         .listen('PruebaEvent',(e) => {
                 console.log(e);
         });
-
+window.Echo.channel('kprima')
+    .listen('PruebaEvent', (e) => {
+        console.log(e);
+    });

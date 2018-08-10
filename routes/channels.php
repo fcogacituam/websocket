@@ -17,6 +17,9 @@ Broadcast::channel('App.User.{id}', function ($user, $id) {
 Broadcast::channel('kprima.{id}',function($user,$kprimaId){
 	return $user;
 });
+Broadcast::channel('test-event',function(){
+	return "canal publicoooooooooooooo entra nomas :$ ";
+});
 Broadcast::channel('kprimas',function(){
 	return[
 		'token' => 'token',

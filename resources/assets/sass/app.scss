@@ -49,10 +49,11 @@
       }
     }
     .tbody{
-      padding: 10px;
       justify-content: space-between;
+      flex-direction: column;
       display: flex;
       .tr{
+        display: flex;
         .td {
           flex: 0 0 25%;
         }

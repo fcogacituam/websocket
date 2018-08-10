@@ -1,4 +1,5 @@
 
+
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
@@ -8,7 +9,46 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+//mixins
+@mixin transition($options){
+  transition: $options;
+  -webkit-transition: $options;
+  -moz-transition: $options;
+  -ms-transition: $options;
+  -o-transition: $options;
+}
+@mixin transform($options) {
+  transform: $options;
+  -webkit-transform: $options;
+  -moz-transform: $options;
+  -ms-transform: $options;
+  -o-transform: $options;
+}
+
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+#app{
+
+  .table{
+    display: flex;
+    flex-direction: column;
+    .thead{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: cadetblue;
+      color: #fff;
+      .tr{
+        flex: 100%;
+        align-items: center;
+        justify-content: space-between
+        
+      }
+
+    }
+
+  }
 }

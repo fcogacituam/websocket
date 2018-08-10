@@ -31,7 +31,6 @@
 }
 
 #app{
-
   .table{
     display: flex;
     flex-direction: column;
@@ -44,11 +43,23 @@
       .tr{
         flex: 100%;
         align-items: center;
-        justify-content: space-between
-        
+        justify-content: space-between;
+        padding: 10px;
+        display: flex;
       }
-
     }
-
+    .thead{
+      padding: 10px;
+      justify-content: space-between;
+      display: flex;
+      .tr{
+        .td {
+          flex: 0 0 25%;
+        }
+      }
+      .tr:nth-child(odd) {
+        background: rgba(0,0,0,.1);
+      }
+    }
   }
 }

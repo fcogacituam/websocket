@@ -59,12 +59,12 @@ import Echo from 'laravel-echo'
 
 window.io = require('socket.io-client');
 
-var url = "https://ecore.widefense.com";
+var url = "https://ecore.builder.widefense.com";
 
 if (!url) {
     var url = window.location.origin;
     if (url.includes("widefense.com") && !url.includes("builder")) {
-        url = "https://ecore.widefense.com";
+        url = "https://ecore.builder.widefense.com";
     }
 }
 window.Echo = new Echo({

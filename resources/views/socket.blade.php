@@ -77,7 +77,7 @@
 
         
 
-        <div v-else id="kprimas">
+        <div id="kprimas">
                 <div style="display: table">
                     <div style="display: table-row">
                         <div style="display: table-cell">Kprimas</div>

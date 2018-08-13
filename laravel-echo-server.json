@@ -1,6 +1,6 @@
 {
 	"authHost": "https://localhost",
-	"authEndpoint": "/broadcasting/auth",
+	"authEndpoint": "/api/websocket/public/broadcasting/auth",
 	"clients": [
 		{
 			"appId": "70a59af8e08e9700",

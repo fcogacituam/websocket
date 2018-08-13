@@ -79,7 +79,7 @@ class Authenticate
         }
         $_SESSION["clients_id"] = $clients_id;
 
-        return $next($request);
+        return $next($request)->header('Token',$jwt);
     }
 
     private function headerLogin($request)

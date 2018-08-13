@@ -105,7 +105,7 @@ class Authenticate
 
             //SI NO EXISTE, ENTONCES TERMINAR
             if (empty($user)) {
-                return response("wrong_credentials tontito", 401);
+                return response("wrong_credentials", 401);
             }
 
             //OBTENER TOKEN
@@ -118,7 +118,7 @@ class Authenticate
         //SI NO TIENE CREDENCIALES EN EL HEADER, ENTONCES TERMINA
         else {
             //NO HAY CREDENCIALES EN EL HEADER
-            return response("wrong_credentials ekisdee", 401);
+            return response("wrong_credentials", 401);
         }
 
         //SE HACE LOGIN EN JWT

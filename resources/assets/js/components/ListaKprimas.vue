@@ -2,8 +2,14 @@
     <div class="tr">
         <div class="td"> {{kprima.Nombre_cliente}}</div>
         <div class="td">{{kprima.Ip}}</div>
-        <div class="td"></div>
-        <div class="td"></div>
+        <div class="td">
+            
+        </div>
+        <div class="td">
+
+
+            
+        </div>
        
     </div>
 </template>

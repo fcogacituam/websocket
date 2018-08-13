@@ -11,10 +11,7 @@
 <body>
     <div id="app">
         <div class="container">
-            <h2>Hola desde Sockets</h2>
-        <u>Versionamiento local:</u>
-        <b>@{{lastVersion}}</b>
-
+            <h2>Versionamiento local: <small>@{{lastVersion}}</small></h2>
         <table>
             <tr v-for='(repositorio, name) in repositorios_local'>
                 <td style="padding-right: 10px">

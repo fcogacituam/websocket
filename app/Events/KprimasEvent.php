@@ -14,6 +14,9 @@ class KprimasEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $pathname;
+    public $post;
+    public $jwt;
     /**
      * Create a new event instance.
      *
@@ -21,7 +24,9 @@ class KprimasEvent implements ShouldBroadcast
      */
     public function __construct()
     {
-        //
+        $this->pathname = $pathname;
+        $this->post = $post;
+        $this->jwt = $jwt;
     }
 
     /**

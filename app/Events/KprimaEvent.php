@@ -13,11 +13,16 @@ class KprimaEvent implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $kprima_id;
+    public $pathname;
+    public $post;
+    public $jwt;
 
-
-    public function __construct($kprima_id)
+    public function __construct($kprima_id, $pathname, $post, $jwt)
     {
       	$this->kprima_id = $kprima_id;
+        $this->pathname = $pathname;
+        $this->post = $post;
+        $this->jwt = $jwt;
     }
 
     /**

@@ -72,13 +72,20 @@ window.Echo = new Echo({
         host:url
 });
 
+window.Echo.channel('test-event')
+        .listen('PruebaEvent',(e) => {
+                console.log(e);
+        });
+window.Echo.channel('kprima')
+    .listen('PruebaEvent', (e) => {
+        console.log(e);
+    });
 
 
-//PRESENCE CHANNELS:
-echo.join("clients")
+ //PRESENCE CHANNELS:
+window.Echo.join("clients")
     .listen('ClientsEvent', function (msg) {
         console.log('ClientsEvent', msg);
-        $.notify(msg);
     })
     .here(function (users) {
         this.users = users;
@@ -91,37 +98,40 @@ echo.join("clients")
     .leaving(function (user) {
         console.log("leaving user", user);
     });
-echo.private('user.' + id)
+
+
+    
+window.Echo.private('user.' + id)
     .listen('UserEvent', function (data) {
         console.log('UserEvent', data);
 
-        if (data.msg) {
+        // if (data.msg) {
 
-            //CONVERTIR EN ARRAY SI NO LO ES
-            if (data.msg.constructor !== Array) {
-                data.msg = [data.msg];
-            }
+        //     //CONVERTIR EN ARRAY SI NO LO ES
+        //     if (data.msg.constructor !== Array) {
+        //         data.msg = [data.msg];
+        //     }
 
-            //GET FULL ERROR
-            // for (var i = 0; i < data.msg.length; i++) {
-            //     var msg = data.msg[i];
+        //     //GET FULL ERROR
+        //     for (var i = 0; i < data.msg.length; i++) {
+        //         var msg = data.msg[i];
 
-            //     if (msg.length > 100) {
-            //         var n = $.notify(msg, {
-            //             delay: 0
-            //         });
-            //         $(n.$ele).css({
-            //             position: "absolute",
-            //             top: 0,
-            //             left: 0,
-            //             right: 0,
-            //             'max-width': '100%'
-            //         });
-            //     } else {
-            //         $.notify(msg);
-            //     }
-            // }
-        }
+        //         if (msg.length > 100) {
+        //             var n = $.notify(msg, {
+        //                 delay: 0
+        //             });
+        //             $(n.$ele).css({
+        //                 position: "absolute",
+        //                 top: 0,
+        //                 left: 0,
+        //                 right: 0,
+        //                 'max-width': '100%'
+        //             });
+        //         } else {
+        //             $.notify(msg);
+        //         }
+        //     }
+        // }
 
         // if (data.state) {
         //     for (var key in data.state) {
@@ -133,8 +143,8 @@ echo.private('user.' + id)
         //     }
         // }
 
-        // TODO: PORQUE NO FUNCIONA AQUÍ EL BINDING DE VUE AUTOMÁTICAMENTE?
-        //ACTUALIZAR TODO VUE
+        // // TODO: PORQUE NO FUNCIONA AQUÍ EL BINDING DE VUE AUTOMÁTICAMENTE?
+        // //ACTUALIZAR TODO VUE
         // window.vm.$forceUpdate();
         // for (var i = 0; i < window.vm.$children.length; i++) {
         //     window.vm.$children[i].$forceUpdate();

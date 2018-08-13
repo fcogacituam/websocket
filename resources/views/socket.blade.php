@@ -89,18 +89,18 @@
                         <div :title="clientesList(kprima)" style="display: table-row; box-shadow: 0 -1px 0 grey;">
 
 
-                            <div style="display:table-cell">{{kprima.Nombre_cliente}}</div>
+                            <div style="display:table-cell">@{{kprima.Nombre_cliente}}</div>
 
-                            <div class='ip' style="display: table-cell">{{kprima.Ip}}</div>
+                            <div class='ip' style="display: table-cell">@{{kprima.Ip}}</div>
 
                             <div style="display: table-cell; padding-left: 20px">
                                 <small v-if="kprima.git">
                                     <div v-for="(repo, name) in kprima.git">
-                                        {{name}}:
-                                        <b class='version'>{{repo.version.split('-')[0]}}</b>
-                                        <span v-if="-1 != repo.version.indexOf('-')">-{{repo.version.split('-').slice(1).join('-')}}</span>
+                                        @{{name}}:
+                                        <b class='version'>@{{repo.version.split('-')[0]}}</b>
+                                        <span v-if="-1 != repo.version.indexOf('-')">-@{{repo.version.split('-').slice(1).join('-')}}</span>
                                         <span v-if="repo.count != repositorios_local[name].count" :style="{'color': repo.count > repositorios_local[name].count ? 'green' : 'red'}">
-                                            [{{repo.count > repositorios_local[name].count ? '+' : ''}}{{repo.count - repositorios_local[name].count}}]
+                                            [@{{repo.count > repositorios_local[name].count ? '+' : ''}}@{{repo.count - repositorios_local[name].count}}]
                                         </span>
                                     </div>
                                 </small>
@@ -110,7 +110,7 @@
                                 <small v-else-if="kprimasChannels" style="color:red">sin conexión</small>
 
                                 <!-- EN CASO DE TRABAJAR EN LOCAL -->
-                                <small v-else style="color:grey">sin información del websocket ({{kprima.Id}})</small>
+                                <small v-else style="color:grey">sin información del websocket (@{{kprima.Id}})</small>
                             </div>
 
                             <!-- LOADING -->
@@ -119,7 +119,7 @@
                             </div>
                             <div v-else-if="kprima.git && lastVersion" style="display: table-cell; padding-left: 20px">
                                 <a @click="actualizarK(kprima.Id)" href="javascript:void(0)">reset a la
-                                    <b>{{lastVersion}}</b>.*
+                                    <b>@{{lastVersion}}</b>.*
                                 </a>
                             </div>
                             <div v-else style="display: table-cell"></div>

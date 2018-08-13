@@ -22,7 +22,7 @@ class KprimasEvent implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($pathname, $post, $jwt)
     {
         $this->pathname = $pathname;
         $this->post = $post;

@@ -72,11 +72,72 @@ window.Echo = new Echo({
         host:url
 });
 
-window.Echo.channel('test-event')
-        .listen('PruebaEvent',(e) => {
-                console.log(e);
-        });
-window.Echo.channel('kprima')
-    .listen('PruebaEvent', (e) => {
-        console.log(e);
+
+
+//PRESENCE CHANNELS:
+echo.join("clients")
+    .listen('ClientsEvent', function (msg) {
+        console.log('ClientsEvent', msg);
+        $.notify(msg);
+    })
+    .here(function (users) {
+        this.users = users;
+        console.log("join users", users);
+    })
+    .joining(function (user) {
+        this.users.push(user);
+        console.log("joining user", user);
+    })
+    .leaving(function (user) {
+        console.log("leaving user", user);
+    });
+echo.private('user.' + id)
+    .listen('UserEvent', function (data) {
+        console.log('UserEvent', data);
+
+        if (data.msg) {
+
+            //CONVERTIR EN ARRAY SI NO LO ES
+            if (data.msg.constructor !== Array) {
+                data.msg = [data.msg];
+            }
+
+            //GET FULL ERROR
+            for (var i = 0; i < data.msg.length; i++) {
+                var msg = data.msg[i];
+
+                if (msg.length > 100) {
+                    var n = $.notify(msg, {
+                        delay: 0
+                    });
+                    $(n.$ele).css({
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        'max-width': '100%'
+                    });
+                } else {
+                    $.notify(msg);
+                }
+            }
+        }
+
+        if (data.state) {
+            for (var key in data.state) {
+                var extend = $.extend(true, window.store.state[key], data.state[key]);
+                window.store.set(key, extend);
+                // for (var k in extend) {
+                //     Vue.set(store.state[key][k], extend[k]);
+                // }
+            }
+        }
+
+        // TODO: PORQUE NO FUNCIONA AQUÍ EL BINDING DE VUE AUTOMÁTICAMENTE?
+        //ACTUALIZAR TODO VUE
+        window.vm.$forceUpdate();
+        for (var i = 0; i < window.vm.$children.length; i++) {
+            window.vm.$children[i].$forceUpdate();
+        }
+
     });

@@ -63,7 +63,7 @@ var url = "https://ecore.builder.widefense.com";
 
 if (!url) {
     var url = window.location.origin;
-    if (url.includes("widefense.com") && !url.includes("builder")) {
+    if (url.includes("widefense.com")) {
         url = "https://ecore.builder.widefense.com";
     }
 }
@@ -76,10 +76,10 @@ window.Echo.channel('test-event')
         .listen('PruebaEvent',(e) => {
                 console.log(e);
         });
-window.Echo.channel('kprima')
-    .listen('PruebaEvent', (e) => {
-        console.log(e);
-    });
+// window.Echo.channel('kprima')
+//     .listen('PruebaEvent', (e) => {
+//         console.log(e);
+//     });
 
 
  //PRESENCE CHANNELS:

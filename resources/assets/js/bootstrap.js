@@ -83,27 +83,27 @@ window.Echo.channel('test-event')
 
 
  //PRESENCE CHANNELS:
-window.Echo.join("clients")
-    .listen('ClientsEvent', function (msg) {
-        console.log('ClientsEvent', msg);
-    })
-    .here(function (users) {
-        this.users = users;
-        console.log("join users", users);
-    })
-    .joining(function (user) {
-        this.users.push(user);
-        console.log("joining user", user);
-    })
-    .leaving(function (user) {
-        console.log("leaving user", user);
-    });
+// window.Echo.join("clients")
+//     .listen('ClientsEvent', function (msg) {
+//         console.log('ClientsEvent', msg);
+//     })
+//     .here(function (users) {
+//         this.users = users;
+//         console.log("join users", users);
+//     })
+//     .joining(function (user) {
+//         this.users.push(user);
+//         console.log("joining user", user);
+//     })
+//     .leaving(function (user) {
+//         console.log("leaving user", user);
+//     });
 
 
     
-window.Echo.private('user.' + id)
-    .listen('UserEvent', function (data) {
-        console.log('UserEvent', data);
+// window.Echo.private('user.' + id)
+//     .listen('UserEvent', function (data) {
+//         console.log('UserEvent', data);
 
         // if (data.msg) {
 
@@ -150,4 +150,4 @@ window.Echo.private('user.' + id)
         //     window.vm.$children[i].$forceUpdate();
         // }
 
-    });
+    // });

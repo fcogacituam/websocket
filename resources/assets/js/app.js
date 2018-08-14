@@ -123,7 +123,7 @@ const app = new Vue({
         });
 
         // LISTA COMPLETA DE K' DE LA BASE DE DATOS
-        axios.post(apiEcore + "nodo/k_primas_actualizador", {}, {
+        axios.post(apiEcore + "nodo/k_primas", {}, {
             auth: {
                 username: 'fgacitua@widefense.com',
                 password: 'fr4nc15c0Ga'

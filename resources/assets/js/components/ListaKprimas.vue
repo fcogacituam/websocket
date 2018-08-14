@@ -15,6 +15,7 @@
 
 <script>
     export default {
+        props:['kprima'],
         data(){
             return{
                 kprima:{

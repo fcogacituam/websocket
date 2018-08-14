@@ -41,6 +41,10 @@ const app = new Vue({
             this.kprimas = val;
             console.log(this.kprimas);
         },
+        kprimasChannels:function(val){
+            this.kprimasChannels= val;
+            console.log(this.kprimasChannels);
+        },
         state: {
             handler: function (state) {
                 console.log("state", state);

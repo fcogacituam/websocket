@@ -102,7 +102,7 @@ window.Echo.join("clients")
 
 var id = getCookie('id');
 if (!id) {
-    $.notify("missing getCookie('id');");
+    console.log("no id en cookies");
     return;
 }
 

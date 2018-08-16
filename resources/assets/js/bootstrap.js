@@ -103,7 +103,6 @@ window.Echo.join("clients")
 var id = getCookie('id');
 if (!id) {
     console.log("no id en cookies");
-    return;
 }
 
 window.Echo.private('user.' + id)

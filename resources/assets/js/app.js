@@ -134,18 +134,8 @@ const app = new Vue({
             }
         }).then(function (response) {
 
-            // var kprimas = {};
-            // for (var i = 0; i < res.length; i++) {
-            //     var kprima = res[i];
-            //     kprimas[kprima.Id] = kprima;
-            // }
-
-            // var extend = $.extend(true, window.store.state.kprimas, kprimas);
             self.kprimas = response.data;
             console.log(self.kprimas);
-            // for (var key in extend) {
-            //     self.$set(self.state.kprimas, key, extend[key]);
-            // }
         });
 
         // LISTA DE K' EN EL CANAL Kprimas DEL WESOCKET (DATOS INDEPENDIENTES)

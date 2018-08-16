@@ -104,7 +104,7 @@ window.Echo.join("clients")
 window.Echo.private('user.' + id)
     .listen('UserEvent', function (data) {
         console.log('UserEvent', data);
-
+        
         // if (data.msg) {
 
         //     //CONVERTIR EN ARRAY SI NO LO ES

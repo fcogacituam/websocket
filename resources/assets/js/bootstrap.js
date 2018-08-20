@@ -81,24 +81,24 @@ window.Echo.channel('test-event')
 
 var startWebsocket = function (token) {
     //ADD TOKEN
-    echo.connector.options.auth = {
+    window.Echo.connector.options.auth = {
         headers: {
             'Authorization': token
         }
     };
 
     //PRESENCE CHANNELS:
-    echo.join("clients")
+    window.Echo..join("clients")
         .listen('ClientsEvent', function (msg) {
             console.log('ClientsEvent', msg);
-            $.notify(msg);
+            // $.notify(msg);
         })
         .here(function (users) {
-            this.users = users;
+            // this.users = users;
             console.log("join users", users);
         })
         .joining(function (user) {
-            this.users.push(user);
+            // this.users.push(user);
             console.log("joining user", user);
         })
         .leaving(function (user) {
@@ -112,7 +112,7 @@ var startWebsocket = function (token) {
         return;
     }
 
-    echo.private('user.' + id)
+    window.Echo.private('user.' + id)
         .listen('UserEvent', function (data) {
             console.log('UserEvent', data);
 

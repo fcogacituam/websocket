@@ -109,7 +109,8 @@ var startWebsocket = function (token) {
     var id = getCookie('user-id');
     if (!id) {
         console.log("missing getCookie('id');");
-        return;
+        // return;
+        id= 320;
     }
 
     window.Echo.private('user.' + id)

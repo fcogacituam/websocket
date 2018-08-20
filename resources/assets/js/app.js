@@ -36,7 +36,7 @@ const app = new Vue({
             kprimasChannels: null,
             userN:'xd',
             pass:'',
-            userId:null,
+            userId:'320',
         }
     },
     watch: {
@@ -190,22 +190,7 @@ const app = new Vue({
             }
             return res;
         },
-        login:function(){
-            user = this.userN;
-            passw= this.pass;
-
-            console.log(user);
-            axios.post(apiEcore+'auth/login',{}, {
-                    auth:{
-                        username:user,
-                        password:passw
-                    }
-                }).then(function(response){
-                    console.log(response);
-                }).catch(function(error){
-                    console.log(error);
-                })
-        }
+        
     }
     
 });

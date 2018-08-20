@@ -10,8 +10,10 @@
 </head>
 <body>
     <div id="app">
-        <login-ecore></login-ecore>
-        <div class="container">
+        <login-ecore v-if="userId"></login-ecore>
+
+
+        <div class="container" v-else>
             <h2>Versionamiento local: <small>@{{lastVersion}}</small></h2>
         <table>
             <tr v-for='(repositorio, name) in repositorios_local'>

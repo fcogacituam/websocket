@@ -17,6 +17,24 @@
     export default {
         mounted() {
             console.log('Login mounted.')
+        },
+        methods:{
+            login:function(){
+                user = this.userN;
+                passw= this.pass;
+
+                console.log(user);
+                axios.post(apiEcore+'auth/login',{}, {
+                        auth:{
+                            username:user,
+                            password:passw
+                        }
+                    }).then(function(response){
+                        console.log(response);
+                    }).catch(function(error){
+                        console.log(error);
+                    })
+            }
         }
     }
 </script>

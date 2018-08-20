@@ -27,14 +27,13 @@
                 let user = this.mutableUser;
                 let passw= this.mutablePass;
 
-                console.log(user);
                 axios.post('https://ecore.builder.widefense.com/api/ecore/public/auth/login',{}, {
                         auth:{
                             username:user,
                             password:passw
                         }
                     }).then(function(response){
-                        console.log(response);
+                        console.log(response.headers('user-id'));
                     }).catch(function(error){
                         console.log(error);
                     })

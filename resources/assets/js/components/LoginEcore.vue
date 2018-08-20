@@ -19,7 +19,8 @@
         data:function(){
             return{
                 mutableUser: this.userN,
-                mutablePass: this.pass
+                mutablePass: this.pass,
+                uId=''
             }
         },
         methods:{
@@ -34,11 +35,15 @@
                         }
                     }).then(function(response){
                         // console.log(response.headers['user-id']);
-                        this.$emit('getId',response.headers['user-id'])
+                        // $emit('getId',response.headers['user-id'])
+                        this.emit();
 
                     }).catch(function(error){
                         console.log(error);
                     })
+            },
+            emit: function(){
+                this.$emit('getId',this.uId);
             }
         }
     }

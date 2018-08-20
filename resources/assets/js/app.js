@@ -188,6 +188,9 @@ const app = new Vue({
                 res += kprima.ip_clientes[i].Nombre + ", ";
             }
             return res;
+        },
+        login:function(){
+            console.log("login");
         }
     }
     

@@ -16,6 +16,12 @@
 <script>
     export default {
         props:['userN','pass'],
+        data:function(){
+            return{
+                mutableUser: this.userN,
+                mutablePass: this.pass
+            }
+        },
         methods:{
             login:function(){
                 user = this.userN;

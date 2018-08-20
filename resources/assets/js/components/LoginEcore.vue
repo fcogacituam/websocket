@@ -20,7 +20,7 @@
             return{
                 mutableUser: this.userN,
                 mutablePass: this.pass,
-                uId=''
+                uId:''
             }
         },
         methods:{

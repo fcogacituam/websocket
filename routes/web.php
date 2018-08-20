@@ -1,5 +1,5 @@
 <?php
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 
 
 Route::get("/socket",function(Request $request){

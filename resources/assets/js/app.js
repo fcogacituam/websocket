@@ -189,7 +189,7 @@ const app = new Vue({
             }
             return res;
         },
-        login:function(){
+        login:function(e){
             console.log("login");
         }
     }

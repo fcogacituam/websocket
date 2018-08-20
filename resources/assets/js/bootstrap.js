@@ -79,34 +79,52 @@ window.Echo.channel('test-event')
 
 
 
- //PRESENCE CHANNELS:
-window.Echo.join("clients")
-    .listen('ClientsEvent', function (msg) {
-        console.log('ClientsEvent', msg);
-    })
-    .here(function (users) {
-        // this.users = users;
-        console.log("join users", users);
-    })
-    .joining(function (user) {
-        // this.users.push(user);
-        console.log("joining user", user);
-    })
-    .leaving(function (user) {
-        console.log("leaving user", user);
-    });
+var startWebsocket = function (token) {
+    //ADD TOKEN
+    echo.connector.options.auth = {
+        headers: {
+            'Authorization': token
+        }
+    };
 
-var id = getCookie('id');
-if (!id) {
-   console.log("missing getCookie('id');");
+    //PRESENCE CHANNELS:
+    echo.join("clients")
+        .listen('ClientsEvent', function (msg) {
+            console.log('ClientsEvent', msg);
+            $.notify(msg);
+        })
+        .here(function (users) {
+            this.users = users;
+            console.log("join users", users);
+        })
+        .joining(function (user) {
+            this.users.push(user);
+            console.log("joining user", user);
+        })
+        .leaving(function (user) {
+            console.log("leaving user", user);
+        });
+
+    //PRIVATE CHANNELS:
+    var id = getCookie('id');
+    if (!id) {
+        console.log("missing getCookie('id');");
+        return;
+    }
+
+    echo.private('user.' + id)
+        .listen('UserEvent', function (data) {
+            console.log('UserEvent', data);
+
+
+        });
+    console.log("listen private user " + id);
+};
+var token = getCookie('Authorization');
+if (token) {
+    token = token.replace("+", " ");
+    startWebsocket(token);
 }
-
-
-window.Echo.private('user.' + id)
-    .listen('UserEvent', function (data) {
-        console.log("USEREVENTNTNT: ", data);
-    })
-
 function getCookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);

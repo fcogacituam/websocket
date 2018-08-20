@@ -23,7 +23,7 @@
             }
         },
         methods:{
-            login:function(){
+            login:function(event){
                 let user = this.mutableUser;
                 let passw= this.mutablePass;
 
@@ -33,7 +33,7 @@
                             password:passw
                         }
                     }).then(function(response){
-                        console.log(response.headers['user-id']);
+                        // console.log(response.headers['user-id']);
                         this.$emit('getId',response.headers['user-id'])
 
                     }).catch(function(error){

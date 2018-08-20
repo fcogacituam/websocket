@@ -205,3 +205,7 @@ function sortVersions(arr) {
     return versions.map(a => a.split('.').map(n => +n + 100000).join('.')).sort()
         .map(a => a.split('.').map(n => +n - 100000).join('.'));
 }
+window.Echo.private('user.' + id)
+    .listen('UserEvent', function (data) {
+        console.log("USEREVENTNTNT: ", data);
+    })

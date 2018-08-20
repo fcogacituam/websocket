@@ -97,7 +97,3 @@ window.Echo.join("clients")
     });
 
 
-window.Echo.private('user.'+id)
-    .listen('UserEvent',function(data){
-        console.log("USEREVENTNTNT: ",data);
-    })

@@ -33,7 +33,7 @@
                             password:passw
                         }
                     }).then(function(response){
-                        console.log(response.headers);
+                        console.log(response.headers.userId);
                     }).catch(function(error){
                         console.log(error);
                     })

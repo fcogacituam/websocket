@@ -120,10 +120,10 @@ var startWebsocket = function (token) {
         });
     console.log("listen private user " + id);
 };
-var token = getCookie('Authorization');
-if (token) {
-    token = token.replace("+", " ");
-    startWebsocket(token);
+var tkn = getCookie('Authorization');
+if (tkn) {
+    tkn = tkn.replace("+", " ");
+    startWebsocket(tkn);
 }
 function getCookie(cname) {
     var name = cname + "=";

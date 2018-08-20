@@ -88,7 +88,7 @@ var startWebsocket = function (token) {
     };
 
     //PRESENCE CHANNELS:
-    window.Echo..join("clients")
+    window.Echo.join("clients")
         .listen('ClientsEvent', function (msg) {
             console.log('ClientsEvent', msg);
             // $.notify(msg);

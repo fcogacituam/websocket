@@ -36,14 +36,14 @@
                     }).then(function(response){
                         // console.log(response.headers['user-id']);
                         // $emit('getId',response.headers['user-id'])
-                        this.emit();
+                        this.emit(response.headers['user-id']);
 
                     }).catch(function(error){
                         console.log(error);
                     })
             },
-            emit: function(){
-                this.$emit('getId',this.uId);
+            emit: function(data){
+                this.$emit('getId',data);
             }
         }
     }

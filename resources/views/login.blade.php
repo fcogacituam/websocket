@@ -7,6 +7,10 @@
     <title>Document</title>
 </head>
 <body>
-    <h2>Login</h2>
+
+    <form action="">
+        <div class="form-group"><label for="">User: </label><input type="text" class="form-control"></div>
+        <div class="form-group"><label for="">Password: </label><input type="password" class="form-control"></div>
+    </form>
 </body>
 </html>

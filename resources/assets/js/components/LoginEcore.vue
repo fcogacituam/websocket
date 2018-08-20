@@ -15,9 +15,7 @@
 
 <script>
     export default {
-        mounted() {
-            console.log('Login mounted.')
-        },
+        props:['userN','pass'],
         methods:{
             login:function(){
                 user = this.userN;

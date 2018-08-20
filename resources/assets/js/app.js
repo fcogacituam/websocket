@@ -33,7 +33,9 @@ const app = new Vue({
             lastVersion: null,
             // state: window.store.state,
             repoArr: null,
-            kprimasChannels: null
+            kprimasChannels: null,
+            userN:'xd',
+            pass:'',
         }
     },
     watch: {

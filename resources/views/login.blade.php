@@ -7,10 +7,13 @@
     <title>Document</title>
 </head>
 <body>
-
-    <form action="">
-        <div class="form-group"><label for="">User: </label><input type="text" class="form-control"></div>
-        <div class="form-group"><label for="">Password: </label><input type="password" class="form-control"></div>
-    </form>
+    <div id="app">
+        <form action="">
+            <div class="form-group"><label for="">User: </label><input v-model="userN" type="text" class="form-control"></div>
+            <div class="form-group"><label for="">Password: </label><input v-model="pass" type="password" class="form-control"></div>
+            <input v-on:click="login()" value="Entrar">
+        </form>
+    </div>
+    
 </body>
 </html>

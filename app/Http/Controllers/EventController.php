@@ -60,7 +60,7 @@ class EventController extends Controller
             return "Falta user id";
         }
         $id = $request->id;
-        return json_encode($request);
+        // return json_encode($request);
         return event(new UserEvent($msg, $state, $id));
     }
 

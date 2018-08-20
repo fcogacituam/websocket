@@ -96,4 +96,21 @@ window.Echo.join("clients")
         console.log("leaving user", user);
     });
 
+var id = getCookie('id');
+if (!id) {
+   console.log("missing getCookie('id');");
+}
 
+
+window.Echo.private('user.' + id)
+    .listen('UserEvent', function (data) {
+        console.log("USEREVENTNTNT: ", data);
+    })
+
+
+
+var token = getCookie('Authorization');
+if (token) {
+    token = token.replace("+", " ");
+    startWebsocket(token);
+}

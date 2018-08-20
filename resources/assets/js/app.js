@@ -36,6 +36,7 @@ const app = new Vue({
             kprimasChannels: null,
             userN:'xd',
             pass:'',
+            userId:null,
         }
     },
     watch: {

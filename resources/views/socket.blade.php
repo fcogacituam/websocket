@@ -10,6 +10,7 @@
 </head>
 <body>
     <div id="app">
+        <login-ecore></login-ecore>
         <div class="container">
             <h2>Versionamiento local: <small>@{{lastVersion}}</small></h2>
         <table>

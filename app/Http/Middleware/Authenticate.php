@@ -52,14 +52,14 @@ class Authenticate
 
         //SI ESTA TODO CORRECTO, SE CREA UNA COOKIE CON UN NUEVO TOKEN
         setcookie("Authorization", $jwt, $time, "/");
-
+	
         //OBTENER USUARIO PROPIETARIO DEL TOKEN
         $user = isset($user) ? $user : Auth::user();
 
         if (empty($user)) {
             return response("incorrect_token", 401);
         }
-
+	setcookie("id",$user->id);
         // Control de Acceso a los ambientes Alpha y Beta
         // if (false !== strpos($_SERVER['SERVER_NAME'], 'beta.widefense.com') && $user->beta_access == 0) {
         //     return response('invalid_beta_access', 401);
@@ -79,7 +79,9 @@ class Authenticate
         }
         $_SESSION["clients_id"] = $clients_id;
 
-        return $next($request)->header('Token',$jwt);
+	 return $next($request)->header('Token',$jwt)->header('user-id',$user->id);
+
+
     }
 
     private function headerLogin($request)

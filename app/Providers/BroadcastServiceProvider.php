@@ -35,10 +35,13 @@ class BroadcastServiceProvider extends ServiceProvider
 
         //PRIVATES
         Broadcast::channel('user.{id}', function ($user, $userId) {
-            if ($user->Id == $userId) {
-                return $user;
-            }
-        });
+    //        if ($user->Id == $userId) {
+      //          return $user;
+        //    }
+       
+
+		return true;
+	 });
 
         Broadcast::channel('kprima.{id}', function ($user, $krpimaId) {
            return [    

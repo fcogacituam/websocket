@@ -10,7 +10,7 @@
 </head>
 <body>
     <div id="app">
-        <login-ecore v-if="!userId"></login-ecore>
+        <login-ecore v-if="!userId" @getId="getUserId"></login-ecore>
 
 
         <div class="container" v-else>

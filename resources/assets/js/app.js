@@ -40,6 +40,10 @@ const app = new Vue({
         }
     },
     watch: {
+        userId: function(val){
+            this.userId=val;
+            console.log(this.userId);
+        },
         kprimas: function (val) {
             this.kprimas = val;
             console.log(this.kprimas);
@@ -190,6 +194,9 @@ const app = new Vue({
             }
             return res;
         },
+        getUserId: function(value){
+            console.log(value);
+        }
         
     }
     

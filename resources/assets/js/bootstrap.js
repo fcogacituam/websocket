@@ -123,9 +123,12 @@ var startWebsocket = function (token) {
 };
 var tkn = getCookie('Authorization');
 if (tkn) {
+    console.log("TOKEN: "+tkn);
     tkn = tkn.replace("+", " ");
     startWebsocket(tkn);
 }
+
+
 function getCookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);

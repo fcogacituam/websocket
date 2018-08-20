@@ -51,8 +51,8 @@ class BroadcastServiceProvider extends ServiceProvider
 
         //PRESENTIALS
         Broadcast::channel('clients', function ($user) {
-            // $data = ['id' => $user->Id, 'name' => $user->Nombre];
-            $data = ['id' => '1', 'name' => 'Francisco'];
+            $data = ['id' => $user->Id, 'name' => $user->Nombre];
+            // $data = ['id' => '1', 'name' => 'Francisco'];
             return $data;
         });
         Broadcast::channel('kprimas', function ($user) {

@@ -106,7 +106,7 @@ var startWebsocket = function (token) {
         });
 
     //PRIVATE CHANNELS:
-    var id = getCookie('id');
+    var id = getCookie('user-id');
     if (!id) {
         console.log("missing getCookie('id');");
         return;

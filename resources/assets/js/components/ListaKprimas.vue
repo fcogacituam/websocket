@@ -21,8 +21,6 @@
     export default {
         props:['kprima'],
 
-        mounted() {
-            console.log('Component mounted.')
-        }
+       
     }
 </script>

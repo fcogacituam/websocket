@@ -24,8 +24,8 @@
         },
         methods:{
             login:function(){
-                let user = this.userN;
-                let passw= this.pass;
+                let user = mutableUser;
+                let passw= mutablePass;
 
                 console.log(user);
                 axios.post('https://ecore.builder.widefense.com/api/ecore/public/auth/login',{}, {

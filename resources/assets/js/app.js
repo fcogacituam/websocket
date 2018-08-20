@@ -194,12 +194,16 @@ const app = new Vue({
             passw= this.pass;
 
             console.log(user);
-            // axios.post(apiEcore+'auth/login',{},
-            //     auth:{
-            //         username: user,
-            //         password: passw
-            //     }
-            // )
+            axios.post(apiEcore+'auth/login',{}, {
+                    auth:{
+                        username:user,
+                        password:passw
+                    }
+                }).then(function(response){
+                    console.log(response);
+                }).catch(function(error){
+                    console.log(error);
+                })
         }
     }
     

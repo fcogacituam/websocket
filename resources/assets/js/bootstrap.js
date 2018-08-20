@@ -109,6 +109,7 @@ var startWebsocket = function (token) {
     var id = getCookie('user-id');
     if (!id) {
         console.log("missing getCookie('id');");
+        axios.post("")
         return;
         // id= 320;
     }

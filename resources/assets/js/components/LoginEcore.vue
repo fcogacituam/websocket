@@ -4,7 +4,7 @@
             <div class="col-md-12">
                  <form action="">
                     <div class="form-group"><label for="">User: </label><input v-model="mutableUser" type="text" class="form-control" id="userName"></div>
-                    <div class="form-group"><label for="">Password: </label><input v-model="pass" type="password" class="form-control" id="passWord"></div>
+                    <div class="form-group"><label for="">Password: </label><input v-model="mutablePass" type="password" class="form-control" id="passWord"></div>
                     <input v-on:click.prevent="login" type="submit" class="btn btn-primary" value="Entrar">
                 </form>
             </div>
@@ -24,8 +24,8 @@
         },
         methods:{
             login:function(){
-                user = this.userN;
-                passw= this.pass;
+                let user = this.userN;
+                let passw= this.pass;
 
                 console.log(user);
                 axios.post(apiEcore+'auth/login',{}, {

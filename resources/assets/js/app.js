@@ -189,8 +189,17 @@ const app = new Vue({
             }
             return res;
         },
-        login:function(e){
-            console.log("login");
+        login:function(){
+            user = this.userN;
+            passw= this.pass;
+
+            console.log(user);
+            // axios.post(apiEcore+'auth/login',{},
+            //     auth:{
+            //         username: user,
+            //         password: passw
+            //     }
+            // )
         }
     }
     

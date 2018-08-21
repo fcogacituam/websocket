@@ -9,14 +9,14 @@ class LoginController extends Controller
     public function login(Request $request){
 		return $request;
 
-		$client = new \GuzzleHttp\Client();
+		// $client = new \GuzzleHttp\Client();
 
-        $response = $client->get("https://ecore.builder.widefense.com/api/ecore/public/auth/login", [
-            'auth' =>[
-				$username,$password
-			]
-		]);
+        // $response = $client->get("https://ecore.builder.widefense.com/api/ecore/public/auth/login", [
+        //     'auth' =>[
+		// 		$username,$password
+		// 	]
+		// ]);
 		
-		return $response->getBody();
+		// return $response->getBody();
 	}
 }

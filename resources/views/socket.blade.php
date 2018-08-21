@@ -66,7 +66,7 @@
                         </div>
                     </div>
                     <div class="tbody">
-                        <lista-kprimas v-for="kprima in kprimas" :key="kprima.Id" :kprima="kprima" :kprimas-channel="kprimasChannels"></lista-kprimas>
+                        <lista-kprimas v-for="kprima in kprimas" :key="kprima.Id" :kprima="kprima" :kprimas-channels="kprimasChannels"></lista-kprimas>
                     </div>
                 </div>
             </div>

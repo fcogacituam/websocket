@@ -160,9 +160,9 @@ window.io = require('socket.io-client');
 
                     // TODO: PORQUE NO FUNCIONA AQUÍ EL BINDING DE VUE AUTOMÁTICAMENTE?
                     //ACTUALIZAR TODO VUE
-                    window.vm.$forceUpdate();
-                    for (var i = 0; i < window.vm.$children.length; i++) {
-                        window.vm.$children[i].$forceUpdate();
+                    app.$forceUpdate();
+                    for (var i = 0; i < app.$children.length; i++) {
+                        app.$children[i].$forceUpdate();
                     }
 
                 });

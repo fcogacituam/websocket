@@ -2,11 +2,11 @@
     <div class="tr">
         <div class="td"> {{kprima.Ip}}</div>
         <div class="td">
-
-	</div>
-        <div class="td">
-            {{kprima.git}}
-        </div>
+            <small v-if="kprima.git">
+                {{name}}
+            </small>
+	    </div>
+       
         <div class="td">
 
 

@@ -17,6 +17,7 @@ class LoginController extends Controller
 			]
 		]);
 		
-		return redirect("/socket");
+
+		return redirect("/socket")->withCookie('id');
 	}
 }

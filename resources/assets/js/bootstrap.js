@@ -170,10 +170,10 @@ window.io = require('socket.io-client');
         };
 
         //IF ALREADY LOGED
-        var token = getCookie('Authorization');
-        if (token) {
-            token = token.replace("+", " ");
-            startWebsocket(token);
+        var tkn = getCookie('Authorization');
+        if (tkn) {
+            tkn = tkn.replace("+", " ");
+            startWebsocket(tkn);
         }
 
         //PUBLIC:

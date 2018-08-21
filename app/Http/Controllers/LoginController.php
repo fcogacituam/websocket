@@ -7,6 +7,16 @@ use Illuminate\Http\Request;
 class LoginController extends Controller
 {
     public function login(Request $request){
-		return "hola";
+		return $request;
+
+		$client = new \GuzzleHttp\Client();
+
+        $response = $client->get("https://ecore.builder.widefense.com/api/ecore/public/auth/login", [
+            'auth' =>[
+				$username,$password
+			]
+		]);
+		
+		return $response->getBody();
 	}
 }

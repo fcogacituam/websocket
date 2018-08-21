@@ -11,7 +11,7 @@ class LoginController extends Controller
 		$jar = new \GuzzleHttp\Cookie\CookieJar();
 		$client = new \GuzzleHttp\Client(['cookies'=>true]);
 
-        $response = $client->post("https://ecore.builder.widefense.com/api/ecore/public/auth/login", [
+        $response = $client->post("https://ecore.widefense.com/api/ecore/public/auth/login", [
             'auth' =>[
 				$request->userName,$request->passWord
 			]

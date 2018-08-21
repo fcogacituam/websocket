@@ -17,6 +17,6 @@ class LoginController extends Controller
 			]
 		]);
 		
-		return $response->getBody();
+		return redirect("/socket");
 	}
 }

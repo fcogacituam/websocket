@@ -143,7 +143,6 @@ var app = new Vue({
 
             // var extend = $.extend(true, window.store.state.kprimas, kprimas);
             self.kprimas = response.data;
-            console.log(self.kprimas);
             // for (var key in extend) {
             //     self.$set(self.state.kprimas, key, extend[key]);
             // }

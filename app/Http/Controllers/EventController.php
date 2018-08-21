@@ -61,7 +61,7 @@ class EventController extends Controller
         }
         $id = $request->id;
 
-        return json_encode($request);
+        // return json_encode($request);
         return event(new UserEvent($msg, $state, $id));
     }
 

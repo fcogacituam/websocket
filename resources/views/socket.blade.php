@@ -66,14 +66,14 @@
                         </div>
                     </div>
                     <div class="tbody">
-                        <lista-kprimas v-for="kprima in kprimas" :key="kprima.Id" :kprima="kprima" :kprimas-channels="kprimasChannels"></lista-kprimas>
+                        {{-- <lista-kprimas v-for="kprima in kprimas" :key="kprima.Id" :kprima="kprima" :kprimas-channels="kprimasChannels"></lista-kprimas> --}}
 
 			<component-kprima v-for="kprima in state.kprimas" v-bind="{kprima, repositorios_local, lastVersion, kprimasChannels}" :key="kprima.Id" inline-template>
-                        <div :title="clientesList(kprima)" >
+                        <div :title="clientesList(kprima)" class="tr" >
 
-                            <div class='ip' style="display: table-cell" class="table-td">@{{kprima.Ip}}</div>
+                            <div class='ip' style="display: table-cell" class="td">@{{kprima.Ip}}</div>
 
-                            <div style="display: table-cell; padding-left: 20px">
+                            <div style="display: table-cell; padding-left: 20px" class="td">
                                 <small v-if="kprima.git">
                                     <div v-for="(repo, name) in kprima.git">
                                         @{{name}}:
@@ -94,10 +94,10 @@
                             </div>
 
                             <!-- LOADING -->
-                            <div v-if="kprima.loading" style="display: table-cell; padding-left: 20px">
+                            <div v-if="kprima.loading" style="display: table-cell; padding-left: 20px" class="td">
                                 <i class="fa fa-spinner fa-pulse fa-fw"></i>
                             </div>
-                            <div v-else-if="kprima.git && lastVersion" style="display: table-cell; padding-left: 20px">
+                            <div v-else-if="kprima.git && lastVersion" style="display: table-cell; padding-left: 20px" class="td"> 
                                 <a @click="actualizarK(kprima.Id)" href="javascript:void(0)">reset a la
                                     <b>@{{lastVersion}}</b>.*
                                 </a>

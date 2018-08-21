@@ -105,7 +105,7 @@ var startWebsocket = function (token) {
             console.log('UserEvent', data);
 
             if(data.state){
-                console.log(data.state);
+                console.log("de aqui esta recibiendo la vaina parcerooo:"+data.state);
             }
 
         });

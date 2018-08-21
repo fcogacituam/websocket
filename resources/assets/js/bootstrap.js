@@ -99,12 +99,14 @@ var startWebsocket = function (token) {
         console.log("missing getCookie('id');");
         return;
     }  
-    console.log("getCookie(id) : "+id);
 
     window.Echo.private('user.' + id)
         .listen('UserEvent', function (data) {
             console.log('UserEvent', data);
 
+            if(data.state){
+                console.log(data.state);
+            }
 
         });
     console.log("listen private user " + id);

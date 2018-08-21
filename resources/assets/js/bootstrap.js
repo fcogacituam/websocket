@@ -59,12 +59,12 @@ import Echo from 'laravel-echo'
 
 window.io = require('socket.io-client');
 
-
+var url = "https://ecore.builder.widefense.com";
     //COMO FUNCION
  function (url) {
 
         //INIT WEBSOCKET
-        var url = "https://ecore.local.widefense.com";
+        
 
         if (!url) {
             var url = window.location.origin;
@@ -72,7 +72,7 @@ window.io = require('socket.io-client');
             //var url = 'https://172.31.11.100';
             //var url = '10.0.1.33';
             if (url.includes("widefense.com") && !url.includes("builder")) {
-                url = "https://ecore.local.widefense.com";
+                url = "https://ecore.builder.widefense.com";
             }
         }
 

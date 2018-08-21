@@ -6,6 +6,7 @@
                 {{name}}
             </small>
             <small v-else-if="kprimasChannels && kprimasChannels['private-kprima.' + kprima.Id]" style="color:grey">esperando respuesta del K'..</small>
+            <small v-else-if="kprimasChannels" style="color:red">sin conexión</small>
 
 	    </div>
        
@@ -21,7 +22,7 @@
 
 <script>
     export default {
-        props:['kprima'],
+        props:['kprima','kprimasChannels'],
 
        
     }

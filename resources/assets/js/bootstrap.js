@@ -59,22 +59,12 @@ import Echo from 'laravel-echo'
 
 window.io = require('socket.io-client');
 
-var url = "https://ecore.builder.widefense.com";
+
     //COMO FUNCION
- function (url) {
+ function () {
 
         //INIT WEBSOCKET
-        
-
-        if (!url) {
-            var url = window.location.origin;
-            //var url = "192.168.212.200";
-            //var url = 'https://172.31.11.100';
-            //var url = '10.0.1.33';
-            if (url.includes("widefense.com") && !url.includes("builder")) {
-                url = "https://ecore.builder.widefense.com";
-            }
-        }
+     var url = "https://ecore.builder.widefense.com";
 
         //https://laravel.com/docs/5.6/broadcasting
         var echo = new Echo({

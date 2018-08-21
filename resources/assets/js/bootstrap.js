@@ -89,10 +89,10 @@ var startWebsocket = function (token) {
 
     //PRIVATE CHANNELS:
     var id = getCookie('id');
-    if (!id) {
-        console.log("missing getCookie('id');");
-        return;
-    }  
+    // if (!id) {
+    //     console.log("missing getCookie('id');");
+    //     return;
+    // }  
     console.log("getCookie(id) : "+id);
 
     window.Echo.private('user.' + id)

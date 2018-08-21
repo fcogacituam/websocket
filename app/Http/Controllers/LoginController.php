@@ -17,7 +17,7 @@ class LoginController extends Controller
 			]
 		]);
 		
-		return $response;
-		return redirect("/socket")->withCookie('id');
+		var_dump($response) ;
+		// return redirect("/socket")->withCookie('id');
 	}
 }

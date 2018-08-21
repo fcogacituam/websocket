@@ -1,9 +1,15 @@
 <template>
     <div class="tr">
-        <div class="td">{{kprima.Ip}}</div>
+        <div class="td"> {{kprima.Ip}}</div>
         <div class="td">
-            
-        </div>
+            <small v-if="kprima.git">
+               tengo git :D
+            </small>
+            <small v-else-if="kprimasChannels && kprimasChannels['private-kprima.' + kprima.Id]" style="color:grey">esperando respuesta del K'..</small>
+            <small v-else-if="kprimasChannels" style="color:red">sin conexión</small>
+
+	    </div>
+       
         <div class="td">
 
 
@@ -15,8 +21,8 @@
 
 <script>
     export default {
-        props:['kprima'],
-        mounted() {
-        }
+        props:['kprima','kprimasChannels'],
+
+       
     }
 </script>

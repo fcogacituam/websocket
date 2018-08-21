@@ -18,25 +18,65 @@ window.Vue = require('vue');
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('version-local', require('./components/VersionLocal.vue'));
 Vue.component('lista-kprimas', require('./components/ListaKprimas.vue'));
-
+Vue.component('login-ecore', require('./components/LoginEcore.vue'));
 
 var apiEcore = "../../../api/ecore/public/";
 var apiConfigurador = "../../../api/websocket/public/api/";
+Vue.component("component-kprima", {
+                props: ['kprima', 'repositorios_local', 'lastVersion', 'kprimasChannels'],
+                watch: {
+                    kprima: {
+                        handler: function (kprima) {
+                            console.log("kprima", kprima);
+                        },
+                        deep: true
+                    }
+                },
+                methods: {
+                    actualizarK: function (kprimaId) {
+                        //add loading
+                        this.$set(this.state.kprimas[kprimaId], "loading", true);
 
-const app = new Vue({
+                        axios.post(apiConfigurador + "event/kprima", {
+                            id: kprimaId,
+                            pathname: "git/reset",
+                            post: {
+                                repos: this.repositorios_local
+                            }
+                        });
+                    },
+                    clientesList: function (kprima) {
+                        if (!kprima.ip_clientes) {
+                            return;
+                        }
+
+                        var res = "";
+                        for (var i = 0; i < kprima.ip_clientes.length; i++) {
+                            res += kprima.ip_clientes[i].Nombre + ", ";
+                        }
+                        return res;
+                    }
+                }
+            });
+window.vm = new Vue({
     el: '#app',
     data: function () {
-        // console.log("window.store.state", window.store.state);
+        console.log("window.store.state", window.store.state);
         return {
             repositorios_local: {},
             kprimas: null,
             lastVersion: null,
-            // state: window.store.state,
+            state: window.store.state,
             repoArr: null,
-            kprimasChannels: null
+            kprimasChannels: null,
+            userId:'',
         }
     },
     watch: {
+        userId: function(val){
+            this.userId=val;
+            console.log(this.userId);
+        },
         kprimas: function (val) {
             this.kprimas = val;
             console.log(this.kprimas);
@@ -133,9 +173,20 @@ const app = new Vue({
                 password: 'fr4nc15c0Ga'
             }
         }).then(function (response) {
+            var res = response.data;
+            var kprimas = {};
+            for (var i = 0; i < res.length; i++) {
+                var kprima = res[i];
+                kprimas[kprima.Id] = kprima;
+            }
 
-            self.kprimas = response.data;
-            console.log(self.kprimas);
+            // var extend = $.extend(true, window.store.state.kprimas, kprimas);
+            // self.kprimas = response.data;
+            var extend = $.extend(true, window.store.state.kprimas, kprimas);
+            window.store.set("kprimas", extend);
+            // for (var key in extend) {
+            //     self.$set(self.state.kprimas, key, extend[key]);
+            // }
         });
 
         // LISTA DE K' EN EL CANAL Kprimas DEL WESOCKET (DATOS INDEPENDIENTES)
@@ -180,7 +231,11 @@ const app = new Vue({
                 res += kprima.ip_clientes[i].Nombre + ", ";
             }
             return res;
+        },
+        setUserId: function(value){
+            this.userId= value;
         }
+        
     }
     
 });

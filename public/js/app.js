@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 32);
+/******/ 	return __webpack_require__(__webpack_require__.s = 33);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -98,7 +98,7 @@ module.exports = g;
 
 
 var bind = __webpack_require__(16);
-var isBuffer = __webpack_require__(39);
+var isBuffer = __webpack_require__(40);
 
 /*global toString:true*/
 
@@ -410,7 +410,7 @@ module.exports = {
  * Expose `debug()` as the module.
  */
 
-exports = module.exports = __webpack_require__(59);
+exports = module.exports = __webpack_require__(60);
 exports.log = log;
 exports.formatArgs = formatArgs;
 exports.save = save;
@@ -600,7 +600,7 @@ function localstorage() {
   } catch (e) {}
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
 /* 3 */
@@ -779,15 +779,15 @@ Emitter.prototype.hasListeners = function(event){
  * Module dependencies.
  */
 
-var keys = __webpack_require__(66);
-var hasBinary = __webpack_require__(26);
-var sliceBuffer = __webpack_require__(71);
-var after = __webpack_require__(72);
-var utf8 = __webpack_require__(73);
+var keys = __webpack_require__(67);
+var hasBinary = __webpack_require__(27);
+var sliceBuffer = __webpack_require__(73);
+var after = __webpack_require__(74);
+var utf8 = __webpack_require__(75);
 
 var base64encoder;
 if (global && global.ArrayBuffer) {
-  base64encoder = __webpack_require__(74);
+  base64encoder = __webpack_require__(76);
 }
 
 /**
@@ -845,7 +845,7 @@ var err = { type: 'error', data: 'parser error' };
  * Create a blob api even for blob builder when vendor prefixes exist
  */
 
-var Blob = __webpack_require__(75);
+var Blob = __webpack_require__(77);
 
 /**
  * Encodes a packet.
@@ -1441,13 +1441,122 @@ module.exports = function(a, b){
 
 /***/ }),
 /* 7 */
+/***/ (function(module, exports) {
+
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file.
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+module.exports = function normalizeComponent (
+  rawScriptExports,
+  compiledTemplate,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier /* server only */
+) {
+  var esModule
+  var scriptExports = rawScriptExports = rawScriptExports || {}
+
+  // ES6 modules interop
+  var type = typeof rawScriptExports.default
+  if (type === 'object' || type === 'function') {
+    esModule = rawScriptExports
+    scriptExports = rawScriptExports.default
+  }
+
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (compiledTemplate) {
+    options.render = compiledTemplate.render
+    options.staticRenderFns = compiledTemplate.staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = injectStyles
+  }
+
+  if (hook) {
+    var functional = options.functional
+    var existing = functional
+      ? options.render
+      : options.beforeCreate
+
+    if (!functional) {
+      // inject component registration as beforeCreate hook
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    } else {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return existing(h, context)
+      }
+    }
+  }
+
+  return {
+    esModule: esModule,
+    exports: scriptExports,
+    options: options
+  }
+}
+
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(1);
-var normalizeHeaderName = __webpack_require__(41);
+var normalizeHeaderName = __webpack_require__(42);
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -1541,10 +1650,10 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -1734,7 +1843,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -1744,9 +1853,9 @@ process.umask = function() { return 0; };
 
 var debug = __webpack_require__(2)('socket.io-parser');
 var Emitter = __webpack_require__(3);
-var binary = __webpack_require__(61);
-var isArray = __webpack_require__(10);
-var isBuf = __webpack_require__(22);
+var binary = __webpack_require__(62);
+var isArray = __webpack_require__(22);
+var isBuf = __webpack_require__(23);
 
 /**
  * Protocol version.
@@ -2157,23 +2266,12 @@ function error(msg) {
 
 
 /***/ }),
-/* 10 */
-/***/ (function(module, exports) {
-
-var toString = {}.toString;
-
-module.exports = Array.isArray || function (arr) {
-  return toString.call(arr) == '[object Array]';
-};
-
-
-/***/ }),
 /* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {// browser shim for xmlhttprequest module
 
-var hasCORS = __webpack_require__(64);
+var hasCORS = __webpack_require__(65);
 
 module.exports = function (opts) {
   var xdomain = opts.xdomain;
@@ -15340,12 +15438,12 @@ module.exports = function bind(fn, thisArg) {
 
 
 var utils = __webpack_require__(1);
-var settle = __webpack_require__(42);
-var buildURL = __webpack_require__(44);
-var parseHeaders = __webpack_require__(45);
-var isURLSameOrigin = __webpack_require__(46);
+var settle = __webpack_require__(43);
+var buildURL = __webpack_require__(45);
+var parseHeaders = __webpack_require__(46);
+var isURLSameOrigin = __webpack_require__(47);
 var createError = __webpack_require__(18);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(47);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(48);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -15442,7 +15540,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(48);
+      var cookies = __webpack_require__(49);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -15526,7 +15624,7 @@ module.exports = function xhrAdapter(config) {
 "use strict";
 
 
-var enhanceError = __webpack_require__(43);
+var enhanceError = __webpack_require__(44);
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
@@ -15629,6 +15727,17 @@ module.exports = function parseuri(str) {
 
 /***/ }),
 /* 22 */
+/***/ (function(module, exports) {
+
+var toString = {}.toString;
+
+module.exports = Array.isArray || function (arr) {
+  return toString.call(arr) == '[object Array]';
+};
+
+
+/***/ }),
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {
@@ -15659,7 +15768,7 @@ function isBuf(obj) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -15667,15 +15776,15 @@ function isBuf(obj) {
  * Module dependencies.
  */
 
-var eio = __webpack_require__(62);
-var Socket = __webpack_require__(29);
+var eio = __webpack_require__(63);
+var Socket = __webpack_require__(30);
 var Emitter = __webpack_require__(3);
-var parser = __webpack_require__(9);
-var on = __webpack_require__(30);
-var bind = __webpack_require__(31);
+var parser = __webpack_require__(10);
+var on = __webpack_require__(31);
+var bind = __webpack_require__(32);
 var debug = __webpack_require__(2)('socket.io-client:manager');
-var indexOf = __webpack_require__(28);
-var Backoff = __webpack_require__(80);
+var indexOf = __webpack_require__(29);
+var Backoff = __webpack_require__(82);
 
 /**
  * IE6+ hasOwnProperty
@@ -16238,7 +16347,7 @@ Manager.prototype.onreconnect = function () {
 
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -16246,9 +16355,9 @@ Manager.prototype.onreconnect = function () {
  */
 
 var XMLHttpRequest = __webpack_require__(11);
-var XHR = __webpack_require__(65);
-var JSONP = __webpack_require__(76);
-var websocket = __webpack_require__(77);
+var XHR = __webpack_require__(66);
+var JSONP = __webpack_require__(78);
+var websocket = __webpack_require__(79);
 
 /**
  * Export transports.
@@ -16298,7 +16407,7 @@ function polling (opts) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -16309,7 +16418,7 @@ var Transport = __webpack_require__(12);
 var parseqs = __webpack_require__(5);
 var parser = __webpack_require__(4);
 var inherit = __webpack_require__(6);
-var yeast = __webpack_require__(27);
+var yeast = __webpack_require__(28);
 var debug = __webpack_require__(2)('engine.io-client:polling');
 
 /**
@@ -16549,7 +16658,7 @@ Polling.prototype.uri = function () {
 
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* global Blob File */
@@ -16558,7 +16667,7 @@ Polling.prototype.uri = function () {
  * Module requirements.
  */
 
-var isArray = __webpack_require__(10);
+var isArray = __webpack_require__(72);
 
 var toString = Object.prototype.toString;
 var withNativeBlob = typeof Blob === 'function' ||
@@ -16617,10 +16726,10 @@ function hasBinary (obj) {
   return false;
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(67).Buffer))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(68).Buffer))
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16695,7 +16804,7 @@ module.exports = yeast;
 
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports) {
 
 
@@ -16710,7 +16819,7 @@ module.exports = function(arr, obj){
 };
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -16718,14 +16827,14 @@ module.exports = function(arr, obj){
  * Module dependencies.
  */
 
-var parser = __webpack_require__(9);
+var parser = __webpack_require__(10);
 var Emitter = __webpack_require__(3);
-var toArray = __webpack_require__(79);
-var on = __webpack_require__(30);
-var bind = __webpack_require__(31);
+var toArray = __webpack_require__(81);
+var on = __webpack_require__(31);
+var bind = __webpack_require__(32);
 var debug = __webpack_require__(2)('socket.io-client:socket');
 var parseqs = __webpack_require__(5);
-var hasBin = __webpack_require__(26);
+var hasBin = __webpack_require__(27);
 
 /**
  * Module exports.
@@ -17154,7 +17263,7 @@ Socket.prototype.binary = function (binary) {
 
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports) {
 
 
@@ -17184,7 +17293,7 @@ function on (obj, ev, fn) {
 
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports) {
 
 /**
@@ -17213,15 +17322,15 @@ module.exports = function(obj, fn){
 
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(33);
-module.exports = __webpack_require__(88);
+__webpack_require__(34);
+module.exports = __webpack_require__(97);
 
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -17231,9 +17340,9 @@ module.exports = __webpack_require__(88);
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-__webpack_require__(34);
+__webpack_require__(35);
 
-window.Vue = __webpack_require__(81);
+window.Vue = __webpack_require__(83);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -17241,23 +17350,258 @@ window.Vue = __webpack_require__(81);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', __webpack_require__(84));
+Vue.component('example-component', __webpack_require__(86));
+Vue.component('version-local', __webpack_require__(89));
+Vue.component('lista-kprimas', __webpack_require__(91));
+Vue.component('login-ecore', __webpack_require__(94));
 
-var app = new Vue({
-  el: '#app'
+var apiEcore = "../../../api/ecore/public/";
+var apiConfigurador = "../../../api/websocket/public/api/";
+Vue.component("component-kprima", {
+    props: ['kprima', 'repositorios_local', 'lastVersion', 'kprimasChannels'],
+    watch: {
+        kprima: {
+            handler: function handler(kprima) {
+                console.log("kprima", kprima);
+            },
+            deep: true
+        }
+    },
+    methods: {
+        actualizarK: function actualizarK(kprimaId) {
+            //add loading
+            this.$set(this.state.kprimas[kprimaId], "loading", true);
+
+            axios.post(apiConfigurador + "event/kprima", {
+                id: kprimaId,
+                pathname: "git/reset",
+                post: {
+                    repos: this.repositorios_local
+                }
+            });
+        },
+        clientesList: function clientesList(kprima) {
+            if (!kprima.ip_clientes) {
+                return;
+            }
+
+            var res = "";
+            for (var i = 0; i < kprima.ip_clientes.length; i++) {
+                res += kprima.ip_clientes[i].Nombre + ", ";
+            }
+            return res;
+        }
+    }
+});
+window.vm = new Vue({
+    el: '#app',
+    data: function data() {
+        console.log("window.store.state", window.store.state);
+        return {
+            repositorios_local: {},
+            kprimas: null,
+            lastVersion: null,
+            state: window.store.state,
+            repoArr: null,
+            kprimasChannels: null,
+            userId: ''
+        };
+    },
+    watch: {
+        userId: function userId(val) {
+            this.userId = val;
+            console.log(this.userId);
+        },
+        kprimas: function kprimas(val) {
+            this.kprimas = val;
+            console.log(this.kprimas);
+        },
+        state: {
+            handler: function handler(state) {
+                console.log("state", state);
+                //this.$forceUpdate();
+            },
+            deep: true
+        }
+    },
+    mounted: function mounted() {
+        var self = this;
+
+        // LISTA DE REPOSITORIOS
+        axios.post(apiConfigurador + "repositorio/reposVersions", {}, {
+            auth: {
+                username: 'fgacitua@widefense.com',
+                password: 'fr4nc15c0Ga'
+            }
+        }).then(function (response) {
+            var repos = response.data;
+
+            // GET WEBSOCKET KPRIMAS STATE
+            var repoArr = {};
+            for (var name in repos) {
+                repoArr[name] = {
+                    route: repos[name].route
+                };
+            }
+            this.repoArr = repoArr;
+
+            var tags = [];
+            for (var name in repos) {
+                //OBTENER LAS VERSIONES CON SOLO 2 PARTES
+                var tagsArr = Object.keys(repos[name].tags);
+                for (var i = 0; i < tagsArr.length; i++) {
+                    tagsArr[i] = tagsArr[i].split(".").slice(0, 2).join(".");
+                }
+
+                if (tagsArr.length) {
+                    tags.push(sortVersions(tagsArr));
+                }
+            }
+
+            //ENCONTRAR VERSIONES COMUNES DE TODOS LOS REPOSITORIOS
+            //https://stackoverflow.com/questions/34497027/javascript-finding-shared-values-across-multiple-array
+            var versions = tags[0].filter(function (x) {
+                return tags.every(function (y) {
+                    if (y.indexOf(x) != -1) {
+                        y[y.indexOf(x)] = Infinity;
+                        return true;
+                    }
+                    return false;
+                });
+            });
+            console.log("versions", versions);
+            self.lastVersion = sortVersions(versions).pop();
+
+            //repositorios_local
+            for (var name in repos) {
+                //VERSION A LA QUE PUEDE ACTUALIZAR
+                repos[name].update = Object.keys(repos[name].tags).filter(function (tag) {
+                    return 0 == tag.indexOf(self.lastVersion);
+                }).pop();
+
+                repos[name].diff = repos[name].count - repos[name].tags[repos[name].update];
+            }
+            self.repositorios_local = repos;
+
+            // LLAMADO EVENT WEBSCOEKT GENÉRICO A TODOS LOS KPRIMAS
+            axios.post(apiConfigurador + "event/kprimas", {
+                pathname: "git/get",
+                post: {
+                    repos: this.repoArr
+                }
+            }, {
+                auth: {
+                    username: 'fgacitua@widefense.com',
+                    password: 'fr4nc15c0Ga'
+                }
+            });
+        });
+
+        // LISTA COMPLETA DE K' DE LA BASE DE DATOS
+        axios.post(apiEcore + "nodo/k_primas", {}, {
+            auth: {
+                username: 'fgacitua@widefense.com',
+                password: 'fr4nc15c0Ga'
+            }
+        }).then(function (response) {
+            var res = response.data;
+            var kprimas = {};
+            for (var i = 0; i < res.length; i++) {
+                var kprima = res[i];
+                kprimas[kprima.Id] = kprima;
+            }
+
+            // var extend = $.extend(true, window.store.state.kprimas, kprimas);
+            // self.kprimas = response.data;
+            var extend = $.extend(true, window.store.state.kprimas, kprimas);
+            window.store.set("kprimas", extend);
+            // for (var key in extend) {
+            //     self.$set(self.state.kprimas, key, extend[key]);
+            // }
+        });
+
+        // LISTA DE K' EN EL CANAL Kprimas DEL WESOCKET (DATOS INDEPENDIENTES)
+        axios.post(apiConfigurador + "socket/kprimasChannels", {}, {
+            auth: {
+                username: 'fgacitua@widefense.com',
+                password: 'fr4nc15c0Ga'
+            }
+        }).then(function (response) {
+            self.kprimasChannels = response.data;
+        });
+    }, methods: {
+        actualizar: function actualizar(repositorio, version) {
+            var self = this;
+            this.$set(self.repositorios_local[repositorio], "loading", true);
+
+            axios.post(apiConfigurador + "repositorio/actualizar", {
+                repo: repositorio,
+                version: version
+            }).then(function (result) {
+                // for (var i = 0; i < data.length; i++) {
+                //     $.notify(data[i]);
+                // }
+
+                var data = $.extend(true, self.repositorios_local[repositorio], result.data);
+                data.diff = 0;
+                data.loading = false;
+                self.$set(self.repositorios_local, repositorio, data);
+            });
+        },
+        empty: function empty(obj) {
+            return Object.keys(obj).length === 0;
+        },
+        clientesList: function clientesList(kprima) {
+            if (!kprima.ip_clientes) {
+                return;
+            }
+
+            var res = "";
+            for (var i = 0; i < kprima.ip_clientes.length; i++) {
+                res += kprima.ip_clientes[i].Nombre + ", ";
+            }
+            return res;
+        },
+        setUserId: function setUserId(value) {
+            this.userId = value;
+        }
+
+    }
 
 });
+function sortVersions(arr) {
+    var versions = [];
+    for (var i = 0; i < arr.length; i++) {
+        //https://stackoverflow.com/questions/82064/a-regex-for-version-number-parsing
+        if (/^(\d+\.)?(\d+\.)?(\*|\d+)$/.test(arr[i])) {
+            versions.push(arr[i]);
+        }
+    }
+    console.log("sortVersions", versions);
+
+    //TODO: CONVERTIR A ECMA5
+    //https://stackoverflow.com/questions/40201533/sort-version-dotted-number-strings-in-javascript
+    return versions.map(function (a) {
+        return a.split('.').map(function (n) {
+            return +n + 100000;
+        }).join('.');
+    }).sort().map(function (a) {
+        return a.split('.').map(function (n) {
+            return +n - 100000;
+        }).join('.');
+    });
+}
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo__ = __webpack_require__(57);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_laravel_echo__);
 
-window._ = __webpack_require__(35);
+window._ = __webpack_require__(36);
 window.Popper = __webpack_require__(14).default;
 
 /**
@@ -17267,9 +17611,9 @@ window.Popper = __webpack_require__(14).default;
  */
 
 try {
-  window.$ = window.jQuery = __webpack_require__(15);
+    window.$ = window.jQuery = __webpack_require__(15);
 
-  __webpack_require__(36);
+    __webpack_require__(37);
 } catch (e) {}
 
 /**
@@ -17278,7 +17622,7 @@ try {
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = __webpack_require__(37);
+window.axios = __webpack_require__(38);
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -17291,9 +17635,9 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 var token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
-  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 } else {
-  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
 /**
@@ -17315,19 +17659,171 @@ if (token) {
 
 
 
-window.io = __webpack_require__(57);
+window.io = __webpack_require__(58);
 
-window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
-  broadcaster: 'socket.io',
-  host: window.location.hostname + ':6001'
+//COMO FUNCION
+
+//INIT WEBSOCKET
+var url = "https://ecore.builder.widefense.com";
+
+//https://laravel.com/docs/5.6/broadcasting
+var echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
+    broadcaster: 'socket.io',
+    host: url,
+    client: io
+    //auth: {headers: {'Authorization': token}},
 });
 
-window.Echo.channel('test-event').listen('PruebaEvent', function (e) {
-  console.log(e);
-});
+//PUBLIC CHANNELS:
+// echo.channel('messages')
+//     .listen('MessageEvent', function (msg) {
+//         console.log('MessageEvent', msg);
+//         require(["https://cdnjs.cloudflare.com/ajax/libs/mouse0270-bootstrap-notify/3.1.7/bootstrap-notify.min.js"], function() {
+//             $.notify(msg);
+//         });
+//     });
+
+//AUTH CHANNELS
+var startWebsocket = function startWebsocket(token) {
+    //ADD TOKEN
+    echo.connector.options.auth = {
+        headers: {
+            'Authorization': token
+        }
+    };
+
+    //PRESENCE CHANNELS:
+    // echo.join("clients")
+    //     .listen('ClientsEvent', function (msg) {
+    //         console.log('ClientsEvent', msg);
+    //         $.notify(msg);
+    //     })
+    //     .here(function (users) {
+    //         this.users = users;
+    //         console.log("join users", users);
+    //     })
+    //     .joining(function (user) {
+    //         this.users.push(user);
+    //         console.log("joining user", user);
+    //     })
+    //     .leaving(function (user) {
+    //         console.log("leaving user", user);
+    //     });
+
+    //PRIVATE CHANNELS:
+    var id = getCookie('id');
+    if (!id) {
+        console.log("missing getCookie('id');");
+        // return;
+    }
+
+    echo.private('user.' + id).listen('UserEvent', function (data) {
+        console.log('UserEvent', data);
+
+        if (data.msg) {
+
+            //CONVERTIR EN ARRAY SI NO LO ES
+            if (data.msg.constructor !== Array) {
+                data.msg = [data.msg];
+            }
+
+            //GET FULL ERROR
+            for (var i = 0; i < data.msg.length; i++) {
+                var msg = data.msg[i];
+
+                if (msg.length > 100) {
+                    var n = $.notify(msg, {
+                        delay: 0
+                    });
+                    $(n.$ele).css({
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        'max-width': '100%'
+                    });
+                } else {
+                    $.notify(msg);
+                }
+            }
+        }
+
+        if (data.state) {
+            for (var key in data.state) {
+                var extend = $.extend(true, window.store.state[key], data.state[key]);
+                window.store.set(key, extend);
+                // for (var k in extend) {
+                //     Vue.set(store.state[key][k], extend[k]);
+                // }
+            }
+        }
+
+        // TODO: PORQUE NO FUNCIONA AQUÍ EL BINDING DE VUE AUTOMÁTICAMENTE?
+        //ACTUALIZAR TODO VUE
+        window.vm.$forceUpdate();
+        for (var i = 0; i < window.vm.$children.length; i++) {
+            window.vm.$children[i].$forceUpdate();
+        }
+    });
+    console.log("listen private user " + id);
+};
+
+//IF ALREADY LOGED
+var tkn = getCookie('Authorization');
+if (tkn) {
+    tkn = tkn.replace("+", " ");
+    startWebsocket(tkn);
+}
+
+//PUBLIC:
+window.echo = echo;
+window.startWebsocket = startWebsocket;
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+window.store = {
+    state: {
+        kprimas: {}
+    },
+    get: function get(key) {
+        if (this.state[key]) {
+            return this.state[key];
+        }
+
+        var json = localStorage.getItem(key) || null;
+        if (json) {
+            var value = null;
+            try {
+                value = JSON.parse(json);
+            } catch (e) {
+                //
+            }
+
+            Vue.set(this.state, key, value);
+            return value;
+        }
+    },
+    set: function set(key, value) {
+        Vue.set(this.state, key, value);
+        var json = JSON.stringify(value);
+        localStorage.setItem(key, json);
+    }
+};
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -34440,7 +34936,7 @@ window.Echo.channel('test-event').listen('PruebaEvent', function (e) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(13)(module)))
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -38390,13 +38886,13 @@ window.Echo.channel('test-event').listen('PruebaEvent', function (e) {
 
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(38);
+module.exports = __webpack_require__(39);
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38404,8 +38900,8 @@ module.exports = __webpack_require__(38);
 
 var utils = __webpack_require__(1);
 var bind = __webpack_require__(16);
-var Axios = __webpack_require__(40);
-var defaults = __webpack_require__(7);
+var Axios = __webpack_require__(41);
+var defaults = __webpack_require__(8);
 
 /**
  * Create an instance of Axios
@@ -38439,14 +38935,14 @@ axios.create = function create(instanceConfig) {
 
 // Expose Cancel & CancelToken
 axios.Cancel = __webpack_require__(20);
-axios.CancelToken = __webpack_require__(54);
+axios.CancelToken = __webpack_require__(55);
 axios.isCancel = __webpack_require__(19);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(55);
+axios.spread = __webpack_require__(56);
 
 module.exports = axios;
 
@@ -38455,7 +38951,7 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports) {
 
 /*!
@@ -38482,16 +38978,16 @@ function isSlowBuffer (obj) {
 
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var defaults = __webpack_require__(7);
+var defaults = __webpack_require__(8);
 var utils = __webpack_require__(1);
-var InterceptorManager = __webpack_require__(49);
-var dispatchRequest = __webpack_require__(50);
+var InterceptorManager = __webpack_require__(50);
+var dispatchRequest = __webpack_require__(51);
 
 /**
  * Create a new instance of Axios
@@ -38568,7 +39064,7 @@ module.exports = Axios;
 
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38587,7 +39083,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38620,7 +39116,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38648,7 +39144,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38721,7 +39217,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38781,7 +39277,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38856,7 +39352,7 @@ module.exports = (
 
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38899,7 +39395,7 @@ module.exports = btoa;
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38959,7 +39455,7 @@ module.exports = (
 
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39018,18 +39514,18 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(1);
-var transformData = __webpack_require__(51);
+var transformData = __webpack_require__(52);
 var isCancel = __webpack_require__(19);
-var defaults = __webpack_require__(7);
-var isAbsoluteURL = __webpack_require__(52);
-var combineURLs = __webpack_require__(53);
+var defaults = __webpack_require__(8);
+var isAbsoluteURL = __webpack_require__(53);
+var combineURLs = __webpack_require__(54);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -39111,7 +39607,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39138,7 +39634,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39159,7 +39655,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39180,7 +39676,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39244,7 +39740,7 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39278,7 +39774,7 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports) {
 
 var asyncGenerator = function () {
@@ -40216,7 +40712,7 @@ var Echo = function () {
 module.exports = Echo;
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -40224,9 +40720,9 @@ module.exports = Echo;
  * Module dependencies.
  */
 
-var url = __webpack_require__(58);
-var parser = __webpack_require__(9);
-var Manager = __webpack_require__(23);
+var url = __webpack_require__(59);
+var parser = __webpack_require__(10);
+var Manager = __webpack_require__(24);
 var debug = __webpack_require__(2)('socket.io-client');
 
 /**
@@ -40311,12 +40807,12 @@ exports.connect = lookup;
  * @api public
  */
 
-exports.Manager = __webpack_require__(23);
-exports.Socket = __webpack_require__(29);
+exports.Manager = __webpack_require__(24);
+exports.Socket = __webpack_require__(30);
 
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {
@@ -40398,7 +40894,7 @@ function url (uri, loc) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -40414,7 +40910,7 @@ exports.coerce = coerce;
 exports.disable = disable;
 exports.enable = enable;
 exports.enabled = enabled;
-exports.humanize = __webpack_require__(60);
+exports.humanize = __webpack_require__(61);
 
 /**
  * Active `debug` instances.
@@ -40629,7 +41125,7 @@ function coerce(val) {
 
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports) {
 
 /**
@@ -40787,7 +41283,7 @@ function plural(ms, n, name) {
 
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/*global Blob,File*/
@@ -40796,8 +41292,8 @@ function plural(ms, n, name) {
  * Module requirements
  */
 
-var isArray = __webpack_require__(10);
-var isBuf = __webpack_require__(22);
+var isArray = __webpack_require__(22);
+var isBuf = __webpack_require__(23);
 var toString = Object.prototype.toString;
 var withNativeBlob = typeof global.Blob === 'function' || toString.call(global.Blob) === '[object BlobConstructor]';
 var withNativeFile = typeof global.File === 'function' || toString.call(global.File) === '[object FileConstructor]';
@@ -40935,11 +41431,11 @@ exports.removeBlobs = function(data, callback) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-module.exports = __webpack_require__(63);
+module.exports = __webpack_require__(64);
 
 /**
  * Exports parser
@@ -40951,17 +41447,17 @@ module.exports.parser = __webpack_require__(4);
 
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
  * Module dependencies.
  */
 
-var transports = __webpack_require__(24);
+var transports = __webpack_require__(25);
 var Emitter = __webpack_require__(3);
 var debug = __webpack_require__(2)('engine.io-client:socket');
-var index = __webpack_require__(28);
+var index = __webpack_require__(29);
 var parser = __webpack_require__(4);
 var parseuri = __webpack_require__(21);
 var parseqs = __webpack_require__(5);
@@ -41098,7 +41594,7 @@ Socket.protocol = parser.protocol; // this is an int
 
 Socket.Socket = Socket;
 Socket.Transport = __webpack_require__(12);
-Socket.transports = __webpack_require__(24);
+Socket.transports = __webpack_require__(25);
 Socket.parser = __webpack_require__(4);
 
 /**
@@ -41701,7 +42197,7 @@ Socket.prototype.filterUpgrades = function (upgrades) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports) {
 
 
@@ -41724,7 +42220,7 @@ try {
 
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -41732,7 +42228,7 @@ try {
  */
 
 var XMLHttpRequest = __webpack_require__(11);
-var Polling = __webpack_require__(25);
+var Polling = __webpack_require__(26);
 var Emitter = __webpack_require__(3);
 var inherit = __webpack_require__(6);
 var debug = __webpack_require__(2)('engine.io-client:polling-xhr');
@@ -42143,7 +42639,7 @@ function unloadHandler () {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports) {
 
 
@@ -42168,7 +42664,7 @@ module.exports = Object.keys || function keys (obj){
 
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42182,9 +42678,9 @@ module.exports = Object.keys || function keys (obj){
 
 
 
-var base64 = __webpack_require__(68)
-var ieee754 = __webpack_require__(69)
-var isArray = __webpack_require__(70)
+var base64 = __webpack_require__(69)
+var ieee754 = __webpack_require__(70)
+var isArray = __webpack_require__(71)
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -43965,7 +44461,7 @@ function isnan (val) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44123,7 +44619,7 @@ function fromByteArray (uint8) {
 
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports) {
 
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -44213,7 +44709,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -44224,7 +44720,18 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 71 */
+/* 72 */
+/***/ (function(module, exports) {
+
+var toString = {}.toString;
+
+module.exports = Array.isArray || function (arr) {
+  return toString.call(arr) == '[object Array]';
+};
+
+
+/***/ }),
+/* 73 */
 /***/ (function(module, exports) {
 
 /**
@@ -44259,7 +44766,7 @@ module.exports = function(arraybuffer, start, end) {
 
 
 /***/ }),
-/* 72 */
+/* 74 */
 /***/ (function(module, exports) {
 
 module.exports = after
@@ -44293,7 +44800,7 @@ function noop() {}
 
 
 /***/ }),
-/* 73 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module, global) {var __WEBPACK_AMD_DEFINE_RESULT__;/*! https://mths.be/utf8js v2.1.2 by @mathias */
@@ -44554,7 +45061,7 @@ function noop() {}
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13)(module), __webpack_require__(0)))
 
 /***/ }),
-/* 74 */
+/* 76 */
 /***/ (function(module, exports) {
 
 /*
@@ -44627,7 +45134,7 @@ function noop() {}
 
 
 /***/ }),
-/* 75 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -44730,7 +45237,7 @@ module.exports = (function() {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 76 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {
@@ -44738,7 +45245,7 @@ module.exports = (function() {
  * Module requirements.
  */
 
-var Polling = __webpack_require__(25);
+var Polling = __webpack_require__(26);
 var inherit = __webpack_require__(6);
 
 /**
@@ -44968,7 +45475,7 @@ JSONPPolling.prototype.doWrite = function (data, fn) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 77 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -44979,13 +45486,13 @@ var Transport = __webpack_require__(12);
 var parser = __webpack_require__(4);
 var parseqs = __webpack_require__(5);
 var inherit = __webpack_require__(6);
-var yeast = __webpack_require__(27);
+var yeast = __webpack_require__(28);
 var debug = __webpack_require__(2)('engine.io-client:websocket');
 var BrowserWebSocket = global.WebSocket || global.MozWebSocket;
 var NodeWebSocket;
 if (typeof window === 'undefined') {
   try {
-    NodeWebSocket = __webpack_require__(78);
+    NodeWebSocket = __webpack_require__(80);
   } catch (e) { }
 }
 
@@ -45261,13 +45768,13 @@ WS.prototype.check = function () {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 78 */
+/* 80 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 79 */
+/* 81 */
 /***/ (function(module, exports) {
 
 module.exports = toArray
@@ -45286,7 +45793,7 @@ function toArray(list, index) {
 
 
 /***/ }),
-/* 80 */
+/* 82 */
 /***/ (function(module, exports) {
 
 
@@ -45377,7 +45884,7 @@ Backoff.prototype.setJitter = function(jitter){
 
 
 /***/ }),
-/* 81 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56340,10 +56847,10 @@ Vue.compile = compileToFunctions;
 
 module.exports = Vue;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(82).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(84).setImmediate))
 
 /***/ }),
-/* 82 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var scope = (typeof global !== "undefined" && global) ||
@@ -56399,7 +56906,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(83);
+__webpack_require__(85);
 // On some exotic environments, it's not clear which object `setimmediate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
@@ -56413,7 +56920,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 83 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -56603,18 +57110,18 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(8)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(9)))
 
 /***/ }),
-/* 84 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(85)
+var normalizeComponent = __webpack_require__(7)
 /* script */
-var __vue_script__ = __webpack_require__(86)
+var __vue_script__ = __webpack_require__(87)
 /* template */
-var __vue_template__ = __webpack_require__(87)
+var __vue_template__ = __webpack_require__(88)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -56653,120 +57160,12 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 85 */
-/***/ (function(module, exports) {
-
-/* globals __VUE_SSR_CONTEXT__ */
-
-// IMPORTANT: Do NOT use ES2015 features in this file.
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
-
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier /* server only */
-) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
-
-  // ES6 modules interop
-  var type = typeof rawScriptExports.default
-  if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
-  }
-
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
-    options._compiled = true
-  }
-
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = injectStyles
-  }
-
-  if (hook) {
-    var functional = options.functional
-    var existing = functional
-      ? options.render
-      : options.beforeCreate
-
-    if (!functional) {
-      // inject component registration as beforeCreate hook
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    } else {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functioal component in vue file
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return existing(h, context)
-      }
-    }
-  }
-
-  return {
-    esModule: esModule,
-    exports: scriptExports,
-    options: options
-  }
-}
-
-
-/***/ }),
-/* 86 */
+/* 87 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -56791,7 +57190,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 87 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -56834,7 +57233,406 @@ if (false) {
 }
 
 /***/ }),
-/* 88 */
+/* 89 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(7)
+/* script */
+var __vue_script__ = __webpack_require__(90)
+/* template */
+var __vue_template__ = null
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/VersionLocal.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0a9039aa", Component.options)
+  } else {
+    hotAPI.reload("data-v-0a9039aa", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 90 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['kprima', 'kprimas', 'lastVersion', 'kprimasChannels'],
+    watch: {
+        kprima: {
+            handler: function handler(kprima) {
+                console.log("kprima", kprima);
+            },
+            deep: true
+        }
+    },
+    methods: {
+        actualizarK: function actualizarK(kprimaId) {
+            //add loading
+            // this.$set(this.state.kprimas[kprimaId], "loading", true);
+
+            axios.post(apiConfigurador + "event/kprima", {
+                id: kprimaId,
+                pathname: "git/reset",
+                post: {
+                    repos: this.repositorios_local
+                }
+            });
+        },
+        clientesList: function clientesList(kprima) {
+            if (!kprima.ip_clientes) {
+                return;
+            }
+
+            var res = "";
+            for (var i = 0; i < kprima.ip_clientes.length; i++) {
+                res += kprima.ip_clientes[i].Nombre + ", ";
+            }
+            return res;
+        }
+    }
+});
+
+/***/ }),
+/* 91 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(7)
+/* script */
+var __vue_script__ = __webpack_require__(92)
+/* template */
+var __vue_template__ = __webpack_require__(93)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/ListaKprimas.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-5c6a0392", Component.options)
+  } else {
+    hotAPI.reload("data-v-5c6a0392", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 92 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['kprima', 'kprimasChannels']
+
+});
+
+/***/ }),
+/* 93 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "tr" }, [
+    _c("div", { staticClass: "td" }, [_vm._v(" " + _vm._s(_vm.kprima.Ip))]),
+    _vm._v(" "),
+    _c("div", { staticClass: "td" }, [
+      _vm.kprima.git
+        ? _c("small", [_vm._v("\n               tengo git :D\n            ")])
+        : _vm.kprimasChannels &&
+          _vm.kprimasChannels["private-kprima." + _vm.kprima.Id]
+          ? _c("small", { staticStyle: { color: "grey" } }, [
+              _vm._v("esperando respuesta del K'..")
+            ])
+          : _vm.kprimasChannels
+            ? _c("small", { staticStyle: { color: "red" } }, [
+                _vm._v("sin conexión")
+              ])
+            : _vm._e()
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "td" })
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-5c6a0392", module.exports)
+  }
+}
+
+/***/ }),
+/* 94 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(7)
+/* script */
+var __vue_script__ = __webpack_require__(95)
+/* template */
+var __vue_template__ = __webpack_require__(96)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/LoginEcore.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-e80550dc", Component.options)
+  } else {
+    hotAPI.reload("data-v-e80550dc", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 95 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['userId'],
+    data: function data() {
+        return {
+            mutableUser: this.userN,
+            mutablePass: this.pass,
+            uId: ''
+        };
+    },
+    methods: {
+        login: function login(event) {
+            var user = this.mutableUser;
+            var passw = this.mutablePass;
+            var self = this;
+
+            axios.post('https://ecore.builder.widefense.com/api/ecore/public/auth/login', {}, {
+                auth: {
+                    username: user,
+                    password: passw
+                }
+            }).then(function (response) {
+                // console.log(response.headers['user-id']);
+                // $emit('getId',response.headers['user-id'])
+                self.$emit('hola', response.headers['user-id']);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 96 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("form", { attrs: { action: "" } }, [
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "" } }, [_vm._v("User: ")]),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.mutableUser,
+                  expression: "mutableUser"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "text", id: "userName" },
+              domProps: { value: _vm.mutableUser },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.mutableUser = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "" } }, [_vm._v("Password: ")]),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.mutablePass,
+                  expression: "mutablePass"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "password", id: "passWord" },
+              domProps: { value: _vm.mutablePass },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.mutablePass = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "btn btn-primary",
+            attrs: { type: "submit", value: "Entrar" },
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                return _vm.login($event)
+              }
+            }
+          })
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-e80550dc", module.exports)
+  }
+}
+
+/***/ }),
+/* 97 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

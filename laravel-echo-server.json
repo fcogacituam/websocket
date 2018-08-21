@@ -10,8 +10,8 @@
 	"database": "redis",
 	"databaseConfig": {
 		"redis": {
-			"port":"6379",
-			"host":null
+			"port": "6379",
+			"host": null
 		},
 		"sqlite": {
 			"databasePath": "/database/laravel-echo-server.sqlite"
@@ -21,10 +21,12 @@
 	"host": null,
 	"port": "6001",
 	"protocol": "https",
-	"socketio": {"wsEngine":"ws"},
-	"sslCertPath": "/etc/httpd/conf.d/certificados_ecore/ecore_widefense_com.crt",
-	"sslKeyPath": "/etc/httpd/conf.d/certificados_ecore/ecore_widefense_com.key",
-	"sslCertChainPath": "/etc/httpd/conf.d/certificados_ecore/DigiCertCA.crt",
+	"socketio": {
+		"wsEngine": "ws"
+	},
+	"sslCertPath": "/etc/httpd/conf.d/certificados_builder/widefense_com.crt",
+	"sslKeyPath": "/etc/httpd/conf.d/certificados_builder/widefense_com.key",
+	"sslCertChainPath": "/etc/httpd/conf.d/certificados_builder/DigiCertCA.crt",
 	"sslPassphrase": "",
 	"apiOriginAllow": {
 		"allowCors": true,

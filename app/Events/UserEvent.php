@@ -31,7 +31,7 @@ class UserEvent implements ShouldBroadcast
 
     public function broadcastOn()
     {
-        //echo json_encode(Auth::user());
+        // echo json_encode(Auth::user());
         return new PrivateChannel('user.' . $this->user_id);
     }
 

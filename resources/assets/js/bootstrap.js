@@ -63,7 +63,7 @@ window.io = require('socket.io-client');
     //COMO FUNCION
 
         //INIT WEBSOCKET
-     var url = "https://ecore.widefense.com";
+     var url = "https://172.31.11.100:6001";
 
         //https://laravel.com/docs/5.6/broadcasting
         var echo = new Echo({

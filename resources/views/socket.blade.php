@@ -67,6 +67,45 @@
                     </div>
                     <div class="tbody">
                         <lista-kprimas v-for="kprima in kprimas" :key="kprima.Id" :kprima="kprima" :kprimas-channels="kprimasChannels"></lista-kprimas>
+
+			<component-kprima v-for="kprima in state.kprimas" v-bind="{kprima, repositorios_local, lastVersion, kprimasChannels}" :key="kprima.Id" inline-template>
+                        <div :title="clientesList(kprima)" >
+
+                            <div class='ip' style="display: table-cell" class="table-td">@{{kprima.Ip}}</div>
+
+                            <div style="display: table-cell; padding-left: 20px">
+                                <small v-if="kprima.git">
+                                    <div v-for="(repo, name) in kprima.git">
+                                        @{{name}}:
+                                        <b class='version'>@{{repo.version.split('-')[0]}}</b>
+                                        <span v-if="-1 != repo.version.indexOf('-')">-@{{repo.version.split('-').slice(1).join('-')}}</span>
+                                        <span v-if="repo.count != repositorios_local[name].count" :style="{'color': repo.count > repositorios_local[name].count ? 'green' : 'red'}">
+                                            [@{{repo.count > repositorios_local[name].count ? '+' : ''}}@{{repo.count - repositorios_local[name].count}}]
+                                        </span>
+                                    </div>
+                                </small>
+
+                                <small v-else-if="kprimasChannels && kprimasChannels['private-kprima.' + kprima.Id]" style="color:grey">esperando respuesta del K'..</small>
+
+                                <small v-else-if="kprimasChannels" style="color:red">sin conexión</small>
+
+                                <!-- EN CASO DE TRABAJAR EN LOCAL -->
+                                <small v-else style="color:grey">sin información del websocket (@{{kprima.Id}})</small>
+                            </div>
+
+                            <!-- LOADING -->
+                            <div v-if="kprima.loading" style="display: table-cell; padding-left: 20px">
+                                <i class="fa fa-spinner fa-pulse fa-fw"></i>
+                            </div>
+                            <div v-else-if="kprima.git && lastVersion" style="display: table-cell; padding-left: 20px">
+                                <a @click="actualizarK(kprima.Id)" href="javascript:void(0)">reset a la
+                                    <b>@{{lastVersion}}</b>.*
+                                </a>
+                            </div>
+                            <div v-else style="display: table-cell"></div>
+
+                        </div>
+                    </component-kprima>
                     </div>
                 </div>
             </div>

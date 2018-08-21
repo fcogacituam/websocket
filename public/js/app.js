@@ -17357,16 +17357,51 @@ Vue.component('login-ecore', __webpack_require__(94));
 
 var apiEcore = "../../../api/ecore/public/";
 var apiConfigurador = "../../../api/websocket/public/api/";
+Vue.component("component-kprima", {
+    props: ['kprima', 'repositorios_local', 'lastVersion', 'kprimasChannels'],
+    watch: {
+        kprima: {
+            handler: function handler(kprima) {
+                console.log("kprima", kprima);
+            },
+            deep: true
+        }
+    },
+    methods: {
+        actualizarK: function actualizarK(kprimaId) {
+            //add loading
+            this.$set(this.state.kprimas[kprimaId], "loading", true);
 
-var app = new Vue({
+            axios.post(apiConfigurador + "event/kprima", {
+                id: kprimaId,
+                pathname: "git/reset",
+                post: {
+                    repos: this.repositorios_local
+                }
+            });
+        },
+        clientesList: function clientesList(kprima) {
+            if (!kprima.ip_clientes) {
+                return;
+            }
+
+            var res = "";
+            for (var i = 0; i < kprima.ip_clientes.length; i++) {
+                res += kprima.ip_clientes[i].Nombre + ", ";
+            }
+            return res;
+        }
+    }
+});
+window.vm = new Vue({
     el: '#app',
     data: function data() {
-        // console.log("window.store.state", window.store.state);
+        console.log("window.store.state", window.store.state);
         return {
             repositorios_local: {},
             kprimas: null,
             lastVersion: null,
-            // state: window.store.state,
+            state: window.store.state,
             repoArr: null,
             kprimasChannels: null,
             userId: ''
@@ -17469,16 +17504,17 @@ var app = new Vue({
                 password: 'fr4nc15c0Ga'
             }
         }).then(function (response) {
-
-            // var kprimas = {};
-            // for (var i = 0; i < res.length; i++) {
-            //     var kprima = res[i];
-            //     kprimas[kprima.Id] = kprima;
-            // }
+            var res = response.data;
+            var kprimas = {};
+            for (var i = 0; i < res.length; i++) {
+                var kprima = res[i];
+                kprimas[kprima.Id] = kprima;
+            }
 
             // var extend = $.extend(true, window.store.state.kprimas, kprimas);
-            self.kprimas = response.data;
-            console.log(self.kprimas);
+            // self.kprimas = response.data;
+            var extend = $.extend(true, window.store.state.kprimas, kprimas);
+            window.store.set("kprimas", extend);
             // for (var key in extend) {
             //     self.$set(self.state.kprimas, key, extend[key]);
             // }
@@ -17625,50 +17661,123 @@ if (token) {
 
 window.io = __webpack_require__(58);
 
+//COMO FUNCION
+
+//INIT WEBSOCKET
 var url = "https://ecore.builder.widefense.com";
 
-if (!url) {
-    var url = window.location.origin;
-    if (url.includes("widefense.com")) {
-        url = "https://ecore.builder.widefense.com";
-    }
-}
-window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
+//https://laravel.com/docs/5.6/broadcasting
+var echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
     broadcaster: 'socket.io',
-    host: url
+    host: url,
+    client: io
+    //auth: {headers: {'Authorization': token}},
 });
 
-window.Echo.channel('test-event').listen('PruebaEvent', function (e) {
-    console.log(e);
-});
+//PUBLIC CHANNELS:
+// echo.channel('messages')
+//     .listen('MessageEvent', function (msg) {
+//         console.log('MessageEvent', msg);
+//         require(["https://cdnjs.cloudflare.com/ajax/libs/mouse0270-bootstrap-notify/3.1.7/bootstrap-notify.min.js"], function() {
+//             $.notify(msg);
+//         });
+//     });
 
+//AUTH CHANNELS
 var startWebsocket = function startWebsocket(token) {
     //ADD TOKEN
-    window.Echo.connector.options.auth = {
+    echo.connector.options.auth = {
         headers: {
             'Authorization': token
         }
     };
 
+    //PRESENCE CHANNELS:
+    // echo.join("clients")
+    //     .listen('ClientsEvent', function (msg) {
+    //         console.log('ClientsEvent', msg);
+    //         $.notify(msg);
+    //     })
+    //     .here(function (users) {
+    //         this.users = users;
+    //         console.log("join users", users);
+    //     })
+    //     .joining(function (user) {
+    //         this.users.push(user);
+    //         console.log("joining user", user);
+    //     })
+    //     .leaving(function (user) {
+    //         console.log("leaving user", user);
+    //     });
+
     //PRIVATE CHANNELS:
     var id = getCookie('id');
     if (!id) {
         console.log("missing getCookie('id');");
-        return;
+        // return;
     }
 
-    window.Echo.private('user.' + id).listen('UserEvent', function (data) {
+    echo.private('user.' + id).listen('UserEvent', function (data) {
         console.log('UserEvent', data);
+
+        if (data.msg) {
+
+            //CONVERTIR EN ARRAY SI NO LO ES
+            if (data.msg.constructor !== Array) {
+                data.msg = [data.msg];
+            }
+
+            //GET FULL ERROR
+            for (var i = 0; i < data.msg.length; i++) {
+                var msg = data.msg[i];
+
+                if (msg.length > 100) {
+                    var n = $.notify(msg, {
+                        delay: 0
+                    });
+                    $(n.$ele).css({
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        'max-width': '100%'
+                    });
+                } else {
+                    $.notify(msg);
+                }
+            }
+        }
+
+        if (data.state) {
+            for (var key in data.state) {
+                var extend = $.extend(true, window.store.state[key], data.state[key]);
+                window.store.set(key, extend);
+                // for (var k in extend) {
+                //     Vue.set(store.state[key][k], extend[k]);
+                // }
+            }
+        }
+
+        // TODO: PORQUE NO FUNCIONA AQUÍ EL BINDING DE VUE AUTOMÁTICAMENTE?
+        //ACTUALIZAR TODO VUE
+        window.vm.$forceUpdate();
+        for (var i = 0; i < window.vm.$children.length; i++) {
+            window.vm.$children[i].$forceUpdate();
+        }
     });
     console.log("listen private user " + id);
 };
+
+//IF ALREADY LOGED
 var tkn = getCookie('Authorization');
 if (tkn) {
-    console.log("TOKEN: " + tkn);
     tkn = tkn.replace("+", " ");
     startWebsocket(tkn);
 }
 
+//PUBLIC:
+window.echo = echo;
+window.startWebsocket = startWebsocket;
 function getCookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
@@ -17684,6 +17793,34 @@ function getCookie(cname) {
     }
     return "";
 }
+window.store = {
+    state: {
+        kprimas: {}
+    },
+    get: function get(key) {
+        if (this.state[key]) {
+            return this.state[key];
+        }
+
+        var json = localStorage.getItem(key) || null;
+        if (json) {
+            var value = null;
+            try {
+                value = JSON.parse(json);
+            } catch (e) {
+                //
+            }
+
+            Vue.set(this.state, key, value);
+            return value;
+        }
+    },
+    set: function set(key, value) {
+        Vue.set(this.state, key, value);
+        var json = JSON.stringify(value);
+        localStorage.setItem(key, json);
+    }
+};
 
 /***/ }),
 /* 36 */
@@ -57259,9 +57396,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['kprima']
+    props: ['kprima', 'kprimasChannels']
 
 });
 
@@ -57276,9 +57416,20 @@ var render = function() {
   return _c("div", { staticClass: "tr" }, [
     _c("div", { staticClass: "td" }, [_vm._v(" " + _vm._s(_vm.kprima.Ip))]),
     _vm._v(" "),
-    _c("div", { staticClass: "td" }),
-    _vm._v(" "),
-    _c("div", { staticClass: "td" }),
+    _c("div", { staticClass: "td" }, [
+      _vm.kprima.git
+        ? _c("small", [_vm._v("\n               tengo git :D\n            ")])
+        : _vm.kprimasChannels &&
+          _vm.kprimasChannels["private-kprima." + _vm.kprima.Id]
+          ? _c("small", { staticStyle: { color: "grey" } }, [
+              _vm._v("esperando respuesta del K'..")
+            ])
+          : _vm.kprimasChannels
+            ? _c("small", { staticStyle: { color: "red" } }, [
+                _vm._v("sin conexión")
+              ])
+            : _vm._e()
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "td" })
   ])

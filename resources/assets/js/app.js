@@ -22,8 +22,43 @@ Vue.component('login-ecore', require('./components/LoginEcore.vue'));
 
 var apiEcore = "../../../api/ecore/public/";
 var apiConfigurador = "../../../api/websocket/public/api/";
+Vue.component("component-kprima", {
+                props: ['kprima', 'repositorios_local', 'lastVersion', 'kprimasChannels'],
+                watch: {
+                    kprima: {
+                        handler: function (kprima) {
+                            console.log("kprima", kprima);
+                        },
+                        deep: true
+                    }
+                },
+                methods: {
+                    actualizarK: function (kprimaId) {
+                        //add loading
+                        this.$set(this.state.kprimas[kprimaId], "loading", true);
 
-var app = new Vue({
+                        axios.post(apiConfigurador + "event/kprima", {
+                            id: kprimaId,
+                            pathname: "git/reset",
+                            post: {
+                                repos: this.repositorios_local
+                            }
+                        });
+                    },
+                    clientesList: function (kprima) {
+                        if (!kprima.ip_clientes) {
+                            return;
+                        }
+
+                        var res = "";
+                        for (var i = 0; i < kprima.ip_clientes.length; i++) {
+                            res += kprima.ip_clientes[i].Nombre + ", ";
+                        }
+                        return res;
+                    }
+                }
+            });
+window.vm = new Vue({
     el: '#app',
     data: function () {
         console.log("window.store.state", window.store.state);

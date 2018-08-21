@@ -22,7 +22,8 @@ $cookies= $cookieJar->toArray();
 $id= $cookies[1]['Value'];	
 		//print_r($response->getHeader('Set-Cookie')['id']);
 		//print_r($response);
-		
-		 return redirect("/socket")->withCookie('id',$id);
+		setcookie('id',$id);
+		//  return redirect("/socket")->withCookie('id',$id);
+		return redirect("/socket");
 	}
 }

@@ -87,31 +87,11 @@ var startWebsocket = function (token) {
         }
     };
 
-    //PRESENCE CHANNELS:
-    // window.Echo.join("clients")
-    //     .listen('ClientsEvent', function (msg) {
-    //         console.log('ClientsEvent', msg);
-    //         // $.notify(msg);
-    //     })
-    //     .here(function (users) {
-    //         // this.users = users;
-    //         console.log("join users", users);
-    //     })
-    //     .joining(function (user) {
-    //         // this.users.push(user);
-    //         console.log("joining user", user);
-    //     })
-    //     .leaving(function (user) {
-    //         console.log("leaving user", user);
-    //     });
-
     //PRIVATE CHANNELS:
-    var id = getCookie('user-id');
+    var id = getCookie('id');
     if (!id) {
         console.log("missing getCookie('id');");
-        axios.post("")
         return;
-        // id= 320;
     }
 
     window.Echo.private('user.' + id)

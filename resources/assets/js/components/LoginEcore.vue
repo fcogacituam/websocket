@@ -36,7 +36,7 @@
                     }).then(function(response){
                         // console.log(response.headers['user-id']);
                         // $emit('getId',response.headers['user-id'])
-                        this.userId = (response.headers['user-id']);
+                        this.uId = (response.headers['user-id']);
 
                     }).catch(function(error){
                         console.log(error);

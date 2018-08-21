@@ -55,105 +55,140 @@ if (token) {
 //     encrypted: true
 // });
 
-import Echo from 'laravel-echo'
+define(["https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js",
+    //"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js",
+    "https://cdn.jsdelivr.net/npm/laravel-echo@1.3.4/dist/echo.min.js"
+], function (io) {
 
-window.io = require('socket.io-client');
+    //COMO FUNCION
+    return function (url) {
 
-var url = "https://ecore.builder.widefense.com";
+        //INIT WEBSOCKET
+        var url = "https://ecore.local.widefense.com";
 
+        if (!url) {
+            var url = window.location.origin;
+            //var url = "192.168.212.200";
+            //var url = 'https://172.31.11.100';
+            //var url = '10.0.1.33';
+            if (url.includes("widefense.com") && !url.includes("builder")) {
+                url = "https://ecore.local.widefense.com";
+            }
+        }
 
-
-if (!url) {
-    var url = window.location.origin;
-    if (url.includes("widefense.com")) {
-        url = "https://ecore.builder.widefense.com";
-    }
-}
-window.Echo = new Echo({
-        broadcaster: 'socket.io',
-        host:url
-});
-
-window.Echo.channel('test-event')
-        .listen('PruebaEvent',(e) => {
-                console.log(e);
+        //https://laravel.com/docs/5.6/broadcasting
+        var echo = new Echo({
+            broadcaster: 'socket.io',
+            host: url,
+            client: io
+            //auth: {headers: {'Authorization': token}},
         });
 
+        //PUBLIC CHANNELS:
+        // echo.channel('messages')
+        //     .listen('MessageEvent', function (msg) {
+        //         console.log('MessageEvent', msg);
+        //         require(["https://cdnjs.cloudflare.com/ajax/libs/mouse0270-bootstrap-notify/3.1.7/bootstrap-notify.min.js"], function() {
+        //             $.notify(msg);
+        //         });
+        //     });
 
-function getCookie(name) {
-    var value = "; " + document.cookie;
-    var parts = value.split("; " + name + "=");
-    if (parts.length == 2) return parts.pop().split(";").shift();
-}
-var startWebsocket = function (token) {
-    //ADD TOKEN
-    window.Echo.connector.options.auth = {
-        headers: {
-            'Authorization': token
-        }
-    };
+        //AUTH CHANNELS
+        var startWebsocket = function (token) {
+            //ADD TOKEN
+            echo.connector.options.auth = {
+                headers: {
+                    'Authorization': token
+                }
+            };
 
-    //PRIVATE CHANNELS:
-    var id = getCookie('id');
-    if (!id) {
-        console.log("missing getCookie('id');");
-        return;
-    }  
+            //PRESENCE CHANNELS:
+            echo.join("clients")
+                .listen('ClientsEvent', function (msg) {
+                    console.log('ClientsEvent', msg);
+                    $.notify(msg);
+                })
+                .here(function (users) {
+                    this.users = users;
+                    console.log("join users", users);
+                })
+                .joining(function (user) {
+                    this.users.push(user);
+                    console.log("joining user", user);
+                })
+                .leaving(function (user) {
+                    console.log("leaving user", user);
+                });
 
-    window.Echo.private('user.' + id)
-        .listen('UserEvent', function (data) {
-            console.log('UserEvent', data);
-
-            if(data.state){
-                console.log(data.state);
+            //PRIVATE CHANNELS:
+            var id = getCookie('id');
+            if (!id) {
+                $.notify("missing getCookie('id');");
+                return;
             }
 
-        });
-    console.log("listen private user " + id);
-};
-var tkn = getCookie('Authorization');
-if (tkn) {
-    // console.log("TOKEN: "+tkn);
-    tkn = tkn.replace("+", " ");
-    startWebsocket(tkn);
-}
+            echo.private('user.' + id)
+                .listen('UserEvent', function (data) {
+                    console.log('UserEvent', data);
 
+                    if (data.msg) {
 
+                        //CONVERTIR EN ARRAY SI NO LO ES
+                        if (data.msg.constructor !== Array) {
+                            data.msg = [data.msg];
+                        }
 
-define(function () {
-    //COMO FUNCION
-    return function () {
+                        //GET FULL ERROR
+                        for (var i = 0; i < data.msg.length; i++) {
+                            var msg = data.msg[i];
 
-        /* SIN USAR VUEX */
-        //https://vuejs.org/v2/guide/state-management.html
-        window.store = {
-            state: {
-                kprimas: {}
-            },
-            get: function (key) {
-                if (this.state[key]) {
-                    return this.state[key];
-                }
-
-                var json = localStorage.getItem(key) || null;
-                if (json) {
-                    var value = null;
-                    try {
-                        value = JSON.parse(json);
-                    } catch (e) {
-                        //
+                            if (msg.length > 100) {
+                                var n = $.notify(msg, {
+                                    delay: 0
+                                });
+                                $(n.$ele).css({
+                                    position: "absolute",
+                                    top: 0,
+                                    left: 0,
+                                    right: 0,
+                                    'max-width': '100%'
+                                });
+                            } else {
+                                $.notify(msg);
+                            }
+                        }
                     }
 
-                    Vue.set(this.state, key, value);
-                    return value;
-                }
-            },
-            set: function (key, value) {
-                Vue.set(this.state, key, value);
-                var json = JSON.stringify(value);
-                localStorage.setItem(key, json);
-            }
+                    if (data.state) {
+                        for (var key in data.state) {
+                            var extend = $.extend(true, window.store.state[key], data.state[key]);
+                            window.store.set(key, extend);
+                            // for (var k in extend) {
+                            //     Vue.set(store.state[key][k], extend[k]);
+                            // }
+                        }
+                    }
+
+                    // TODO: PORQUE NO FUNCIONA AQUÍ EL BINDING DE VUE AUTOMÁTICAMENTE?
+                    //ACTUALIZAR TODO VUE
+                    window.vm.$forceUpdate();
+                    for (var i = 0; i < window.vm.$children.length; i++) {
+                        window.vm.$children[i].$forceUpdate();
+                    }
+
+                });
+            console.log("listen private user " + id);
         };
 
+        //IF ALREADY LOGED
+        var token = getCookie('Authorization');
+        if (token) {
+            token = token.replace("+", " ");
+            startWebsocket(token);
+        }
+
+        //PUBLIC:
+        window.echo = echo;
+        window.startWebsocket = startWebsocket;
     };
 });

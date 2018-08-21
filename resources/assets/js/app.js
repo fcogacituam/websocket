@@ -194,9 +194,7 @@ var app = new Vue({
         },
         setUserId: function(value){
             console.log("setUserId: "+value);
-        },
-        hola: function(msg){
-            console.log(msg);
+            this.userId= value;
         }
         
     }

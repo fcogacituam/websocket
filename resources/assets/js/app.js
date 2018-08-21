@@ -34,8 +34,6 @@ var app = new Vue({
             // state: window.store.state,
             repoArr: null,
             kprimasChannels: null,
-            userN:'xd',
-            pass:'',
             userId:'',
         }
     },

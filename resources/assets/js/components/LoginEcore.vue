@@ -15,7 +15,7 @@
 
 <script>
     export default {
-        props:['userN','pass','userId'],
+        props:['userId'],
         data:function(){
             return{
                 mutableUser: this.userN,
@@ -36,7 +36,7 @@
                     }).then(function(response){
                         // console.log(response.headers['user-id']);
                         // $emit('getId',response.headers['user-id'])
-                        app.setUserId(response.headers['user-id']);
+                        this.app.setUserId(response.headers['user-id']);
 
                     }).catch(function(error){
                         console.log(error);

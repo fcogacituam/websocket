@@ -61,7 +61,6 @@ window.io = require('socket.io-client');
 
 
     //COMO FUNCION
- function () {
 
         //INIT WEBSOCKET
      var url = "https://ecore.builder.widefense.com";
@@ -113,8 +112,8 @@ window.io = require('socket.io-client');
             //PRIVATE CHANNELS:
             var id = getCookie('id');
             if (!id) {
-                $.notify("missing getCookie('id');");
-                return;
+                console.log("missing getCookie('id');");
+                // return;
             }
 
             echo.private('user.' + id)
@@ -180,4 +179,4 @@ window.io = require('socket.io-client');
         //PUBLIC:
         window.echo = echo;
         window.startWebsocket = startWebsocket;
-    };
+    

@@ -11,7 +11,8 @@
 <body>
     <div id="app">
 
-    <form action="{{action('LoginController@login')}}" method="POST">
+    <form method="POST" action="{{ url('login') }}" >
+        <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
             <div class="form-group"><label for="">User: </label><input v-model="userN" type="text" class="form-control" id="userName"></div>
             <div class="form-group"><label for="">Password: </label><input v-model="pass" type="password" class="form-control" id="passWord"></div>
             <input  type="submit" class="btn btn-primary" value="Entrar">

@@ -92,7 +92,8 @@ var startWebsocket = function (token) {
     if (!id) {
         console.log("missing getCookie('id');");
         return;
-    }
+    }  
+    console.log("getCookie(id) : "+id);
 
     window.Echo.private('user.' + id)
         .listen('UserEvent', function (data) {
@@ -104,7 +105,7 @@ var startWebsocket = function (token) {
 };
 var tkn = getCookie('Authorization');
 if (tkn) {
-    console.log("TOKEN: "+tkn);
+    // console.log("TOKEN: "+tkn);
     tkn = tkn.replace("+", " ");
     startWebsocket(tkn);
 }

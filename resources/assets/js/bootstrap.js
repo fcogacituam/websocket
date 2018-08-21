@@ -55,10 +55,10 @@ if (token) {
 //     encrypted: true
 // });
 
-define(["https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js",
-    //"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js",
-    "https://cdn.jsdelivr.net/npm/laravel-echo@1.3.4/dist/echo.min.js"
-], function (io) {
+import Echo from 'laravel-echo'
+
+window.io = require('socket.io-client');
+
 
     //COMO FUNCION
     return function (url) {
@@ -191,4 +191,3 @@ define(["https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js",
         window.echo = echo;
         window.startWebsocket = startWebsocket;
     };
-});

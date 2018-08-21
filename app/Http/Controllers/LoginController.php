@@ -8,8 +8,8 @@ class LoginController extends Controller
 {
     public function login(Request $request){
 		// return $request;
-
-		$client = new \GuzzleHttp\Client(['cookies'=>true]);
+		$jar = new \GuzzleHttp\Cookie\CookieJar();
+		$client = new \GuzzleHttp\Client(['cookies'=>$jar]);
 
         $response = $client->post("https://ecore.builder.widefense.com/api/ecore/public/auth/login", [
             'auth' =>[

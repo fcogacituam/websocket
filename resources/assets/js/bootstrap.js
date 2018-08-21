@@ -194,3 +194,31 @@ function getCookie(cname) {
     }
     return "";
 }
+window.store = {
+    state: {
+        kprimas: {}
+    },
+    get: function (key) {
+        if (this.state[key]) {
+            return this.state[key];
+        }
+
+        var json = localStorage.getItem(key) || null;
+        if (json) {
+            var value = null;
+            try {
+                value = JSON.parse(json);
+            } catch (e) {
+                //
+            }
+
+            Vue.set(this.state, key, value);
+            return value;
+        }
+    },
+    set: function (key, value) {
+        Vue.set(this.state, key, value);
+        var json = JSON.stringify(value);
+        localStorage.setItem(key, json);
+    }
+};

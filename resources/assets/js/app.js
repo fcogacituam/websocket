@@ -23,7 +23,7 @@ Vue.component('login-ecore', require('./components/LoginEcore.vue'));
 var apiEcore = "../../../api/ecore/public/";
 var apiConfigurador = "../../../api/websocket/public/api/";
 
-const app = new Vue({
+var app = new Vue({
     el: '#app',
     data: function () {
         // console.log("window.store.state", window.store.state);

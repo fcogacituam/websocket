@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 class SocketController extends Controller
 {
 
-    private $appId = "70a59af8e08e9700";
-    private $key = "41c91abbdb806bbd8e97de13761f4aa2";
+    private $appId = "29e166a9ed078f2f";
+    private $key = "081545e220a4744977fba2272b560c0c";
 
 
     public function channels(Request $request)

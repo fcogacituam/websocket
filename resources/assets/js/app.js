@@ -44,7 +44,7 @@ var app = new Vue({
         },
         kprimas: function (val) {
             this.kprimas = val;
-            console.log("funciona este watch xd"+this.kprimas);
+            console.log(this.kprimas);
         },
         state: {
             handler: function (state) {

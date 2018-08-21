@@ -5,7 +5,7 @@
 
 	</div>
         <div class="td">
-            
+            {{kprima.git}}
         </div>
         <div class="td">
 

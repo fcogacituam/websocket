@@ -134,7 +134,7 @@ var app = new Vue({
                 password: 'fr4nc15c0Ga'
             }
         }).then(function (response) {
-
+            var res = response.data;
             var kprimas = {};
             for (var i = 0; i < res.length; i++) {
                 var kprima = res[i];

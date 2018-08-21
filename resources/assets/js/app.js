@@ -194,7 +194,7 @@ const app = new Vue({
             }
             return res;
         },
-        getUserId: function(value){
+        setUserId: function(value){
             console.log(value);
         }
         

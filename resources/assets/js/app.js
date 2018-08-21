@@ -26,12 +26,12 @@ var apiConfigurador = "../../../api/websocket/public/api/";
 var app = new Vue({
     el: '#app',
     data: function () {
-        // console.log("window.store.state", window.store.state);
+        console.log("window.store.state", window.store.state);
         return {
             repositorios_local: {},
             kprimas: null,
             lastVersion: null,
-            // state: window.store.state,
+            state: window.store.state,
             repoArr: null,
             kprimasChannels: null,
             userId:'',

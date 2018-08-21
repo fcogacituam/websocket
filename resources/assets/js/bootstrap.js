@@ -61,7 +61,7 @@ window.io = require('socket.io-client');
 
 
     //COMO FUNCION
-    return function (url) {
+ function (url) {
 
         //INIT WEBSOCKET
         var url = "https://ecore.local.widefense.com";

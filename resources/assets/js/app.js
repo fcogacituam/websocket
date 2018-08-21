@@ -44,7 +44,7 @@ var app = new Vue({
         },
         kprimas: function (val) {
             this.kprimas = val;
-            console.log(this.kprimas);
+            console.log("watch"+this.kprimas);
         },
         state: {
             handler: function (state) {

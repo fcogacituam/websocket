@@ -135,14 +135,14 @@ var app = new Vue({
             }
         }).then(function (response) {
 
-            // var kprimas = {};
-            // for (var i = 0; i < res.length; i++) {
-            //     var kprima = res[i];
-            //     kprimas[kprima.Id] = kprima;
-            // }
+            var kprimas = {};
+            for (var i = 0; i < res.length; i++) {
+                var kprima = res[i];
+                kprimas[kprima.Id] = kprima;
+            }
 
             // var extend = $.extend(true, window.store.state.kprimas, kprimas);
-            self.kprimas = response.data;
+            // self.kprimas = response.data;
             var extend = $.extend(true, window.store.state.kprimas, kprimas);
             window.store.set("kprimas", extend);
             // for (var key in extend) {

@@ -6,7 +6,7 @@ Route::get("/socket",function(Request $request){
 
     $id = $request->cookie('id');
     if(!$id){
-        return view("login");
+        return redirect("/login");
     }
     return view("socket");
     

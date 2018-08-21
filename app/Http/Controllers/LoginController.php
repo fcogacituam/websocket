@@ -9,7 +9,7 @@ class LoginController extends Controller
     public function login(Request $request){
 		// return $request;
 		$jar = new \GuzzleHttp\Cookie\CookieJar();
-		$client = new \GuzzleHttp\Client(['cookies'=>$jar]);
+		$client = new \GuzzleHttp\Client(['cookies'=>true]);
 
         $response = $client->post("https://ecore.builder.widefense.com/api/ecore/public/auth/login", [
             'auth' =>[
@@ -18,10 +18,11 @@ class LoginController extends Controller
 		]);
 
 		$cookieJar = $client->getConfig('cookies');
-		$cookieJar->toArray();
+$cookies= $cookieJar->toArray();
+$id= $cookies[1]['Value'];	
+		//print_r($response->getHeader('Set-Cookie')['id']);
+		//print_r($response);
 		
-		var_dump($response->cookies) ;
-		
-		// return redirect("/socket")->withCookie('id');
+		 return redirect("/socket")->withCookie('id',$id);
 	}
 }

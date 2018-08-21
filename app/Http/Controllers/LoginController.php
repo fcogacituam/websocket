@@ -20,7 +20,8 @@ class LoginController extends Controller
 		$cookieJar = $client->getConfig('cookies');
 		$cookieJar->toArray();
 		
-		// var_dump($response) ;
+		var_dump($response->cookies) ;
+		
 		// return redirect("/socket")->withCookie('id');
 	}
 }

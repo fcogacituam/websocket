@@ -10,9 +10,7 @@
 </head>
 <body>
     <div id="app">
-        <login-ecore v-if="!userId"></login-ecore>
-
-
+        <login-ecore v-if="!userId" @hola="setUserId"></login-ecore>
         <div class="container" v-else>
             <h2>Versionamiento local: <small>@{{lastVersion}}</small></h2>
         <table>

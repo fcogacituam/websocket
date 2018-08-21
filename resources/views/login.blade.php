@@ -11,7 +11,7 @@
 <body>
     <div id="app">
 
-    <form method="GET" action="{{ url('login') }}" >
+    <form method="POST" action="{{ url('login') }}" >
         <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
             <div class="form-group"><label for="">User: </label><input  type="text" class="form-control" id="userName"></div>
             <div class="form-group"><label for="">Password: </label><input type="password" class="form-control" id="passWord"></div>

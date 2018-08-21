@@ -11,4 +11,4 @@ Route::get("/socket",function(Request $request){
     return view("socket");
     
 });
-Route::get("/login",'LoginController@login');
+Route::post("/login",'LoginController@login');

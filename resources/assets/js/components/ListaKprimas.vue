@@ -5,6 +5,8 @@
             <small v-if="kprima.git">
                 {{name}}
             </small>
+            <small v-else-if="kprimasChannels && kprimasChannels['private-kprima.' + kprima.Id]" style="color:grey">esperando respuesta del K'..</small>
+
 	    </div>
        
         <div class="td">

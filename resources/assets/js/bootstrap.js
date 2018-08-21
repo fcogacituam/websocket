@@ -119,18 +119,41 @@ if (tkn) {
 }
 
 
-// function getCookie(cname) {
-//     var name = cname + "=";
-//     var decodedCookie = decodeURIComponent(document.cookie);
-//     var ca = decodedCookie.split(';');
-//     for (var i = 0; i < ca.length; i++) {
-//         var c = ca[i];
-//         while (c.charAt(0) == ' ') {
-//             c = c.substring(1);
-//         }
-//         if (c.indexOf(name) == 0) {
-//             return c.substring(name.length, c.length);
-//         }
-//     }
-//     return "";
-// }
+
+define(function () {
+    //COMO FUNCION
+    return function () {
+
+        /* SIN USAR VUEX */
+        //https://vuejs.org/v2/guide/state-management.html
+        window.store = {
+            state: {
+                kprimas: {}
+            },
+            get: function (key) {
+                if (this.state[key]) {
+                    return this.state[key];
+                }
+
+                var json = localStorage.getItem(key) || null;
+                if (json) {
+                    var value = null;
+                    try {
+                        value = JSON.parse(json);
+                    } catch (e) {
+                        //
+                    }
+
+                    Vue.set(this.state, key, value);
+                    return value;
+                }
+            },
+            set: function (key, value) {
+                Vue.set(this.state, key, value);
+                var json = JSON.stringify(value);
+                localStorage.setItem(key, json);
+            }
+        };
+
+    };
+});

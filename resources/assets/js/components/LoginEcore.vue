@@ -27,6 +27,7 @@
             login:function(event){
                 let user = this.mutableUser;
                 let passw= this.mutablePass;
+                var self=this;
 
                 axios.post('https://ecore.builder.widefense.com/api/ecore/public/auth/login',{}, {
                         auth:{
@@ -36,7 +37,7 @@
                     }).then(function(response){
                         // console.log(response.headers['user-id']);
                         // $emit('getId',response.headers['user-id'])
-                        this.uId = (response.headers['user-id']);
+                        self.$emit('hola',response.headers['user-id']);
 
                     }).catch(function(error){
                         console.log(error);

@@ -23,14 +23,11 @@
                 uId:''
             }
         },
-        mounted(){
-            var self=this;
-        },
         methods:{
             login:function(event){
                 let user = this.mutableUser;
                 let passw= this.mutablePass;
-                
+                var self=this;
 
                 axios.post('https://ecore.builder.widefense.com/api/ecore/public/auth/login',{}, {
                         auth:{

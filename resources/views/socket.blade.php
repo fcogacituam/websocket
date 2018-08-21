@@ -71,9 +71,9 @@
 			<component-kprima v-for="kprima in state.kprimas" v-bind="{kprima, repositorios_local, lastVersion, kprimasChannels}" :key="kprima.Id" inline-template>
                         <div :title="clientesList(kprima)" class="tr" >
 
-                            <div class='ip' style="display: table-cell" class="td">@{{kprima.Ip}}</div>
+                            <div  class="td">@{{kprima.Ip}}</div>
 
-                            <div style="display: table-cell; padding-left: 20px" class="td">
+                            <div  class="td">
                                 <small v-if="kprima.git">
                                     <div v-for="(repo, name) in kprima.git">
                                         @{{name}}:
@@ -94,10 +94,10 @@
                             </div>
 
                             <!-- LOADING -->
-                            <div v-if="kprima.loading" style="display: table-cell; padding-left: 20px" class="td">
+                            <div v-if="kprima.loading"  class="td">
                                 <i class="fa fa-spinner fa-pulse fa-fw"></i>
                             </div>
-                            <div v-else-if="kprima.git && lastVersion" style="display: table-cell; padding-left: 20px" class="td"> 
+                            <div v-else-if="kprima.git && lastVersion"  class="td"> 
                                 <a @click="actualizarK(kprima.Id)" href="javascript:void(0)">reset a la
                                     <b>@{{lastVersion}}</b>.*
                                 </a>

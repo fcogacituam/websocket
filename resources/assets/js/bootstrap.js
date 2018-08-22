@@ -95,7 +95,7 @@ window.io = require('socket.io-client');
             echo.join("clients")
                 .listen('ClientsEvent', function (msg) {
                     console.log('ClientsEvent', msg);
-                    $.notify(msg);
+                    // $.notify(msg);
                 })
                 .here(function (users) {
                     this.users = users;
@@ -128,24 +128,24 @@ window.io = require('socket.io-client');
                         }
 
                         //GET FULL ERROR
-                        for (var i = 0; i < data.msg.length; i++) {
-                            var msg = data.msg[i];
+                        // for (var i = 0; i < data.msg.length; i++) {
+                        //     var msg = data.msg[i];
 
-                            if (msg.length > 100) {
-                                var n = $.notify(msg, {
-                                    delay: 0
-                                });
-                                $(n.$ele).css({
-                                    position: "absolute",
-                                    top: 0,
-                                    left: 0,
-                                    right: 0,
-                                    'max-width': '100%'
-                                });
-                            } else {
-                                $.notify(msg);
-                            }
-                        }
+                        //     if (msg.length > 100) {
+                        //         var n = $.notify(msg, {
+                        //             delay: 0
+                        //         });
+                        //         $(n.$ele).css({
+                        //             position: "absolute",
+                        //             top: 0,
+                        //             left: 0,
+                        //             right: 0,
+                        //             'max-width': '100%'
+                        //         });
+                        //     } else {
+                        //         $.notify(msg);
+                        //     }
+                        // }
                     }
 
                     if (data.state) {

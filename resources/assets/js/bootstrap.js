@@ -91,7 +91,7 @@ window.io = require('socket.io-client');
                 }
             };
 
-            PRESENCE CHANNELS:
+            // PRESENCE CHANNELS:
             echo.join("clients")
                 .listen('ClientsEvent', function (msg) {
                     console.log('ClientsEvent', msg);

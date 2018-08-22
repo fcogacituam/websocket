@@ -17416,6 +17416,10 @@ window.vm = new Vue({
             this.kprimas = val;
             console.log(this.kprimas);
         },
+        kprimasChannels: function kprimasChannels(val) {
+            this.kprimasChannels = val;
+            console.log(this.kprimasChannels);
+        },
         state: {
             handler: function handler(state) {
                 console.log("state", state);
@@ -17426,14 +17430,10 @@ window.vm = new Vue({
     },
     mounted: function mounted() {
         var self = this;
-
+        self.userId = self.getCookie('id');
+        console.log(self.userId);
         // LISTA DE REPOSITORIOS
-        axios.post(apiConfigurador + "repositorio/reposVersions", {}, {
-            auth: {
-                username: 'fgacitua@widefense.com',
-                password: 'fr4nc15c0Ga'
-            }
-        }).then(function (response) {
+        axios.post(apiConfigurador + "repositorio/reposVersions").then(function (response) {
             var repos = response.data;
 
             // GET WEBSOCKET KPRIMAS STATE
@@ -17486,6 +17486,7 @@ window.vm = new Vue({
             // LLAMADO EVENT WEBSCOEKT GENÉRICO A TODOS LOS KPRIMAS
             axios.post(apiConfigurador + "event/kprimas", {
                 pathname: "git/get",
+                idUser: self.userId,
                 post: {
                     repos: this.repoArr
                 }
@@ -17521,12 +17522,7 @@ window.vm = new Vue({
         });
 
         // LISTA DE K' EN EL CANAL Kprimas DEL WESOCKET (DATOS INDEPENDIENTES)
-        axios.post(apiConfigurador + "socket/kprimasChannels", {}, {
-            auth: {
-                username: 'fgacitua@widefense.com',
-                password: 'fr4nc15c0Ga'
-            }
-        }).then(function (response) {
+        axios.post(apiConfigurador + "socket/kprimasChannels").then(function (response) {
             self.kprimasChannels = response.data;
         });
     }, methods: {
@@ -17562,8 +17558,20 @@ window.vm = new Vue({
             }
             return res;
         },
-        setUserId: function setUserId(value) {
-            this.userId = value;
+        getCookie: function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
         }
 
     }
@@ -17664,7 +17672,7 @@ window.io = __webpack_require__(58);
 //COMO FUNCION
 
 //INIT WEBSOCKET
-var url = "https://ecore.builder.widefense.com";
+var url = "https://ecore.widefense.com/";
 
 //https://laravel.com/docs/5.6/broadcasting
 var echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
@@ -17692,23 +17700,19 @@ var startWebsocket = function startWebsocket(token) {
         }
     };
 
-    //PRESENCE CHANNELS:
-    // echo.join("clients")
-    //     .listen('ClientsEvent', function (msg) {
-    //         console.log('ClientsEvent', msg);
-    //         $.notify(msg);
-    //     })
-    //     .here(function (users) {
-    //         this.users = users;
-    //         console.log("join users", users);
-    //     })
-    //     .joining(function (user) {
-    //         this.users.push(user);
-    //         console.log("joining user", user);
-    //     })
-    //     .leaving(function (user) {
-    //         console.log("leaving user", user);
-    //     });
+    // PRESENCE CHANNELS:
+    echo.join("clients").listen('ClientsEvent', function (msg) {
+        console.log('ClientsEvent', msg);
+        // $.notify(msg);
+    }).here(function (users) {
+        // this.users = users;
+        console.log("join users", users);
+    }).joining(function (user) {
+        // this.users.push(user);
+        console.log("joining user", user);
+    }).leaving(function (user) {
+        console.log("leaving user", user);
+    });
 
     //PRIVATE CHANNELS:
     var id = getCookie('id');
@@ -17728,24 +17732,24 @@ var startWebsocket = function startWebsocket(token) {
             }
 
             //GET FULL ERROR
-            for (var i = 0; i < data.msg.length; i++) {
-                var msg = data.msg[i];
+            // for (var i = 0; i < data.msg.length; i++) {
+            //     var msg = data.msg[i];
 
-                if (msg.length > 100) {
-                    var n = $.notify(msg, {
-                        delay: 0
-                    });
-                    $(n.$ele).css({
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        'max-width': '100%'
-                    });
-                } else {
-                    $.notify(msg);
-                }
-            }
+            //     if (msg.length > 100) {
+            //         var n = $.notify(msg, {
+            //             delay: 0
+            //         });
+            //         $(n.$ele).css({
+            //             position: "absolute",
+            //             top: 0,
+            //             left: 0,
+            //             right: 0,
+            //             'max-width': '100%'
+            //         });
+            //     } else {
+            //         $.notify(msg);
+            //     }
+            // }
         }
 
         if (data.state) {
@@ -57184,9 +57188,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
-    }
+    mounted: function mounted() {}
 });
 
 /***/ }),
@@ -57398,7 +57400,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['kprima', 'kprimasChannels']
@@ -57528,7 +57529,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var passw = this.mutablePass;
             var self = this;
 
-            axios.post('https://ecore.builder.widefense.com/api/ecore/public/auth/login', {}, {
+            axios.post('https://ecore.widefense.com/api/ecore/public/auth/login', {}, {
                 auth: {
                     username: user,
                     password: passw

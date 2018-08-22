@@ -46,8 +46,9 @@ class EventController extends Controller
         $pathname = $request->pathname;
         $post = $request->input("post", null);
         $jwt = $request->cookie('Authorization');
+	$idUser = $request->idUser;
 
-        return event(new KprimasEvent($pathname, $post, $jwt));
+        return event(new KprimasEvent($pathname, $post, $jwt,$idUser));
     }
 
     public function user(Request $request)

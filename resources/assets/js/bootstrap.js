@@ -153,7 +153,7 @@ window.io = require('socket.io-client');
         var tkn = getCookie('Authorization');
         if (tkn) {
             tkn = tkn.replace("+", " ");
-            startWebsocket(tkn);
+		 startWebsocket(tkn);
         }
 
         //PUBLIC:

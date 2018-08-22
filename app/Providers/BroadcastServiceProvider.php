@@ -34,13 +34,13 @@ class BroadcastServiceProvider extends ServiceProvider
         });
 
         //PRIVATES
-        Broadcast::channel('user.{id}', function ($user, $userId) {
-        //    if ($user->Id == $userId) {
-        //        return $user;
-        //    }
+        Broadcast::channel('user.{id}', function ($user,$userId) {
+           // if ($user->id == $userId) {
+             //  return $user;
+           // }
        
 
-		return true;
+		return $user;
 	 });
 
         Broadcast::channel('kprima.{id}', function ($user, $krpimaId) {
@@ -51,7 +51,7 @@ class BroadcastServiceProvider extends ServiceProvider
 
         //PRESENTIALS
         Broadcast::channel('clients', function ($user) {
-            $data = ['id' => $user->Id, 'name' => $user->Nombre];
+            $data = ['id' => $user->id, 'name' => $user->name];
             // $data = ['id' => '1', 'name' => 'Francisco'];
             return $data;
         });

@@ -95,14 +95,11 @@ window.vm = new Vue({
     },
     mounted: function () {
         var self = this;
-
+	self.userId= self.getCookie('id');
+	console.log(self.userId);
         // LISTA DE REPOSITORIOS
-        axios.post(apiConfigurador + "repositorio/reposVersions", {}, {
-            auth: {
-                username: 'fgacitua@widefense.com',
-                password: 'fr4nc15c0Ga'
-            }
-        }).then(function (response) {
+        axios.post(apiConfigurador + "repositorio/reposVersions",
+        ).then(function (response) {
             var repos = response.data;
 
             // GET WEBSOCKET KPRIMAS STATE
@@ -155,10 +152,11 @@ window.vm = new Vue({
             // LLAMADO EVENT WEBSCOEKT GENÉRICO A TODOS LOS KPRIMAS
             axios.post(apiConfigurador + "event/kprimas", {
                 pathname: "git/get",
+		idUser: self.userId,
                 post: {
                     repos: this.repoArr
                 }
-            }, {
+	},{
                     auth: {
                         username: 'fgacitua@widefense.com',
                         password: 'fr4nc15c0Ga'
@@ -167,12 +165,12 @@ window.vm = new Vue({
         });
 
         // LISTA COMPLETA DE K' DE LA BASE DE DATOS
-        axios.post(apiEcore + "nodo/k_primas", {}, {
-            auth: {
-                username: 'fgacitua@widefense.com',
+        axios.post(apiEcore + "nodo/k_primas",{},{
+		auth:{
+			username: 'fgacitua@widefense.com',
                 password: 'fr4nc15c0Ga'
-            }
-        }).then(function (response) {
+		}
+	}).then(function (response) {
             var res = response.data;
             var kprimas = {};
             for (var i = 0; i < res.length; i++) {
@@ -190,12 +188,7 @@ window.vm = new Vue({
         });
 
         // LISTA DE K' EN EL CANAL Kprimas DEL WESOCKET (DATOS INDEPENDIENTES)
-        axios.post(apiConfigurador + "socket/kprimasChannels", {}, {
-            auth: {
-                username: 'fgacitua@widefense.com',
-                password: 'fr4nc15c0Ga'
-            }
-        }).then(function (response) {
+        axios.post(apiConfigurador + "socket/kprimasChannels").then(function (response) {
             self.kprimasChannels = response.data;
         });
 
@@ -232,8 +225,20 @@ window.vm = new Vue({
             }
             return res;
         },
-        setUserId: function(value){
-            this.userId= value;
+        getCookie: function(cname){
+		var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
         }
         
     }

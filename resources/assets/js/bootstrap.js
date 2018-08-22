@@ -98,11 +98,11 @@ window.io = require('socket.io-client');
                     // $.notify(msg);
                 })
                 .here(function (users) {
-                    this.users = users;
+                    // this.users = users;
                     console.log("join users", users);
                 })
                 .joining(function (user) {
-                    this.users.push(user);
+                    // this.users.push(user);
                     console.log("joining user", user);
                 })
                 .leaving(function (user) {

@@ -98,11 +98,11 @@ window.io = require('socket.io-client');
                     // $.notify(msg);
                 })
                 .here(function (users) {
-                    // this.users = users;
+                    this.users = users;
                     console.log("join users", users);
                 })
                 .joining(function (user) {
-                    // this.users.push(user);
+                    this.users.push(user);
                     console.log("joining user", user);
                 })
                 .leaving(function (user) {
@@ -126,26 +126,6 @@ window.io = require('socket.io-client');
                         if (data.msg.constructor !== Array) {
                             data.msg = [data.msg];
                         }
-
-                        //GET FULL ERROR
-                        // for (var i = 0; i < data.msg.length; i++) {
-                        //     var msg = data.msg[i];
-
-                        //     if (msg.length > 100) {
-                        //         var n = $.notify(msg, {
-                        //             delay: 0
-                        //         });
-                        //         $(n.$ele).css({
-                        //             position: "absolute",
-                        //             top: 0,
-                        //             left: 0,
-                        //             right: 0,
-                        //             'max-width': '100%'
-                        //         });
-                        //     } else {
-                        //         $.notify(msg);
-                        //     }
-                        // }
                     }
 
                     if (data.state) {

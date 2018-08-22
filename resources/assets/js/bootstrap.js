@@ -63,7 +63,7 @@ window.io = require('socket.io-client');
     //COMO FUNCION
 
         //INIT WEBSOCKET
-     var url = "https://172.31.11.100:6001";
+     var url = "https://ecore.widefense.com/";
 
         //https://laravel.com/docs/5.6/broadcasting
         var echo = new Echo({
@@ -91,23 +91,23 @@ window.io = require('socket.io-client');
                 }
             };
 
-            //PRESENCE CHANNELS:
-            // echo.join("clients")
-            //     .listen('ClientsEvent', function (msg) {
-            //         console.log('ClientsEvent', msg);
-            //         $.notify(msg);
-            //     })
-            //     .here(function (users) {
-            //         this.users = users;
-            //         console.log("join users", users);
-            //     })
-            //     .joining(function (user) {
-            //         this.users.push(user);
-            //         console.log("joining user", user);
-            //     })
-            //     .leaving(function (user) {
-            //         console.log("leaving user", user);
-            //     });
+            PRESENCE CHANNELS:
+            echo.join("clients")
+                .listen('ClientsEvent', function (msg) {
+                    console.log('ClientsEvent', msg);
+                    $.notify(msg);
+                })
+                .here(function (users) {
+                    this.users = users;
+                    console.log("join users", users);
+                })
+                .joining(function (user) {
+                    this.users.push(user);
+                    console.log("joining user", user);
+                })
+                .leaving(function (user) {
+                    console.log("leaving user", user);
+                });
 
             //PRIVATE CHANNELS:
             var id = getCookie('id');

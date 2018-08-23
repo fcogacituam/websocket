@@ -96,7 +96,6 @@ window.vm = new Vue({
     mounted: function () {
         var self = this;
 	self.userId= self.getCookie('id');
-	console.log(self.userId);
         // LISTA DE REPOSITORIOS
         axios.post(apiConfigurador + "repositorio/reposVersions",
         ).then(function (response) {
@@ -152,7 +151,7 @@ window.vm = new Vue({
             // LLAMADO EVENT WEBSCOEKT GENÉRICO A TODOS LOS KPRIMAS
             axios.post(apiConfigurador + "event/kprimas", {
                 pathname: "git/get",
-		idUser: self.userId,
+		        idUser: self.userId,
                 post: {
                     repos: this.repoArr
                 }

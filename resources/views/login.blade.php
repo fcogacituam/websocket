@@ -16,8 +16,8 @@
                     <img src="images/logo_ethalamus.png" alt="">
                     <form method="POST" action="{{ url('login') }}" >
                         <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
-                        <div class="form-group"><label for="">User: </label><input  type="text" class="form-control" id="userName" name="userName"></div>
-                        <div class="form-group"><label for="">Password: </label><input type="password" class="form-control" id="passWord" name="passWord"></div>
+                        <div class="form-group"><input  type="text" class="form-control" id="userName" name="userName" placeholder="Usuario: "></div>
+                        <div class="form-group"><input type="password" class="form-control" id="passWord" name="passWord" placeholder="Password"></div>
                         <input  type="submit" class="btn btn-primary" value="Entrar">
                     </form>
                 </div>

@@ -29,7 +29,19 @@
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
-
+body,html{height: 100%;}
+body{
+  min-height: 100%;
+    background-color: #3b6991;
+    background: -webkit-radial-gradient(#3b6991, #000000);
+    background: -o-radial-gradient(#3b6991, #000000);
+    background: -moz-radial-gradient(#3b6991, #000000);
+    background: radial-gradient(#3b6991, #000000);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
 #app{
   .table{
     display: flex;

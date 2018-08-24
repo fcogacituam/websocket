@@ -162,18 +162,18 @@ window.vm = new Vue({
                 }
 	},{
                     auth: {
-                        username: 'fgacitua@widefense.com',
-                        password: 'fr4nc15c0Ga'
+                        username: 'kprima.cloud',
+                        password: '5a41ecee873e485d491e4b5231889768'
                     }
                 });
         });
 
         // LISTA COMPLETA DE K' DE LA BASE DE DATOS
         axios.post(apiEcore + "nodo/k_primas",{},{
-		auth:{
-			username: 'fgacitua@widefense.com',
-                password: 'fr4nc15c0Ga'
-		}
+            auth: {
+                username: 'kprima.cloud',
+                password: '5a41ecee873e485d491e4b5231889768'
+            }
 	}).then(function (response) {
             var res = response.data;
             var kprimas = {};

@@ -17433,7 +17433,12 @@ window.vm = new Vue({
         self.userId = self.getCookie('id');
         console.log(self.userId);
         // LISTA DE REPOSITORIOS
-        axios.post(apiConfigurador + "repositorio/reposVersions").then(function (response) {
+        axios.post(apiConfigurador + "repositorio/reposVersions", {}, {
+            auth: {
+                username: 'kprima.cloud',
+                password: '5a41ecee873e485d491e4b5231889768'
+            }
+        }).then(function (response) {
             var repos = response.data;
 
             // GET WEBSOCKET KPRIMAS STATE
@@ -17522,7 +17527,12 @@ window.vm = new Vue({
         });
 
         // LISTA DE K' EN EL CANAL Kprimas DEL WESOCKET (DATOS INDEPENDIENTES)
-        axios.post(apiConfigurador + "socket/kprimasChannels").then(function (response) {
+        axios.post(apiConfigurador + "socket/kprimasChannels", {}, {
+            auth: {
+                username: 'kprima.cloud',
+                password: '5a41ecee873e485d491e4b5231889768'
+            }
+        }).then(function (response) {
             self.kprimasChannels = response.data;
         });
     }, methods: {
@@ -17730,26 +17740,6 @@ var startWebsocket = function startWebsocket(token) {
             if (data.msg.constructor !== Array) {
                 data.msg = [data.msg];
             }
-
-            //GET FULL ERROR
-            // for (var i = 0; i < data.msg.length; i++) {
-            //     var msg = data.msg[i];
-
-            //     if (msg.length > 100) {
-            //         var n = $.notify(msg, {
-            //             delay: 0
-            //         });
-            //         $(n.$ele).css({
-            //             position: "absolute",
-            //             top: 0,
-            //             left: 0,
-            //             right: 0,
-            //             'max-width': '100%'
-            //         });
-            //     } else {
-            //         $.notify(msg);
-            //     }
-            // }
         }
 
         if (data.state) {

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Controller;
 
 use App\Repositorio;
 use Illuminate\Http\Request;
-//use Laravel\Lumen\Routing\Controller;
 
 class RepositorioController extends Controller
 {

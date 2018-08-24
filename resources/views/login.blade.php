@@ -12,7 +12,7 @@
     <div id="app">
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 login">
                     <img src="images/logo_ethalamus.png" alt="">
                     <form method="POST" action="{{ url('login') }}" >
                         <input name="_token" type="hidden" value="{{ csrf_token() }}"/>

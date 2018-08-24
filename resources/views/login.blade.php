@@ -20,8 +20,14 @@
                         <div class="form-group"><input type="password" class="form-control" id="passWord" name="passWord" placeholder="Password"></div>
                         <input  type="submit" class="btn btn-primary" value="Entrar">
                     </form>
+                    
+                </div>
+                <div class="col-md-12">
                     @if (Session::has('error'))
-                        <div class="alert alert-info">{{ Session::get('error') }}</div>
+                        <div class="alert alert-danger">
+                            <i class="fas fa-exclamation-circle"></i>
+                            {{ Session::get('error') }}
+                        </div>
                     @endif
                 </div>
             </div>

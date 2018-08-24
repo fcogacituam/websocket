@@ -20,9 +20,8 @@
                         <div class="form-group"><input type="password" class="form-control" id="passWord" name="passWord" placeholder="Password"></div>
                         <input  type="submit" class="btn btn-primary" value="Entrar">
                     </form>
-                    @if($errors->any())
-                        <h4>{{$errors->first()}}</h4>
-
+                    @if (Session::has('error'))
+                        <div class="alert alert-info">{{ Session::get('error') }}</div>
                     @endif
                 </div>
             </div>

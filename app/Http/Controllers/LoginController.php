@@ -18,7 +18,8 @@ class LoginController extends Controller
 			]
 		]);
 		}catch(\Exception $ex){
-			return view("/login")->withErrors(['msg', 'Usuario o contraseña incorrecta']);;
+			Session::flash('error','Usuario o contraseña incorrecto');
+			return view("/login");
 		}
         
 

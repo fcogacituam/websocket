@@ -17435,7 +17435,7 @@ window.vm = new Vue({
         // LISTA DE REPOSITORIOS
         axios.post(apiConfigurador + "repositorio/reposVersions", {}, {
             auth: {
-                username: 'kprima.cloud',
+                username: 'kprima.prueba',
                 password: '5a41ecee873e485d491e4b5231889768'
             }
         }).then(function (response) {
@@ -17529,7 +17529,7 @@ window.vm = new Vue({
         // LISTA DE K' EN EL CANAL Kprimas DEL WESOCKET (DATOS INDEPENDIENTES)
         axios.post(apiConfigurador + "socket/kprimasChannels", {}, {
             auth: {
-                username: 'kprima.cloud',
+                username: 'kprima.prueba',
                 password: '5a41ecee873e485d491e4b5231889768'
             }
         }).then(function (response) {

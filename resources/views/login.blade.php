@@ -10,13 +10,20 @@
 </head>
 <body>
     <div id="app">
-
-    <form method="POST" action="{{ url('login') }}" >
-        <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
-            <div class="form-group"><label for="">User: </label><input  type="text" class="form-control" id="userName" name="userName"></div>
-            <div class="form-group"><label for="">Password: </label><input type="password" class="form-control" id="passWord" name="passWord"></div>
-            <input  type="submit" class="btn btn-primary" value="Entrar">
-        </form>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <img src="images/logo_ethalamus.png" alt="">
+                    <form method="POST" action="{{ url('login') }}" >
+                        <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
+                        <div class="form-group"><label for="">User: </label><input  type="text" class="form-control" id="userName" name="userName"></div>
+                        <div class="form-group"><label for="">Password: </label><input type="password" class="form-control" id="passWord" name="passWord"></div>
+                        <input  type="submit" class="btn btn-primary" value="Entrar">
+                    </form>
+                </div>
+            </div>
+        </div>
+    
 
     </div>
 

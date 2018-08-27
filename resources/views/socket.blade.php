@@ -99,12 +99,8 @@
                             </div>
                             <div v-else-if="kprima.git && lastVersion"  class="td"> 
                                 <div v-for="repo in kprima.git">
-                                    <small v-if="repo.version.split('-')[0] === 1.0.5">
-                                        no hacer nada
-                                    </small>
-                                    <small v-else>
-                                        es distinto! hay que hacer algo
-                                    </small>
+                                   
+                                    @{{repo.version.split('-')[0] === '1.0.5'? 'está actualizado' :'hay que actualizar'}}
                                 </div>
                                 <div v-for="rep in repositorios_local">
                                     @{{rep}}

@@ -99,7 +99,7 @@
                             </div>
                             <div v-else-if="kprima.git && lastVersion"  class="td"> 
                                 <div v-for="repo in kprima.git">
-                                    <small v-id="repo.version.split('-')[0] == 1.0.5">
+                                    <small v-if="repo.version.split('-')[0] == 1.0.5">
                                         no hacer nada
                                     </small>
                                     <small v-else>

@@ -23,7 +23,7 @@ Vue.component('login-ecore', require('./components/LoginEcore.vue'));
 var apiEcore = "../../../api/ecore/public/";
 var apiConfigurador = "../../../api/websocket/public/api/";
 Vue.component("component-kprima", {
-                props: ['kprima', 'repositorios_local', 'lastVersion', 'kprimasChannels','kprimas','userId','repos'],
+    props: ['kprima', 'repositorios_local', 'lastVersion', 'kprimasChannels', 'kprimas', 'userId','repositorios_local'],
                 watch: {
                     kprima: {
                         handler: function (kprima) {
@@ -72,7 +72,6 @@ window.vm = new Vue({
             repoArr: null,
             kprimasChannels: null,
             userId:'',
-            repos:'',
         }
     },
     watch: {
@@ -108,7 +107,6 @@ window.vm = new Vue({
 	}
         ).then(function (response) {
             var repos = response.data;
-            self.repos= repos;
 
             // GET WEBSOCKET KPRIMAS STATE
             var repoArr = {};

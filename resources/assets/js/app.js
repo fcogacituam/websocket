@@ -35,11 +35,12 @@ Vue.component("component-kprima", {
                 methods: {
                     actualizarK: function (kprimaId) {
                         //add loading
-                        this.$set(this.state.kprimas[kprimaId], "loading", true);
-
+                        // this.$set(this.state.kprimas[kprimaId], "loading", true);
+                        var userId= window.vm.getCookie('id');
                         axios.post(apiConfigurador + "event/kprima", {
                             id: kprimaId,
                             pathname: "git/reset",
+                            userId: userId,
                             post: {
                                 repos: this.repositorios_local
                             }

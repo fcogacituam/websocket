@@ -28,7 +28,7 @@ public $idUser;
         $this->pathname = $pathname;
         $this->post = $post;
         $this->jwt = $jwt;
-	$this->idUser = $idUser;
+	    $this->idUser = $idUser;
     }
 
     /**

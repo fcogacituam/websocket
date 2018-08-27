@@ -32,6 +32,14 @@ Vue.component("component-kprima", {
                         deep: true
                     }
                 },
+                computed:{
+                    update: function(){
+                        return true;
+                    },
+                    downgrade: function(){
+
+                    }
+                },
                 methods: {
                     actualizarK: function (kprimaId) {
                         //add loading

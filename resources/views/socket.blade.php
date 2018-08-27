@@ -98,6 +98,9 @@
                                 <i class="fa fa-spinner fa-pulse fa-fw"></i>
                             </div>
                             <div v-else-if="kprima.git && lastVersion"  class="td"> 
+                                <div v-for="repo in kprima.git">
+                                    @{{repo}}
+                                </div>
                                 <a @click="actualizarK(kprima.Id)" href="javascript:void(0)">reset a la
                                     <b>@{{lastVersion}}</b>.*
                                 </a>

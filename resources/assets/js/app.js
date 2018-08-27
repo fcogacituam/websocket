@@ -35,9 +35,7 @@ Vue.component("component-kprima", {
                 methods: {
                     actualizarK: function (kprimaId) {
                         //add loading
-		console.log("kprimaId: ",kprimaId);
-var userId = window.vm.getCookie('id');
-console.log("userId: ",userId);
+                        var userId = window.vm.getCookie('id');
                         //this.$set(this.state.kprimas[kprimaId], "loading", true);
 
                         axios.post(apiConfigurador + "event/kprima", {

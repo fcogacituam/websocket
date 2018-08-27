@@ -17358,7 +17358,7 @@ Vue.component('login-ecore', __webpack_require__(94));
 var apiEcore = "../../../api/ecore/public/";
 var apiConfigurador = "../../../api/websocket/public/api/";
 Vue.component("component-kprima", {
-    props: ['kprima', 'repositorios_local', 'lastVersion', 'kprimasChannels'],
+    props: ['kprima', 'repositorios_local', 'lastVersion', 'kprimasChannels', 'kprimas', 'userId'],
     watch: {
         kprima: {
             handler: function handler(kprima) {
@@ -17370,11 +17370,15 @@ Vue.component("component-kprima", {
     methods: {
         actualizarK: function actualizarK(kprimaId) {
             //add loading
-            this.$set(this.state.kprimas[kprimaId], "loading", true);
+            console.log("kprimaId: ", kprimaId);
+            var userId = window.vm.getCookie('id');
+            console.log("userId: ", userId);
+            //this.$set(this.state.kprimas[kprimaId], "loading", true);
 
             axios.post(apiConfigurador + "event/kprima", {
                 id: kprimaId,
                 pathname: "git/reset",
+                userId: userId,
                 post: {
                     repos: this.repositorios_local
                 }
@@ -17431,7 +17435,6 @@ window.vm = new Vue({
     mounted: function mounted() {
         var self = this;
         self.userId = self.getCookie('id');
-        console.log(self.userId);
         // LISTA DE REPOSITORIOS
         axios.post(apiConfigurador + "repositorio/reposVersions", {}, {
             auth: {
@@ -17497,8 +17500,8 @@ window.vm = new Vue({
                 }
             }, {
                 auth: {
-                    username: 'fgacitua@widefense.com',
-                    password: 'fr4nc15c0Ga'
+                    username: 'kprima.prueba',
+                    password: '5a41ecee873e485d491e4b5231889768'
                 }
             });
         });
@@ -17506,8 +17509,8 @@ window.vm = new Vue({
         // LISTA COMPLETA DE K' DE LA BASE DE DATOS
         axios.post(apiEcore + "nodo/k_primas", {}, {
             auth: {
-                username: 'fgacitua@widefense.com',
-                password: 'fr4nc15c0Ga'
+                username: 'kprima.prueba',
+                password: '5a41ecee873e485d491e4b5231889768'
             }
         }).then(function (response) {
             var res = response.data;
@@ -17539,7 +17542,8 @@ window.vm = new Vue({
         actualizar: function actualizar(repositorio, version) {
             var self = this;
             this.$set(self.repositorios_local[repositorio], "loading", true);
-
+            console.log("repositorio: ", repositorio);
+            console.log("version: ", version);
             axios.post(apiConfigurador + "repositorio/actualizar", {
                 repo: repositorio,
                 version: version
@@ -17682,7 +17686,7 @@ window.io = __webpack_require__(58);
 //COMO FUNCION
 
 //INIT WEBSOCKET
-var url = "https://ecore.widefense.com/";
+var url = "https://ecore.builder.widefense.com/";
 
 //https://laravel.com/docs/5.6/broadcasting
 var echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
@@ -57519,7 +57523,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var passw = this.mutablePass;
             var self = this;
 
-            axios.post('https://ecore.widefense.com/api/ecore/public/auth/login', {}, {
+            axios.post('https://ecore.builder.widefense.com/api/ecore/public/auth/login', {}, {
                 auth: {
                     username: user,
                     password: passw

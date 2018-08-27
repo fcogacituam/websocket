@@ -68,7 +68,7 @@
                     <div class="tbody">
                         {{-- <lista-kprimas v-for="kprima in kprimas" :key="kprima.Id" :kprima="kprima" :kprimas-channels="kprimasChannels"></lista-kprimas> --}}
 
-			<component-kprima v-for="kprima in state.kprimas" v-bind="{kprima, repositorios_local, lastVersion, kprimasChannels}" :key="kprima.Id" inline-template>
+			<component-kprima v-for="kprima in state.kprimas" v-bind="{kprima, repositorios_local, lastVersion, kprimasChannels,kprimas,userId}" :key="kprima.Id" inline-template>
                         <div :title="clientesList(kprima)" class="tr" >
 
                             <div  class="td">@{{kprima.Ip}}</div>

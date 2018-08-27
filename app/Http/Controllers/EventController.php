@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\ClientsEvent;
+use App\Events\KprimaEvent;
 use App\Events\KprimasEvent;
 use App\Events\MessageEvent;
 use App\Events\UserEvent;
@@ -33,8 +34,8 @@ class EventController extends Controller
         $pathname = $request->pathname;
         $post = $request->input("post", null);
         $jwt = $request->cookie('Authorization');
-
-        return event(new KprimaEvent($id, $pathname, $post, $jwt));
+        $idUser = $request->userId;
+        return event(new KprimaEvent($id, $pathname, $post, $jwt, $idUser));
     }
 
     public function kprimas(Request $request)

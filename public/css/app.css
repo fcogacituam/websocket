@@ -10477,6 +10477,29 @@ a.text-dark:focus {
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+body.login {
+  height: 100%;
+}
+
+body.login {
+  min-height: 100%;
+  background-color: #3b6991;
+  background: radial-gradient(#3b6991, #000000);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
 #app .table {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -10545,5 +10568,15 @@ a.text-dark:focus {
 
 #app .table .tbody .tr:nth-child(odd) {
   background: rgba(0, 0, 0, 0.1);
+}
+
+#app .login img {
+  max-height: 280px;
+}
+
+#app .login input[type='submit'] {
+  background: #7cb829;
+  width: 100%;
+  border: none;
 }
 

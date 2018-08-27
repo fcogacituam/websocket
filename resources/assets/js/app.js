@@ -206,7 +206,7 @@ window.vm = new Vue({
         actualizar: function (repositorio, version) {
             var self = this;
             this.$set(self.repositorios_local[repositorio], "loading", true);
-
+            
             axios.post(apiConfigurador + "repositorio/actualizar", {
                 repo: repositorio,
                 version: version

@@ -23,7 +23,7 @@ Vue.component('login-ecore', require('./components/LoginEcore.vue'));
 var apiEcore = "../../../api/ecore/public/";
 var apiConfigurador = "../../../api/websocket/public/api/";
 Vue.component("component-kprima", {
-                props: ['kprima', 'repositorios_local', 'lastVersion', 'kprimasChannels','kprimas','userId'],
+                props: ['kprima', 'repositorios_local', 'lastVersion', 'kprimasChannels','kprimas','userId','repos'],
                 watch: {
                     kprima: {
                         handler: function (kprima) {
@@ -72,6 +72,7 @@ window.vm = new Vue({
             repoArr: null,
             kprimasChannels: null,
             userId:'',
+            repos:'',
         }
     },
     watch: {
@@ -97,7 +98,7 @@ window.vm = new Vue({
     },
     mounted: function () {
         var self = this;
-	self.userId= self.getCookie('id');
+	    self.userId= self.getCookie('id');
         // LISTA DE REPOSITORIOS
         axios.post(apiConfigurador + "repositorio/reposVersions",{},{
 		auth:{
@@ -107,6 +108,7 @@ window.vm = new Vue({
 	}
         ).then(function (response) {
             var repos = response.data;
+            self.repos= repos;
 
             // GET WEBSOCKET KPRIMAS STATE
             var repoArr = {};

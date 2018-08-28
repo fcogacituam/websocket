@@ -98,14 +98,10 @@
                                 <i class="fa fa-spinner fa-pulse fa-fw"></i>
                             </div>
                             <div v-else-if="kprima.git && lastVersion"  class="td"> 
-                                <div v-if="update">    update!      </div>
-                                <div v-else> no update xd</div>
-
-
-
                                 <div v-for="repo in kprima.git">
+                                    Repo: @{{repo}}
                                     <div v-for="rep in repositorio_local">
-                                        Repo: @{{repo}}
+                                        
                                         Local: @{{rep}}
                                         {{-- <div v-if="">
 
@@ -114,11 +110,9 @@
 
                                         </div> --}}
                                     </div>
-                                    @{{repo.version.split('-')[0] === '1.0.5'? 'está actualizado' :'hay que actualizar'}}
+                                    {{-- @{{repo.version.split('-')[0] === '1.0.5'? 'está actualizado' :'hay que actualizar'}} --}}
                                 </div>
-                                <div v-for="rep in repositorios_local">
-                                    @{{rep}}
-                                </div>
+                               
                                 <a @click="actualizarK(kprima.Id)" href="javascript:void(0)">reset a la
                                     <b>@{{lastVersion}}</b>.*
                                 </a>

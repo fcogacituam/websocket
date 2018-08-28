@@ -100,7 +100,7 @@
                             <div v-else-if="kprima.git && lastVersion"  class="td"> 
                                 <div v-for="repo in kprima.git">
                                     Repo: @{{repo}}
-                                    <div v-for="rep in repositorio_local">
+                                    <div v-for="rep in repositorios_local">
                                         
                                         Local: @{{rep}}
                                         {{-- <div v-if="">

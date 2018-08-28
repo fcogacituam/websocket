@@ -7,6 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <title>Sockets</title>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 </head>
 <body>
     <div id="app">
@@ -99,22 +100,17 @@
                             </div>
                             <div v-else-if="kprima.git && lastVersion"  class="td"> 
                                 <div v-for="repo in kprima.git">
+				
+
                                     <div v-for="rep in repositorios_local">
 
                                          <div v-if="repo.route.substr(repo.route.lastIndexOf('/') ) === rep.route.substr(rep.route.lastIndexOf('/') )">
-						@{{repo.route.substr(repo.route.lastIndexOf('/'))}}
-						versión kprima: @{{   repo.version.split('-')[0]  }}
-						versión local: @{{ rep.version.split('-')[0]  }}
-                                        </div>
+					<actualizar-kprima v-bind="{repo,rep,kprima}"></actualizar-kprima>
 
-                                        <a v-on:load="versiones" href=""></a>
+                                        </div>
                                     </div>
                                     {{-- @{{  repo.version.split('-')[0] === '1.0.5'? 'está actualizado' :'hay que actualizar'}} --}}
                                 </div>
-                               
-                                <a @click="actualizarK(kprima.Id)" href="javascript:void(0)">reset a la
-                                    <b>@{{lastVersion}}</b>.*
-                                </a>
                             </div>
                             <div v-else style="display: table-cell"></div>
 
@@ -136,5 +132,11 @@
     
 
  <script src="{{ asset('js/app.js')}}"></script>
+<script>
+jQuery(function () {
+  jQuery('[data-toggle="tooltip"]').tooltip()
+})
+
+</script>
 </body>
 </html>

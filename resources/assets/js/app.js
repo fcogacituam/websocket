@@ -22,9 +22,90 @@ Vue.component('login-ecore', require('./components/LoginEcore.vue'));
 
 var apiEcore = "../../../api/ecore/public/";
 var apiConfigurador = "../../../api/websocket/public/api/";
+
+
+Vue.component("actualizar-kprima",{
+	props:["repo",'rep','kprima'],
+	data:function(){return{
+		estado:{},
+		kprimaId:this.kprima.Id
+	}},
+	watch:{
+		estado: function(val){
+			this.estado=val;console.log(val);
+		}
+	},
+	mounted(){
+		this.versiones(this.repo,this.rep);
+	},
+	methods:{
+		prueba:function(kprimaId,version){
+			console.log(kprimaId);
+			console.log(version);
+			window.vm.prueba();
+		},
+		versiones: function(local,kprima){
+			 //console.log("LOCAL: ",local);
+                        //console.log("KPRIMA: ",kprima);
+                        var vLocal= local.version.split('-')[0];
+                        var vKprima= kprima.version.split('-')[0];
+                        //console.log("versión local:"+vLocal+". versión kprima: "+vKprima);
+                        var localArr= vLocal.split(".");
+                        var kprimaArr= vKprima.split(".");
+                        var diff= Math.abs(local.count - kprima.count);
+			var estado = {};
+                        if(localArr[0]<kprimaArr[0]){
+                                //console.log("devolver versión ");
+                        }else if(localArr[0]>kprimaArr[0]){
+                                //console.log("actualizar versión");
+                        }else{
+                                if(localArr[1] > kprimaArr[1]){
+                                        //console.log("actualizar dependencia");
+                                }else if(localArr[1]< kprimaArr[1]){
+                                        //console.log("devolver dependencia");
+                                }else{
+                                        if(localArr[2]>kprimaArr[2]){
+                                                //console.log("actualizar release");
+                                                 estado={'message':'Actualizar release','diff':diff}
+                                                this.estado=estado;
+
+                                        }else if(localArr[2]<kprimaArr[2]){
+                                                //console.log("devolver release");
+                                                estado={'message':'Devolver release','diff':diff}
+                                                this.estado=estado;
+                                        }else{
+                                                if(local.count > kprima.count){
+                                                        //console.log("actualizar "+diff+" commits");
+                                                        estado = {
+                                                                'message':'Actualizar commits',
+                                                                'diff':diff,
+								'class':'btn-success'
+                                                                }
+							this.estado = estado;
+                                                }else if(local.count < kprima.count){
+                                                        //console.log("devolver "+diff+" commits");
+                                                        estado={'message':'Devolver '+diff+' commits','diff':diff,'class':'btn-warning'}
+                                                        this.estado=estado;
+                                                }else{
+                                                        estado={'message':'Actualizado','diff':''}
+                                                        this.estado=estado;
+
+                                                }
+                                        }
+                                }
+                        }
+		}
+	},
+	template:'<div class="actualizar">\
+			<a class="btn btn-sm" v-bind:class="estado.class" @click.prevent="prueba(kprimaId,estado.version)" href="">{{estado.message}}</a>\
+		</div>'
+});
+
+
+
 Vue.component("component-kprima", {
-    props: ['kprima', 'repositorios_local', 'lastVersion', 'kprimasChannels', 'kprimas', 'userId','repositorios_local'],
-                watch: {
+    props: ['kprima','repositorios_local', 'lastVersion', 'kprimasChannels', 'kprimas', 'userId','repositorios_local'],
+		watch: {
                     kprima: {
                         handler: function (kprima) {
                             console.log("kprima", kprima);
@@ -32,25 +113,19 @@ Vue.component("component-kprima", {
                         deep: true
                     }
                 },
-                computed:{
-                    update: function(){
-                        
-                    },
-                    downgrade: function(){
+		methods:{
+			  prueba:function(){
+				console.log("funcion desde actualizador-component");
+                        },
 
-                    }
-                },
-                methods: {
-                    versiones: function(){
-                        console.log("llame a la función!");
-                    },
-                    actualizarK: function (kprimaId) {
+                    actualizarK: function (kprimaId,version) {
                         //add loading
                         var userId = window.vm.getCookie('id');
                         //this.$set(this.state.kprimas[kprimaId], "loading", true);
 
                         axios.post(apiConfigurador + "event/kprima", {
                             id: kprimaId,
+			    version:version,
                             pathname: "git/reset",
 			                userId: userId,
                             post: {
@@ -71,6 +146,8 @@ Vue.component("component-kprima", {
                     }
                 }
             });
+
+
 window.vm = new Vue({
     el: '#app',
     data: function () {
@@ -215,6 +292,9 @@ window.vm = new Vue({
         });
 
     }, methods: {
+	prueba: function(){
+		console.log("metodo prueba desde root");
+	},
         actualizar: function (repositorio, version) {
             var self = this;
             this.$set(self.repositorios_local[repositorio], "loading", true);
@@ -282,3 +362,4 @@ function sortVersions(arr) {
     return versions.map(a => a.split('.').map(n => +n + 100000).join('.')).sort()
         .map(a => a.split('.').map(n => +n - 100000).join('.'));
 }
+$('[data-toggle="tooltip"]').tooltip();

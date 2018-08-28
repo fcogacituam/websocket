@@ -41,7 +41,9 @@ Vue.component("component-kprima", {
                     }
                 },
                 methods: {
-
+                    versiones: function(){
+                        console.log("llame a la función!");
+                    },
                     actualizarK: function (kprimaId) {
                         //add loading
                         var userId = window.vm.getCookie('id');

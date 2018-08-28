@@ -61,39 +61,62 @@ Vue.component("actualizar-kprima",{
                         }else{
                                 if(localArr[1] > kprimaArr[1]){
                                         //console.log("actualizar dependencia");
+                                    estado = {
+                                        'message': 'Actualizar dependencia',
+                                        'diff': diff,
+                                        'version':local.
+                                    }
                                 }else if(localArr[1]< kprimaArr[1]){
                                         //console.log("devolver dependencia");
+                                    estado = {
+                                        'message': 'Devolver dependencia',
+                                        'diff': diff,
+                                        'version':local.
+                                    }
                                 }else{
                                         if(localArr[2]>kprimaArr[2]){
                                                 //console.log("actualizar release");
-                                                 estado={'message':'Actualizar release','diff':diff}
-                                                this.estado=estado;
-
+                                                estado={
+                                                    'message':'Actualizar release',
+                                                    'diff':diff,
+                                                    'version':local.
+                                                }
                                         }else if(localArr[2]<kprimaArr[2]){
                                                 //console.log("devolver release");
-                                                estado={'message':'Devolver release','diff':diff}
-                                                this.estado=estado;
+                                                estado={
+                                                    'message':'Devolver release',
+                                                    'diff':diff,
+                                                    'version':local.
+                                                }
                                         }else{
                                                 if(local.count > kprima.count){
                                                         //console.log("actualizar "+diff+" commits");
                                                         estado = {
-                                                                'message':'Actualizar commits',
-                                                                'diff':diff,
-								'class':'btn-success'
-                                                                }
-							this.estado = estado;
+                                                            'message':'Actualizar commits',
+                                                            'diff':diff,
+                                                            'class':'btn-success',
+                                                            'version':local.
+                                                        }
                                                 }else if(local.count < kprima.count){
                                                         //console.log("devolver "+diff+" commits");
-                                                        estado={'message':'Devolver '+diff+' commits','diff':diff,'class':'btn-warning'}
-                                                        this.estado=estado;
+                                                        estado={
+                                                            'message':'Devolver '+diff+' commits',
+                                                            'diff':diff,
+                                                            'class':'btn-warning',
+                                                            'version':local.
+                                                        }
                                                 }else{
-                                                        estado={'message':'Actualizado','diff':''}
-                                                        this.estado=estado;
+                                                        estado={
+                                                            'message':'Actualizado',
+                                                            'diff':''
+                                                        }
+                                                        
 
                                                 }
                                         }
                                 }
                         }
+            this.estado = estado;
 		}
 	},
 	template:'<div class="actualizar">\

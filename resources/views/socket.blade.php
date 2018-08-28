@@ -99,18 +99,15 @@
                             </div>
                             <div v-else-if="kprima.git && lastVersion"  class="td"> 
                                 <div v-for="repo in kprima.git">
-                                    Repo: @{{repo}}
                                     <div v-for="rep in repositorios_local">
-                                        
-                                        Local: @{{rep}}
-                                        {{-- <div v-if="">
 
+                                         <div v-if="repo.route.substr(repo.route.lastIndexOf('/') ) === rep.route.substr(rep.route.lastIndexOf('/') )">
+						@{{repo.route.substr(repo.route.lastIndexOf('/'))}}
+						versión kprima: @{{   repo.version.split('-')[0]  }}
+						versión local: @{{ rep.version.split('-')[0]  }}
                                         </div>
-                                        <div v-else>
-
-                                        </div> --}}
                                     </div>
-                                    {{-- @{{repo.version.split('-')[0] === '1.0.5'? 'está actualizado' :'hay que actualizar'}} --}}
+                                    {{-- @{{  repo.version.split('-')[0] === '1.0.5'? 'está actualizado' :'hay que actualizar'}} --}}
                                 </div>
                                
                                 <a @click="actualizarK(kprima.Id)" href="javascript:void(0)">reset a la

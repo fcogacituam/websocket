@@ -17358,7 +17358,7 @@ Vue.component('login-ecore', __webpack_require__(94));
 var apiEcore = "../../../api/ecore/public/";
 var apiConfigurador = "../../../api/websocket/public/api/";
 Vue.component("component-kprima", {
-    props: ['kprima', 'repositorios_local', 'lastVersion', 'kprimasChannels', 'kprimas', 'userId'],
+    props: ['kprima', 'repositorios_local', 'lastVersion', 'kprimasChannels', 'kprimas', 'userId', 'repositorios_local'],
     watch: {
         kprima: {
             handler: function handler(kprima) {
@@ -17367,12 +17367,15 @@ Vue.component("component-kprima", {
             deep: true
         }
     },
+    computed: {
+        update: function update() {},
+        downgrade: function downgrade() {}
+    },
     methods: {
+
         actualizarK: function actualizarK(kprimaId) {
             //add loading
-            console.log("kprimaId: ", kprimaId);
             var userId = window.vm.getCookie('id');
-            console.log("userId: ", userId);
             //this.$set(this.state.kprimas[kprimaId], "loading", true);
 
             axios.post(apiConfigurador + "event/kprima", {

@@ -107,7 +107,7 @@
 						versión local: @{{ rep.version.split('-')[0]  }}
                                         </div>
 
-                                        <a v-on:load("versiones")>jejeje</a>
+                                        <a v-on:load="versiones" href=""></a>
                                     </div>
                                     {{-- @{{  repo.version.split('-')[0] === '1.0.5'? 'está actualizado' :'hay que actualizar'}} --}}
                                 </div>

@@ -34,13 +34,14 @@ Vue.component("component-kprima", {
                 },
                 computed:{
                     update: function(){
-                        return true;
+                        
                     },
                     downgrade: function(){
 
                     }
                 },
                 methods: {
+
                     actualizarK: function (kprimaId) {
                         //add loading
                         var userId = window.vm.getCookie('id');

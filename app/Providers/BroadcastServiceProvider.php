@@ -43,9 +43,9 @@ class BroadcastServiceProvider extends ServiceProvider
 		return $user;
 	 });
 
-        Broadcast::channel('kprima.{id}', function ($user, $krpimaId) {
+        Broadcast::channel('kprima.{id}', function ($user, $kprimaId) {
            return [    
-               'id' => $krpimaId,
+               'id' => $kprimaId,
            ];
         });
 

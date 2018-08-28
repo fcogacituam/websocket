@@ -17,14 +17,15 @@ class KprimaEvent implements ShouldBroadcast
     public $post;
     public $jwt;
     public $idUser;
-
-    public function __construct($kprima_id, $pathname, $post, $jwt, $idUser)
+   public $version;
+    public function __construct($kprima_id, $pathname, $post, $jwt, $idUser,$version)
     {
       	$this->kprima_id = $kprima_id;
         $this->pathname = $pathname;
         $this->post = $post;
         $this->jwt = $jwt;
     	$this->idUser = $idUser;
+	$this->version= $version;
     }
 
     /**

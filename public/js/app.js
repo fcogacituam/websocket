@@ -17377,13 +17377,13 @@ Vue.component("actualizar-kprima", {
 
     methods: {
         prueba: function prueba(kprimaId, version) {
-            console.log(kprimaId);
-            console.log(version);
-            window.vm.prueba();
+            //console.log(kprimaId);
+            //console.log(version);
+            window.vm.actualizarK(kprimaId, version);
         },
-        versiones: function versiones(local, kprima) {
-            //console.log("LOCAL: ",local);
-            //console.log("KPRIMA: ",kprima);
+        versiones: function versiones(kprima, local) {
+            console.log("LOCAL: ", local);
+            console.log("KPRIMA: ", kprima);
             var vLocal = local.version.split('-')[0];
             var vKprima = kprima.version.split('-')[0];
             //console.log("versión local:"+vLocal+". versión kprima: "+vKprima);
@@ -17391,43 +17391,72 @@ Vue.component("actualizar-kprima", {
             var kprimaArr = vKprima.split(".");
             var diff = Math.abs(local.count - kprima.count);
             var estado = {};
+            var vToUpdate = local.version.split('-')[0];
             if (localArr[0] < kprimaArr[0]) {
                 //console.log("devolver versión ");
+                estado = {
+                    'message': 'Devolver a ' + vToUpdate + '',
+                    'diff': diff,
+                    'version': local.version
+                };
             } else if (localArr[0] > kprimaArr[0]) {
                 //console.log("actualizar versión");
             } else {
                 if (localArr[1] > kprimaArr[1]) {
                     //console.log("actualizar dependencia");
+                    estado = {
+                        'message': 'Actualizar a ' + vToUpdate + '',
+                        'diff': diff,
+                        'version': local.version
+                    };
                 } else if (localArr[1] < kprimaArr[1]) {
                     //console.log("devolver dependencia");
+                    estado = {
+                        'message': 'Devolver a ' + vToUpdate + '',
+                        'diff': diff,
+                        'version': local.version
+                    };
                 } else {
                     if (localArr[2] > kprimaArr[2]) {
                         //console.log("actualizar release");
-                        estado = { 'message': 'Actualizar release', 'diff': diff };
-                        this.estado = estado;
+                        estado = {
+                            'message': 'Actualizar a ' + vToUpdate + '',
+                            'diff': diff,
+                            'version': local.version
+                        };
                     } else if (localArr[2] < kprimaArr[2]) {
                         //console.log("devolver release");
-                        estado = { 'message': 'Devolver release', 'diff': diff };
-                        this.estado = estado;
+                        estado = {
+                            'message': 'Devolver a ' + vToUpdate + '',
+                            'diff': diff,
+                            'version': local.version
+                        };
                     } else {
                         if (local.count > kprima.count) {
                             //console.log("actualizar "+diff+" commits");
                             estado = {
-                                'message': 'Actualizar commits',
+                                'message': 'Actualizar ' + diff + ' commits',
                                 'diff': diff,
-                                'class': 'btn-success'
+                                'class': 'btn-success',
+                                'version': local.version
                             };
-                            this.estado = estado;
                         } else if (local.count < kprima.count) {
                             //console.log("devolver "+diff+" commits");
-                            estado = { 'message': 'Devolver ' + diff + ' commits', 'diff': diff, 'class': 'btn-warning' };
-                            this.estado = estado;
+                            estado = {
+                                'message': 'Devolver ' + diff + ' commits',
+                                'diff': diff,
+                                'class': 'btn-warning',
+                                'version': local.version
+                            };
                         } else {
-                            estado = { 'message': 'Actualizado', 'diff': '' };
-                            this.estado = estado;
+                            estado = {
+                                'message': 'Actualizado',
+                                'diff': ''
+                            };
                         }
                     }
                 }
+                this.estado = estado;
             }
         }
     },
@@ -17453,6 +17482,7 @@ Vue.component("component-kprima", {
 
         actualizarK: function actualizarK(kprimaId, version) {
             //add loading
+            console.log("estoy en actualizarK del componente");
             var userId = window.vm.getCookie('id');
             //this.$set(this.state.kprimas[kprimaId], "loading", true);
 
@@ -17622,14 +17652,24 @@ window.vm = new Vue({
             self.kprimasChannels = response.data;
         });
     }, methods: {
-        prueba: function prueba() {
-            console.log("metodo prueba desde root");
+        actualizarK: function actualizarK(kprimaId, version) {
+            var userId = this.getCookie('id');
+
+            axios.post(apiConfigurador + 'event/kprima', {
+                id: kprimaId,
+                version: version,
+                pathname: 'git/resetK',
+                userId: userId,
+                post: {
+                    repos: this.repositorios_local
+                }
+            });
         },
         actualizar: function actualizar(repositorio, version) {
             var self = this;
             this.$set(self.repositorios_local[repositorio], "loading", true);
-            console.log("repositorio: ", repositorio);
-            console.log("version: ", version);
+            //console.log("repositorio: ",repositorio);
+            //console.log("version: ",version);
             axios.post(apiConfigurador + "repositorio/actualizar", {
                 repo: repositorio,
                 version: version

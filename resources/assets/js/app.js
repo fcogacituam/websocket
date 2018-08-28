@@ -64,14 +64,14 @@ Vue.component("actualizar-kprima",{
                                     estado = {
                                         'message': 'Actualizar dependencia',
                                         'diff': diff,
-                                        'version':local.
+                                        'version':local
                                     }
                                 }else if(localArr[1]< kprimaArr[1]){
                                         //console.log("devolver dependencia");
                                     estado = {
                                         'message': 'Devolver dependencia',
                                         'diff': diff,
-                                        'version':local.
+                                        'version':local
                                     }
                                 }else{
                                         if(localArr[2]>kprimaArr[2]){
@@ -79,14 +79,14 @@ Vue.component("actualizar-kprima",{
                                                 estado={
                                                     'message':'Actualizar release',
                                                     'diff':diff,
-                                                    'version':local.
+                                                    'version':local
                                                 }
                                         }else if(localArr[2]<kprimaArr[2]){
                                                 //console.log("devolver release");
                                                 estado={
                                                     'message':'Devolver release',
                                                     'diff':diff,
-                                                    'version':local.
+                                                    'version':local
                                                 }
                                         }else{
                                                 if(local.count > kprima.count){
@@ -95,7 +95,7 @@ Vue.component("actualizar-kprima",{
                                                             'message':'Actualizar commits',
                                                             'diff':diff,
                                                             'class':'btn-success',
-                                                            'version':local.
+                                                            'version':local
                                                         }
                                                 }else if(local.count < kprima.count){
                                                         //console.log("devolver "+diff+" commits");
@@ -103,7 +103,7 @@ Vue.component("actualizar-kprima",{
                                                             'message':'Devolver '+diff+' commits',
                                                             'diff':diff,
                                                             'class':'btn-warning',
-                                                            'version':local.
+                                                            'version':local
                                                         }
                                                 }else{
                                                         estado={

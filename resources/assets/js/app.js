@@ -62,6 +62,8 @@ Vue.component("actualizar-kprima",{
                 post: {
                     repos: this.rep
                 }
+            }).then(function(response){
+                this.updating=false;
             });
         },
 		versiones: function(kprima,local){

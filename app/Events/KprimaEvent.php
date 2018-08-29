@@ -18,7 +18,9 @@ class KprimaEvent implements ShouldBroadcast
     public $jwt;
     public $idUser;
    public $version;
-    public function __construct($kprima_id, $pathname, $post, $jwt, $idUser,$version)
+	public $route;
+
+    public function __construct($kprima_id, $pathname, $post, $jwt, $idUser,$version,$route)
     {
       	$this->kprima_id = $kprima_id;
         $this->pathname = $pathname;
@@ -26,6 +28,7 @@ class KprimaEvent implements ShouldBroadcast
         $this->jwt = $jwt;
     	$this->idUser = $idUser;
 	$this->version= $version;
+	$this->route= $route;
     }
 
     /**

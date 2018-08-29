@@ -17376,14 +17376,14 @@ Vue.component("actualizar-kprima", {
     },
 
     methods: {
-        prueba: function prueba(kprimaId, version) {
+        prueba: function prueba(kprimaId, version, route) {
             //console.log(kprimaId);
             //console.log(version);
-            window.vm.actualizarK(kprimaId, version);
+            window.vm.actualizarK(kprimaId, version, route);
         },
         versiones: function versiones(kprima, local) {
-            console.log("LOCAL: ", local);
-            console.log("KPRIMA: ", kprima);
+            //console.log("LOCAL: ",local);
+            //console.log("KPRIMA: ",kprima);
             var vLocal = local.version.split('-')[0];
             var vKprima = kprima.version.split('-')[0];
             //console.log("versión local:"+vLocal+". versión kprima: "+vKprima);
@@ -17392,59 +17392,65 @@ Vue.component("actualizar-kprima", {
             var diff = Math.abs(local.count - kprima.count);
             var estado = {};
             var vToUpdate = local.version.split('-')[0];
-            if (localArr[0] < kprimaArr[0]) {
+            if (parseInt(localArr[0]) < parseInt(kprimaArr[0])) {
                 //console.log("devolver versión ");
                 estado = {
                     'message': 'Devolver a ' + vToUpdate + '',
-                    'diff': diff,
+                    'route': local.route,
                     'version': local.version
                 };
-            } else if (localArr[0] > kprimaArr[0]) {
+            } else if (parseInt(localArr[0]) > parseInt(kprimaArr[0])) {
                 //console.log("actualizar versión");
+                estado = {
+                    'message': 'Actualizar a ' + vToUpdate + '',
+                    'route': local.route,
+                    'version': local.version
+                };
             } else {
-                if (localArr[1] > kprimaArr[1]) {
+                if (parseInt(localArr[1]) > parseInt(kprimaArr[1])) {
                     //console.log("actualizar dependencia");
                     estado = {
                         'message': 'Actualizar a ' + vToUpdate + '',
-                        'diff': diff,
+                        'route': local.route,
                         'version': local.version
                     };
-                } else if (localArr[1] < kprimaArr[1]) {
+                } else if (parseInt(localArr[1]) < parseInt(kprimaArr[1])) {
                     //console.log("devolver dependencia");
                     estado = {
                         'message': 'Devolver a ' + vToUpdate + '',
-                        'diff': diff,
+                        'route': local.route,
                         'version': local.version
                     };
                 } else {
-                    if (localArr[2] > kprimaArr[2]) {
+
+                    if (parseInt(localArr[2]) > parseInt(kprimaArr[2])) {
                         //console.log("actualizar release");
                         estado = {
                             'message': 'Actualizar a ' + vToUpdate + '',
-                            'diff': diff,
+                            'route': local.route,
                             'version': local.version
                         };
-                    } else if (localArr[2] < kprimaArr[2]) {
+                    } else if (parseInt(localArr[2]) < parseInt(kprimaArr[2])) {
                         //console.log("devolver release");
                         estado = {
                             'message': 'Devolver a ' + vToUpdate + '',
-                            'diff': diff,
+                            'route': local.route,
                             'version': local.version
                         };
                     } else {
-                        if (local.count > kprima.count) {
+                        if (parseInt(local.count) > parseInt(kprima.count)) {
                             //console.log("actualizar "+diff+" commits");
                             estado = {
                                 'message': 'Actualizar ' + diff + ' commits',
-                                'diff': diff,
+                                'route': local.route,
                                 'class': 'btn-success',
                                 'version': local.version
                             };
-                        } else if (local.count < kprima.count) {
+                        } else if (parseInt(local.count) < parseInt(kprima.count)) {
                             //console.log("devolver "+diff+" commits");
                             estado = {
                                 'message': 'Devolver ' + diff + ' commits',
-                                'diff': diff,
+                                'route': local.route,
                                 'class': 'btn-warning',
                                 'version': local.version
                             };
@@ -17461,7 +17467,7 @@ Vue.component("actualizar-kprima", {
         }
     },
     template: '<div class="actualizar">\
-			<a class="btn btn-sm" v-bind:class="estado.class" @click.prevent="prueba(kprimaId,estado.version)" href="">{{estado.message}}</a>\
+			<a class="btn btn-sm" v-bind:class="estado.class" @click.prevent="prueba(kprimaId,estado.version,estado.route)" href="">{{estado.message}}</a>\
 		</div>'
 });
 
@@ -17652,7 +17658,7 @@ window.vm = new Vue({
             self.kprimasChannels = response.data;
         });
     }, methods: {
-        actualizarK: function actualizarK(kprimaId, version) {
+        actualizarK: function actualizarK(kprimaId, version, route) {
             var userId = this.getCookie('id');
 
             axios.post(apiConfigurador + 'event/kprima', {
@@ -17660,6 +17666,7 @@ window.vm = new Vue({
                 version: version,
                 pathname: 'git/resetK',
                 userId: userId,
+                route: route,
                 post: {
                     repos: this.repositorios_local
                 }

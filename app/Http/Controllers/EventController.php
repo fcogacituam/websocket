@@ -36,7 +36,8 @@ class EventController extends Controller
         $jwt = $request->cookie('Authorization');
         $idUser = $request->userId;
 	$version = $request->version;
-        return event(new KprimaEvent($id, $pathname, $post, $jwt, $idUser,$version));
+	$route= $request->route;
+        return event(new KprimaEvent($id, $pathname, $post, $jwt, $idUser,$version,$route));
     }
 
     public function kprimas(Request $request)

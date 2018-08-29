@@ -142,7 +142,7 @@ Vue.component("actualizar-kprima",{
 	template:'<div class="actualizar">\
 			<a class="btn btn-sm" v-bind:class="estado.class" @click.prevent="prueba(kprimaId,estado.version,estado.route)" href="">{{estado.message}}</a>\
             <div v-if="estado.back"><a href="" @click.prevent="prueba(kprimaId,estado.back,estado.route)"> {{estado.devolver}}</a></div>\
-            <div v-if="upd"><i class="fas fa-sync fa-spin"></i> <small> Actualizando...</small></div>\
+            <div v-if="updating"><i class="fas fa-sync fa-spin"></i> <small> Actualizando...</small></div>\
 		</div>'
 });
 

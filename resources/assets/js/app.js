@@ -29,7 +29,7 @@ Vue.component("actualizar-kprima",{
 	data:function(){return{
 		estado:{},
         kprimaId:this.kprima.Id,
-        updating:this.updating,
+        upd:this.updating,
 	}},
 	watch:{
 		estado: function(val){
@@ -38,7 +38,7 @@ Vue.component("actualizar-kprima",{
 	},
 	mounted(){
         this.versiones(this.repo,this.rep);
-        console.log("UPDATING VAL:",this.updating);
+        console.log("UPDATING VAL:",this.upd);
 	},
 	methods:{
 		prueba:function(kprimaId,version,route){
@@ -125,9 +125,9 @@ Vue.component("actualizar-kprima",{
                                                 }else{
                                                         estado={
                                                             'message':'Actualizado',
-							    'route':local.route,
-							    'back':'1.0.7',
-							    'devolver':'Devolver a la 1.0.7(scripts-nagios)'
+                                                            'route':local.route,
+                                                            'back':'1.0.7',
+                                                            'devolver':'Devolver a la 1.0.7(scripts-nagios)'
                                                         }
                                                         
 
@@ -143,7 +143,7 @@ Vue.component("actualizar-kprima",{
 	template:'<div class="actualizar">\
 			<a class="btn btn-sm" v-bind:class="estado.class" @click.prevent="prueba(kprimaId,estado.version,estado.route)" href="">{{estado.message}}</a>\
             <div v-if="estado.back"><a href="" @click.prevent="prueba(kprimaId,estado.back,estado.route)"> {{estado.devolver}}</a></div>\
-            <div v-if="updating"><i class="fas fa-sync fa-spin"></i> <small> Actualizando...</small></div>\
+            <div v-if="upd"><i class="fas fa-sync fa-spin"></i> <small> Actualizando...</small></div>\
 		</div>'
 });
 

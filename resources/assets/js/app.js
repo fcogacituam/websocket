@@ -29,7 +29,6 @@ Vue.component("actualizar-kprima",{
 	data:function(){return{
 		estado:{},
         kprimaId:this.kprima.Id,
-        upd:this.updating,
 	}},
 	watch:{
 		estado: function(val){
@@ -38,7 +37,7 @@ Vue.component("actualizar-kprima",{
 	},
 	mounted(){
         this.versiones(this.repo,this.rep);
-        console.log("UPDATING VAL:",this.upd);
+        console.log("UPDATING VAL:",this.updating);
 	},
 	methods:{
 		prueba:function(kprimaId,version,route){

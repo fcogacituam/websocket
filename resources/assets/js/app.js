@@ -51,7 +51,7 @@ Vue.component("actualizar-kprima",{
 			this.actualizarK(kprimaId,version,route);
         },
         actualizarK: function (kprimaId, version, route) {
-            var userId = this.getCookie('id');
+            var userId = getCookie('id');
             this.updating=true;
             axios.post(apiConfigurador + 'event/kprima', {
                 id: kprimaId,
@@ -390,19 +390,19 @@ window.vm = new Vue({
             return res;
         },
         getCookie: function(cname){
-		var name = cname + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for(var i = 0; i <ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
+		    var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for(var i = 0; i <ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
         }
         
     }
@@ -423,4 +423,19 @@ function sortVersions(arr) {
     return versions.map(a => a.split('.').map(n => +n + 100000).join('.')).sort()
         .map(a => a.split('.').map(n => +n - 100000).join('.'));
 }
-$('[data-toggle="tooltip"]').tooltip();
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}

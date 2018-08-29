@@ -34,11 +34,15 @@ Vue.component("actualizar-kprima",{
 	watch:{
 		estado: function(val){
 			this.estado=val;console.log(val);
-		}
+        },
+        updating: function(val){
+            this.updating=val;
+            console.log(this.updating);
+        }
 	},
 	mounted(){
         this.versiones(this.repo,this.rep);
-        console.log(this.updating);
+        console.log("UPDATING VAL:",updating);
 	},
 	methods:{
 		prueba:function(kprimaId,version,route){
@@ -341,7 +345,8 @@ window.vm = new Vue({
 
     }, methods: {
 	actualizarK:function(kprimaId,version,route){
-		var userId = this.getCookie('id');
+        var userId = this.getCookie('id');
+        this.updating=true;
 		
 		axios.post(apiConfigurador + 'event/kprima',{
 			id: kprimaId,

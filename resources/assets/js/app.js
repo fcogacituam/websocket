@@ -221,6 +221,10 @@ window.vm = new Vue({
             this.kprimasChannels= val;
             console.log(this.kprimasChannels);
         },
+        updating:function(val){
+            this.updating=val;
+            console.log("updating: "+val);
+        },
         state: {
             handler: function (state) {
                 console.log("state", state);

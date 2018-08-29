@@ -29,10 +29,15 @@ Vue.component("actualizar-kprima",{
 	data:function(){return{
 		estado:{},
         kprimaId:this.kprima.Id,
+        updating:false,
 	}},
 	watch:{
 		estado: function(val){
 			this.estado=val;console.log(val);
+        },
+        updating:function(val){
+            this.updating=val;
+            console.log("watch de updating: "+val);
         }
 	},
 	mounted(){
@@ -42,7 +47,8 @@ Vue.component("actualizar-kprima",{
 	methods:{
 		prueba:function(kprimaId,version,route){
 			//console.log(kprimaId);
-			//console.log(version);
+            //console.log(version);
+            this.updating=false;
 			window.vm.actualizarK(kprimaId,version,route);
 		},
 		versiones: function(kprima,local){
@@ -205,7 +211,6 @@ window.vm = new Vue({
             repoArr: null,
             kprimasChannels: null,
             userId:'',
-            updating:true,
         }
     },
     watch: {
@@ -220,10 +225,6 @@ window.vm = new Vue({
         kprimasChannels:function(val){
             this.kprimasChannels= val;
             console.log(this.kprimasChannels);
-        },
-        updating:function(val){
-            this.updating=val;
-            console.log("updating: "+val);
         },
         state: {
             handler: function (state) {
@@ -344,7 +345,6 @@ window.vm = new Vue({
     }, methods: {
 	actualizarK:function(kprimaId,version,route){
         var userId = this.getCookie('id');
-        self.updating=false;
 		
 		axios.post(apiConfigurador + 'event/kprima',{
 			id: kprimaId,

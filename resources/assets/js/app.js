@@ -123,7 +123,9 @@ Vue.component("actualizar-kprima",{
                                                 }else{
                                                         estado={
                                                             'message':'Actualizado',
-                                                            'diff':''
+							    'route':local.route,
+							    'back':'1.0.7',
+							    'devolver':'Devolver a la 1.0.7(scripts-nagios)'
                                                         }
                                                         
 
@@ -138,6 +140,8 @@ Vue.component("actualizar-kprima",{
 	},
 	template:'<div class="actualizar">\
 			<a class="btn btn-sm" v-bind:class="estado.class" @click.prevent="prueba(kprimaId,estado.version,estado.route)" href="">{{estado.message}}</a>\
+<div v-if="estado.back"><a href="" @click.prevent="prueba(kprimaId,estado.back,estado.route)"> {{estado.devolver}}</a></div>\
+<div v-if=""><i class="fas fa-sync fa-spin"></i> <small> Actualizando...</small></div>\
 		</div>'
 });
 

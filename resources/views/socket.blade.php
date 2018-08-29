@@ -69,7 +69,7 @@
                     <div class="tbody">
                         {{-- <lista-kprimas v-for="kprima in kprimas" :key="kprima.Id" :kprima="kprima" :kprimas-channels="kprimasChannels"></lista-kprimas> --}}
 
-			<component-kprima v-for="kprima in state.kprimas" v-bind="{kprima, repositorios_local, lastVersion, kprimasChannels,kprimas,userId,repositorios_local}" :key="kprima.Id" inline-template>
+			<component-kprima v-for="kprima in state.kprimas" v-bind="{kprima, repositorios_local, lastVersion, kprimasChannels,kprimas,userId,repositorios_local,updating}" :key="kprima.Id" inline-template>
                         <div :title="clientesList(kprima)" class="tr" >
 
                             <div  class="td">@{{kprima.Ip}}</div>
@@ -105,7 +105,7 @@
                                     <div v-for="rep in repositorios_local">
 
                                          <div v-if="repo.route.substr(repo.route.lastIndexOf('/') ) === rep.route.substr(rep.route.lastIndexOf('/') )">
-					                        <actualizar-kprima v-bind="{repo,rep,kprima}"></actualizar-kprima>
+					                        <actualizar-kprima v-bind="{repo,rep,kprima,updating}"></actualizar-kprima>
                                         </div>
                                     </div>
                                     {{-- @{{  repo.version.split('-')[0] === '1.0.5'? 'está actualizado' :'hay que actualizar'}} --}}

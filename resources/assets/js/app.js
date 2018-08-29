@@ -205,7 +205,7 @@ window.vm = new Vue({
             repoArr: null,
             kprimasChannels: null,
             userId:'',
-            updating:false,
+            updating:true,
         }
     },
     watch: {

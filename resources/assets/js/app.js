@@ -25,7 +25,7 @@ var apiConfigurador = "../../../api/websocket/public/api/";
 
 
 Vue.component("actualizar-kprima",{
-	props:["repo",'rep','kprima','updating'],
+	props:["repo",'rep','kprima'],
 	data:function(){return{
 		estado:{},
         kprimaId:this.kprima.Id,

@@ -29,6 +29,7 @@ Vue.component("actualizar-kprima",{
 	data:function(){return{
 		estado:{},
         kprimaId:this.kprima.Id,
+        updating:his.updating,
 	}},
 	watch:{
 		estado: function(val){

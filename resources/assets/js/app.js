@@ -100,7 +100,8 @@ Vue.component("actualizar-kprima",{
                                                 estado={
                                                     'message':'Devolver a '+vToUpdate+'',
                                                     'route':local.route,
-                                                    'version':local.version
+                                                    'version':local.version,
+						    'class':'btn-danger'
                                                 }
                                         }else{
                                                 if(parseInt(local.count) > parseInt(kprima.count)){

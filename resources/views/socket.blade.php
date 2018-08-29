@@ -105,7 +105,7 @@
                                     <div v-for="rep in repositorios_local">
 
                                          <div v-if="repo.route.substr(repo.route.lastIndexOf('/') ) === rep.route.substr(rep.route.lastIndexOf('/') )">
-					                        <actualizar-kprima v-bind="{repo,rep,kprima}"></actualizar-kprima>
+					                        <actualizar-kprima v-bind="{repo,rep,kprima,updating}"></actualizar-kprima>
                                         </div>
                                     </div>
                                     {{-- @{{  repo.version.split('-')[0] === '1.0.5'? 'está actualizado' :'hay que actualizar'}} --}}

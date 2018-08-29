@@ -25,7 +25,7 @@ var apiConfigurador = "../../../api/websocket/public/api/";
 
 
 Vue.component("actualizar-kprima",{
-	props:["repo",'rep','kprima'],
+	props:["repo",'rep','kprima','updating'],
 	data:function(){return{
 		estado:{},
 		kprimaId:this.kprima.Id
@@ -36,7 +36,8 @@ Vue.component("actualizar-kprima",{
 		}
 	},
 	mounted(){
-		this.versiones(this.repo,this.rep);
+        this.versiones(this.repo,this.rep);
+        console.log(this.updating);
 	},
 	methods:{
 		prueba:function(kprimaId,version,route){
@@ -140,8 +141,8 @@ Vue.component("actualizar-kprima",{
 	},
 	template:'<div class="actualizar">\
 			<a class="btn btn-sm" v-bind:class="estado.class" @click.prevent="prueba(kprimaId,estado.version,estado.route)" href="">{{estado.message}}</a>\
-<div v-if="estado.back"><a href="" @click.prevent="prueba(kprimaId,estado.back,estado.route)"> {{estado.devolver}}</a></div>\
-<div v-if=""><i class="fas fa-sync fa-spin"></i> <small> Actualizando...</small></div>\
+            <div v-if="estado.back"><a href="" @click.prevent="prueba(kprimaId,estado.back,estado.route)"> {{estado.devolver}}</a></div>\
+            <div v-if="this.updating"><i class="fas fa-sync fa-spin"></i> <small> Actualizando...</small></div>\
 		</div>'
 });
 
@@ -205,6 +206,7 @@ window.vm = new Vue({
             repoArr: null,
             kprimasChannels: null,
             userId:'',
+            updating:false,
         }
     },
     watch: {

@@ -346,7 +346,7 @@ window.vm = new Vue({
     }, methods: {
 	actualizarK:function(kprimaId,version,route){
         var userId = this.getCookie('id');
-        this.updating=true;
+        self.updating=true;
 		
 		axios.post(apiConfigurador + 'event/kprima',{
 			id: kprimaId,

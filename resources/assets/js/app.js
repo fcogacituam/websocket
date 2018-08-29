@@ -48,7 +48,7 @@ Vue.component("actualizar-kprima",{
 		prueba:function(kprimaId,version,route){
 			//console.log(kprimaId);
             //console.log(version);
-            this.updating=false;
+            this.updating=true;
 			window.vm.actualizarK(kprimaId,version,route);
 		},
 		versiones: function(kprima,local){

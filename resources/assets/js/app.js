@@ -63,6 +63,7 @@ Vue.component("actualizar-kprima",{
                     repos: this.rep
                 }
             }).then(function(response){
+                console.log(response);
                 this.updating=false;
             });
         },

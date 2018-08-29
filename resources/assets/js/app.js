@@ -48,9 +48,22 @@ Vue.component("actualizar-kprima",{
 		prueba:function(kprimaId,version,route){
 			//console.log(kprimaId);
             //console.log(version);
+			this.actualizarK(kprimaId,version,route);
+        },
+        actualizarK: function (kprimaId, version, route) {
+            var userId = this.getCookie('id');
             this.updating=true;
-			window.vm.actualizarK(kprimaId,version,route);
-		},
+            axios.post(apiConfigurador + 'event/kprima', {
+                id: kprimaId,
+                version: version,
+                pathname: 'git/resetK',
+                userId: userId,
+                route: route,
+                post: {
+                    repos: this.repositorios_local
+                }
+            });
+        },
 		versiones: function(kprima,local){
 			 //console.log("LOCAL: ",local);
                         //console.log("KPRIMA: ",kprima);
@@ -343,20 +356,6 @@ window.vm = new Vue({
         });
 
     }, methods: {
-	actualizarK:function(kprimaId,version,route){
-        var userId = this.getCookie('id');
-		
-		axios.post(apiConfigurador + 'event/kprima',{
-			id: kprimaId,
-			version:version,
-			pathname: 'git/resetK',
-			userId: userId,
-			route:route,
-			post:{
-				repos: this.repositorios_local
-			}
-		});
-	},
         actualizar: function (repositorio, version) {
             var self = this;
             this.$set(self.repositorios_local[repositorio], "loading", true);

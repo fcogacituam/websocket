@@ -60,7 +60,7 @@ Vue.component("actualizar-kprima",{
                 userId: userId,
                 route: route,
                 post: {
-                    repos: this.repositorios_local
+                    repos: this.rep
                 }
             });
         },

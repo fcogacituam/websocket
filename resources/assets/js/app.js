@@ -150,7 +150,7 @@ Vue.component("actualizar-kprima",{
 
 
 Vue.component("component-kprima", {
-    props: ['kprima','repositorios_local', 'lastVersion', 'kprimasChannels', 'kprimas', 'userId','repositorios_local'],
+    props: ['kprima','repositorios_local', 'lastVersion', 'kprimasChannels', 'kprimas', 'userId','repositorios_local','updating'],
 		watch: {
                     kprima: {
                         handler: function (kprima) {
@@ -166,7 +166,6 @@ Vue.component("component-kprima", {
 
                     actualizarK: function (kprimaId,version) {
                         //add loading
-			console.log("estoy en actualizarK del componente");
                         var userId = window.vm.getCookie('id');
                         //this.$set(this.state.kprimas[kprimaId], "loading", true);
 

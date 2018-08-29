@@ -33,7 +33,7 @@ Vue.component("actualizar-kprima",{
 	}},
 	watch:{
 		estado: function(val){
-			this.estado=val;console.log(val);
+			this.estado=val;
         },
         updating:function(val){
             this.updating=val;
@@ -63,7 +63,7 @@ Vue.component("actualizar-kprima",{
                     repos: this.rep
                 }
             }).then(function(response){
-                console.log(response);
+                console.log(response.status);
                 this.updating=false;
             });
         },

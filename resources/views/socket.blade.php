@@ -90,24 +90,18 @@
                                 <small v-else style="color:grey">sin información del websocket (@{{kprima.Id}})</small>
                             </div>
 
-                            <!-- LOADING -->
-                            <div v-if="kprima.loading"  class="td">
-                                <i class="fa fa-spinner fa-pulse fa-fw"></i>
+                            <div class="td">
+                                aqui va a ir el componente de versiones
                             </div>
-                            <div v-else-if="kprima.git && lastVersion"  class="td"> 
+                            <div v-if="kprima.git && lastVersion"  class="td"> 
                                 <div v-for="repo in kprima.git">
-				
-
                                     <div v-for="(rep,index) in repositorios_local">
-
                                          <div v-if="repo.route.substr(repo.route.lastIndexOf('/') ) === rep.route.substr(rep.route.lastIndexOf('/') )">
 					                        <actualizar-kprima :title="index" v-bind="{repo,rep,kprima,bus}"></actualizar-kprima>
                                         </div>
                                     </div>
-                                    {{-- @{{  repo.version.split('-')[0] === '1.0.5'? 'está actualizado' :'hay que actualizar'}} --}}
                                 </div>
                             </div>
-                            <div v-else style="display: table-cell"></div>
 
                         </div>
                     </component-kprima>

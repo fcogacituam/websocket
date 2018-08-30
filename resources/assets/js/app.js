@@ -127,7 +127,7 @@ console.log("estadoo:",this.estado);
                                                     'message':'Devolver a '+vToUpdate+'',
                                                     'route':local.route,
                                                     'version':local.version,
-						    'class':'btn-danger'
+						                            'class':'btn-danger'
                                                 }
                                         }else{
                                                 if(parseInt(local.count) > parseInt(kprima.count)){
@@ -136,7 +136,7 @@ console.log("estadoo:",this.estado);
                                                             'message':'Actualizar '+diff+' commits',
                                                             'route':local.route,
                                                             'class':'btn-success',
-							    'updating':false,
+							                                 'updating':false,
                                                             'version':local.version
                                                         }
                                                 }else if(parseInt(local.count) < parseInt(kprima.count)){
@@ -145,16 +145,16 @@ console.log("estadoo:",this.estado);
                                                             'message':'Devolver '+diff+' commits',
                                                             'route':local.route,
                                                             'class':'btn-warning',
-							    'vActual':kprima.version,
-							    'updating':false,
+							                                'vActual':kprima.version,
+							                                'updating':false,
                                                             'version':local.version
                                                         }
                                                 }else{
                                                         estado={
                                                             'message':'Actualizado',
-							    'updated':true,
+							                                'updated':true,
                                                             'route':local.route,
-							   'updating':false,
+							                                'updating':false,
                                                         }
                                                         
 
@@ -167,7 +167,7 @@ console.log("estadoo:",this.estado);
 
 		}
 	},
-	template:'<div class="actualizar">{{estado.vActual}}\
+	template:'<div class="actualizar">\
 			<div v-if="!estado.updated">\
 				<a class="btn btn-sm" v-bind:class="estado.class" @click.prevent="prueba(kprimaId,estado.version,estado.route)" href="">{{estado.message}}</a>\
 			</div>\

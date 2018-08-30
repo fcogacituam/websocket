@@ -10531,9 +10531,8 @@ body.login {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
   padding: 10px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -10562,8 +10561,8 @@ body.login {
 
 #app .table .tbody .tr .td {
   -webkit-box-flex: 0;
-      -ms-flex: 0 0 33.3%;
-          flex: 0 0 33.3%;
+      -ms-flex: 0 0 25%;
+          flex: 0 0 25%;
 }
 
 #app .table .tbody .tr:nth-child(odd) {

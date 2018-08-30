@@ -59,6 +59,7 @@ class EventController extends Controller
         // DATOS DEVUELTOS DESDE K'
         $msg = $request->input("msg", "");
         $state = $request->input("state", "");
+	$ruta= $request->input("ruta","");
 
         if (!$request->has('id')) {
             return "Falta user id";
@@ -66,7 +67,7 @@ class EventController extends Controller
         $id = $request->id;
 
         // return json_encode($request);
-        return event(new UserEvent($msg, $state, $id));
+        return event(new UserEvent($msg, $state, $id,$ruta));
     }
 
     public function clients(Request $request)

@@ -62,14 +62,15 @@
                     <div class="thead">
                         <div class="tr">
                             <div class="th">Ip</div>
-                            <div class="th">Versiones</div>
+                            <div class="th">Repo</div>
+			    <div class="th">Versión</div>
                             <div class="th">Acción</div>
                         </div>
                     </div>
                     <div class="tbody">
                         {{-- <lista-kprimas v-for="kprima in kprimas" :key="kprima.Id" :kprima="kprima" :kprimas-channels="kprimasChannels"></lista-kprimas> --}}
 
-			<component-kprima v-for="kprima in state.kprimas" v-bind="{kprima, repositorios_local, lastVersion, kprimasChannels,kprimas,userId,repositorios_local}" :key="kprima.Id" inline-template>
+			<component-kprima v-for="kprima in state.kprimas" v-bind="{bus,kprima, repositorios_local, lastVersion, kprimasChannels,kprimas,userId,repositorios_local}" :key="kprima.Id" inline-template>
                         <div :title="clientesList(kprima)" class="tr" >
 
                             <div  class="td">@{{kprima.Ip}}</div>
@@ -77,12 +78,7 @@
                             <div  class="td">
                                 <small v-if="kprima.git">
                                     <div v-for="(repo, name) in kprima.git">
-                                        @{{name}}:
-                                        <b class='version'>@{{repo.version.split('-')[0]}}</b>
-                                        <span v-if="-1 != repo.version.indexOf('-')">-@{{repo.version.split('-').slice(1).join('-')}}</span>
-                                        <span v-if="repo.count != repositorios_local[name].count" :style="{'color': repo.count > repositorios_local[name].count ? 'green' : 'red'}">
-                                            [@{{repo.count > repositorios_local[name].count ? '+' : ''}}@{{repo.count - repositorios_local[name].count}}]
-                                        </span>
+                                        <h5>@{{name}}</h5>
                                     </div>
                                 </small>
 
@@ -102,10 +98,10 @@
                                 <div v-for="repo in kprima.git">
 				
 
-                                    <div v-for="rep in repositorios_local">
+                                    <div v-for="(rep,index) in repositorios_local">
 
                                          <div v-if="repo.route.substr(repo.route.lastIndexOf('/') ) === rep.route.substr(rep.route.lastIndexOf('/') )">
-					                        <actualizar-kprima v-bind="{repo,rep,kprima}"></actualizar-kprima>
+					                        <actualizar-kprima :title="index" v-bind="{repo,rep,kprima,bus}"></actualizar-kprima>
                                         </div>
                                     </div>
                                     {{-- @{{  repo.version.split('-')[0] === '1.0.5'? 'está actualizado' :'hay que actualizar'}} --}}

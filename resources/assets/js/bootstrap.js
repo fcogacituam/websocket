@@ -118,8 +118,8 @@ window.io = require('socket.io-client');
 
             echo.private('user.' + id)
                 .listen('UserEvent', function (data) {
-                    console.log('UserEvent', data);
-
+                    console.log('UserEvent aqui recibo la respuesta del K:',data);
+			window.vm.responseKprima(data);
                     if (data.msg) {
 
                         //CONVERTIR EN ARRAY SI NO LO ES

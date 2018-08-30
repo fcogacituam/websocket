@@ -17359,27 +17359,52 @@ var apiEcore = "../../../api/ecore/public/";
 var apiConfigurador = "../../../api/websocket/public/api/";
 
 Vue.component("actualizar-kprima", {
-    props: ["repo", 'rep', 'kprima'],
+    props: ["repo", 'rep', 'kprima', 'bus'],
     data: function data() {
         return {
             estado: {},
-            kprimaId: this.kprima.Id
+            kprimaId: this.kprima.Id,
+            project: this.rep.route
         };
     },
     watch: {
         estado: function estado(val) {
-            this.estado = val;console.log(val);
+            this.estado = val;
+            console.log("estadoo:", this.estado);
         }
     },
     mounted: function mounted() {
+        this.bus.$on('kprimaState', this.updateStatus);
         this.versiones(this.repo, this.rep);
+        console.log("UPDATING VAL:", this.updating);
     },
 
     methods: {
         prueba: function prueba(kprimaId, version, route) {
-            //console.log(kprimaId);
-            //console.log(version);
-            window.vm.actualizarK(kprimaId, version, route);
+            this.estado.updating = true;
+            this.actualizarK(kprimaId, version, route);
+        },
+        updateStatus: function updateStatus(data) {
+            if (data.ruta == this.estado.route) {
+                this.estado.message = "Actualizado";
+                this.estado.updating = false;
+            }
+        },
+        actualizarK: function actualizarK(kprimaId, version, route) {
+            var userId = getCookie('id');
+            this.updating = true;
+            axios.post(apiConfigurador + 'event/kprima', {
+                id: kprimaId,
+                version: version,
+                pathname: 'git/resetK',
+                userId: userId,
+                route: route,
+                post: {
+                    repos: this.rep
+                }
+            }).then(function (response) {
+                console.log(response.status);
+            });
         },
         versiones: function versiones(kprima, local) {
             //console.log("LOCAL: ",local);
@@ -17428,6 +17453,7 @@ Vue.component("actualizar-kprima", {
                         estado = {
                             'message': 'Actualizar a ' + vToUpdate + '',
                             'route': local.route,
+
                             'version': local.version
                         };
                     } else if (parseInt(localArr[2]) < parseInt(kprimaArr[2])) {
@@ -17445,6 +17471,7 @@ Vue.component("actualizar-kprima", {
                                 'message': 'Actualizar ' + diff + ' commits',
                                 'route': local.route,
                                 'class': 'btn-success',
+                                'updating': false,
                                 'version': local.version
                             };
                         } else if (parseInt(local.count) < parseInt(kprima.count)) {
@@ -17453,14 +17480,16 @@ Vue.component("actualizar-kprima", {
                                 'message': 'Devolver ' + diff + ' commits',
                                 'route': local.route,
                                 'class': 'btn-warning',
+                                'vActual': kprima.version,
+                                'updating': false,
                                 'version': local.version
                             };
                         } else {
                             estado = {
                                 'message': 'Actualizado',
+                                'updated': true,
                                 'route': local.route,
-                                'back': '1.0.7',
-                                'devolver': 'Devolver a la 1.0.7(scripts-nagios)'
+                                'updating': false
                             };
                         }
                     }
@@ -17469,15 +17498,19 @@ Vue.component("actualizar-kprima", {
             }
         }
     },
-    template: '<div class="actualizar">\
-			<a class="btn btn-sm" v-bind:class="estado.class" @click.prevent="prueba(kprimaId,estado.version,estado.route)" href="">{{estado.message}}</a>\
-<div v-if="estado.back"><a href="" @click.prevent="prueba(kprimaId,estado.back,estado.route)"> {{estado.devolver}}</a></div>\
-<div v-if=""><i class="fas fa-sync fa-spin"></i> <small> Actualizando...</small></div>\
+    template: '<div class="actualizar">{{estado.vActual}}\
+			<div v-if="!estado.updated">\
+				<a class="btn btn-sm" v-bind:class="estado.class" @click.prevent="prueba(kprimaId,estado.version,estado.route)" href="">{{estado.message}}</a>\
+			</div>\
+			<div v-else>\
+				{{estado.message}}\
+			</div>\
+            		<div v-if="estado.updating"><i class="fas fa-sync fa-spin"></i> <small> Actualizando...</small></div>\
 		</div>'
 });
 
 Vue.component("component-kprima", {
-    props: ['kprima', 'repositorios_local', 'lastVersion', 'kprimasChannels', 'kprimas', 'userId', 'repositorios_local'],
+    props: ['kprima', 'repositorios_local', 'lastVersion', 'kprimasChannels', 'kprimas', 'userId', 'repositorios_local', 'updating', 'bus'],
     watch: {
         kprima: {
             handler: function handler(kprima) {
@@ -17493,7 +17526,6 @@ Vue.component("component-kprima", {
 
         actualizarK: function actualizarK(kprimaId, version) {
             //add loading
-            console.log("estoy en actualizarK del componente");
             var userId = window.vm.getCookie('id');
             //this.$set(this.state.kprimas[kprimaId], "loading", true);
 
@@ -17532,7 +17564,8 @@ window.vm = new Vue({
             state: window.store.state,
             repoArr: null,
             kprimasChannels: null,
-            userId: ''
+            userId: '',
+            bus: new Vue()
         };
     },
     watch: {
@@ -17663,19 +17696,9 @@ window.vm = new Vue({
             self.kprimasChannels = response.data;
         });
     }, methods: {
-        actualizarK: function actualizarK(kprimaId, version, route) {
-            var userId = this.getCookie('id');
-
-            axios.post(apiConfigurador + 'event/kprima', {
-                id: kprimaId,
-                version: version,
-                pathname: 'git/resetK',
-                userId: userId,
-                route: route,
-                post: {
-                    repos: this.repositorios_local
-                }
-            });
+        responseKprima: function responseKprima(data) {
+            console.log("recibí la respuesta!!", data);
+            this.bus.$emit('kprimaState', data);
         },
         actualizar: function actualizar(repositorio, version) {
             var self = this;
@@ -17751,7 +17774,22 @@ function sortVersions(arr) {
         }).join('.');
     });
 }
-$('[data-toggle="tooltip"]').tooltip();
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
 
 /***/ }),
 /* 35 */
@@ -17875,8 +17913,8 @@ var startWebsocket = function startWebsocket(token) {
     }
 
     echo.private('user.' + id).listen('UserEvent', function (data) {
-        console.log('UserEvent', data);
-
+        console.log('UserEvent aqui recibo la respuesta del K:', data);
+        window.vm.responseKprima(data);
         if (data.msg) {
 
             //CONVERTIR EN ARRAY SI NO LO ES

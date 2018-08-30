@@ -179,6 +179,22 @@ console.log("estadoo:",this.estado);
 });
 
 
+Vue.component("repo-version",{
+    props:["repo"],
+    data:function(){return{
+        version:this.repo.version
+    }},
+    methods:{
+
+    },
+    template:'\
+    <div>\
+        {{version}}\
+    </div>'
+
+});
+
+
 
 Vue.component("component-kprima", {
     props: ['kprima','repositorios_local', 'lastVersion', 'kprimasChannels', 'kprimas', 'userId','repositorios_local','updating','bus'],

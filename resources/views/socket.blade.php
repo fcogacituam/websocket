@@ -91,7 +91,13 @@
                             </div>
 
                             <div class="td">
-                                aqui va a ir el componente de versiones
+                                <div v-for="repo in kprima.git">
+                                    <div v-for="(rep,index) in repositorios_local">
+                                         <div v-if="repo.route.substr(repo.route.lastIndexOf('/') ) === rep.route.substr(rep.route.lastIndexOf('/') )">
+					                            <repo-version></repo-version>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div v-if="kprima.git && lastVersion"  class="td"> 
                                 <div v-for="repo in kprima.git">

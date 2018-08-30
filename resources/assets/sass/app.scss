@@ -69,6 +69,10 @@ body.login{
         padding: 10px;
         .td {
           flex: 0 0 25%;
+		.actualizar{
+			display:flex;
+			a{margin-left:7px;}
+		}
         }
       }
       .tr:nth-child(odd) {

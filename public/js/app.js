@@ -17388,6 +17388,7 @@ Vue.component("actualizar-kprima", {
             if (data.ruta == this.estado.route) {
                 this.estado.message = "Actualizado";
                 this.estado.updating = false;
+                this.estado.updated = true;
             }
         },
         actualizarK: function actualizarK(kprimaId, version, route) {
@@ -17422,14 +17423,20 @@ Vue.component("actualizar-kprima", {
                 estado = {
                     'message': 'Devolver a ' + vToUpdate + '',
                     'route': local.route,
-                    'version': local.version
+                    'version': local.version,
+                    'updating': false,
+                    'vActual': kprima.version
+
                 };
             } else if (parseInt(localArr[0]) > parseInt(kprimaArr[0])) {
                 //console.log("actualizar versión");
                 estado = {
                     'message': 'Actualizar a ' + vToUpdate + '',
                     'route': local.route,
-                    'version': local.version
+                    'version': local.version,
+                    'updating': false,
+                    'vActual': kprima.version
+
                 };
             } else {
                 if (parseInt(localArr[1]) > parseInt(kprimaArr[1])) {
@@ -17437,14 +17444,20 @@ Vue.component("actualizar-kprima", {
                     estado = {
                         'message': 'Actualizar a ' + vToUpdate + '',
                         'route': local.route,
-                        'version': local.version
+                        'version': local.version,
+                        'updating': false,
+                        'vActual': kprima.version
+
                     };
                 } else if (parseInt(localArr[1]) < parseInt(kprimaArr[1])) {
                     //console.log("devolver dependencia");
                     estado = {
                         'message': 'Devolver a ' + vToUpdate + '',
                         'route': local.route,
-                        'version': local.version
+                        'version': local.version,
+                        'updating': false,
+                        'vActual': kprima.version
+
                     };
                 } else {
 
@@ -17453,7 +17466,8 @@ Vue.component("actualizar-kprima", {
                         estado = {
                             'message': 'Actualizar a ' + vToUpdate + '',
                             'route': local.route,
-
+                            'updating': false,
+                            'vActual': kprima.version,
                             'version': local.version
                         };
                     } else if (parseInt(localArr[2]) < parseInt(kprimaArr[2])) {
@@ -17462,7 +17476,10 @@ Vue.component("actualizar-kprima", {
                             'message': 'Devolver a ' + vToUpdate + '',
                             'route': local.route,
                             'version': local.version,
-                            'class': 'btn-danger'
+                            'updating': false,
+                            'class': 'btn-danger',
+                            'vActual': kprima.version
+
                         };
                     } else {
                         if (parseInt(local.count) > parseInt(kprima.count)) {
@@ -17470,16 +17487,17 @@ Vue.component("actualizar-kprima", {
                             estado = {
                                 'message': 'Actualizar ' + diff + ' commits',
                                 'route': local.route,
-                                'class': 'btn-success',
+                                'class': 'actualizar',
                                 'updating': false,
-                                'version': local.version
+                                'version': local.version,
+                                'vActual': kprima.version
                             };
                         } else if (parseInt(local.count) < parseInt(kprima.count)) {
                             //console.log("devolver "+diff+" commits");
                             estado = {
                                 'message': 'Devolver ' + diff + ' commits',
                                 'route': local.route,
-                                'class': 'btn-warning',
+                                'class': 'devolver',
                                 'vActual': kprima.version,
                                 'updating': false,
                                 'version': local.version
@@ -17498,15 +17516,23 @@ Vue.component("actualizar-kprima", {
             }
         }
     },
-    template: '<div class="actualizar">{{estado.vActual}}\
-			<div v-if="!estado.updated">\
-				<a class="btn btn-sm" v-bind:class="estado.class" @click.prevent="prueba(kprimaId,estado.version,estado.route)" href="">{{estado.message}}</a>\
-			</div>\
-			<div v-else>\
-				{{estado.message}}\
-			</div>\
-            		<div v-if="estado.updating"><i class="fas fa-sync fa-spin"></i> <small> Actualizando...</small></div>\
-		</div>'
+    template: '<div class="actualizar">\n                {{estado.message}}\n                <a v-if="!estado.updated" v-bind:class="estado.class" @click.prevent="prueba(kprimaId,estado.version,estado.route)" href="">\n\t\t\t<div v-if="!estado.updating"><i class="fas fa-sync"></i></div>\n\t\t\t<div v-else><i class="fas fa-sync fa-spin"></i></div>\n\t\t</a>\n        </div>'
+
+});
+
+Vue.component("repo-version", {
+    props: ["repo"],
+    data: function data() {
+        return {
+            version: this.repo.version
+        };
+    },
+    methods: {},
+    template: '\
+    <div>\
+        {{version}}\
+    </div>'
+
 });
 
 Vue.component("component-kprima", {

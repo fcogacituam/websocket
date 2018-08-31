@@ -10500,6 +10500,10 @@ body.login {
           flex-direction: column;
 }
 
+#app .actualizador {
+  padding: 40px 0;
+}
+
 #app .table {
   display: -webkit-box;
   display: -ms-flexbox;

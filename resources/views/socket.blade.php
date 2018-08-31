@@ -10,7 +10,14 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 </head>
 <body>
-    <div id="app">
+    <div id="app" class="actualizador">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<h2>Actualizador</h2>
+	                </div>
+		</div>
+	</div>
         {{-- <login-ecore v-if="!userId" @hola="setUserId"></login-ecore> --}}
         <div class="container">
             <h2>Versionamiento local: <small>@{{lastVersion}}</small></h2>

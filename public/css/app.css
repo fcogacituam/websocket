@@ -10520,7 +10520,7 @@ body.login {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background: cadetblue;
+  background: #0067a7;
   color: #fff;
 }
 
@@ -10576,7 +10576,7 @@ body.login {
 }
 
 #app .table .tbody .tr:nth-child(odd) {
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 104, 168, 0.12);
 }
 
 #app .login img {

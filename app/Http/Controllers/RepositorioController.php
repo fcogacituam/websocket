@@ -52,7 +52,7 @@ class RepositorioController extends Controller
         'wsc'=> [
             'route' => '',
         ],
-        'incidentes'=> [
+        'incidents'=> [
             'route' => '',
         ]
     ];

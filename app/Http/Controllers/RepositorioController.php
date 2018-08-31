@@ -18,42 +18,6 @@ class RepositorioController extends Controller
         ],
         'scripts-nagios' => [
             'route' => "/usr/local/nagios/etc/scripts",
-        ],
-        'api_monitores'=> [
-            'route' => '',
-        ],
-        'api_ecore'=> [
-            'route' => '',
-        ],
-        'api_incidents'=> [
-            'route' => '',
-        ],
-        'api_ethalamus'=> [
-            'route' => '',
-        ],
-        'api_casos'=> [
-            'route' => '',
-        ],
-        'ethalamus'=> [
-            'route' => '',
-        ],
-        'ecore'=> [
-            'route' => '',
-        ],
-        'osticket'=> [
-            'route' => '',
-        ],
-        'comandos'=> [
-            'route' => '',
-        ],
-        'graphics'=> [
-            'route' => '',
-        ],
-        'wsc'=> [
-            'route' => '',
-        ],
-        'incidents'=> [
-            'route' => '',
         ]
     ];
 

@@ -13,42 +13,6 @@ class RepositorioController extends Controller
         'api_kprima' => [
             'route' => "/var/www/html/api/kprima",
         ],
-        'api_monitores'=> [
-            'route' => '',
-        ],
-        'api_ecore'=> [
-            'route' => '',
-        ],
-        'api_incidents'=> [
-            'route' => '',
-        ],
-        'api_ethalamus'=> [
-            'route' => '',
-        ],
-        'api_casos'=> [
-            'route' => '',
-        ],
-        'ethalamus'=> [
-            'route' => '',
-        ],
-        'ecore'=> [
-            'route' => '',
-        ],
-        'osticket'=> [
-            'route' => '',
-        ],
-        'comandos'=> [
-            'route' => '',
-        ],
-        'graphics'=> [
-            'route' => '',
-        ],
-        'wsc'=> [
-            'route' => '',
-        ],
-        'incidentes'=> [
-            'route' => '',
-        ],
         'objects-nagios' => [
             'route' => "/usr/local/nagios/etc/objects/repo",
         ],

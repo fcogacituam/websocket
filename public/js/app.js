@@ -17389,6 +17389,7 @@ Vue.component("actualizar-kprima", {
                 this.estado.message = "Actualizado";
                 this.estado.updating = false;
                 this.estado.updated = true;
+                this.bus.$emit('updateVersion', this.estado);
             }
         },
         actualizarK: function actualizarK(kprimaId, version, route) {
@@ -17521,16 +17522,28 @@ Vue.component("actualizar-kprima", {
 });
 
 Vue.component("repo-version", {
-    props: ["repo"],
+    props: ["repo", "bus"],
     data: function data() {
         return {
-            version: this.repo.version
+            version: this.repo
         };
     },
-    methods: {},
+    mounted: function mounted() {
+        console.log(this.version);
+        this.bus.$on("updateVersion", this.updateV);
+    },
+    methods: {
+        updateV: function updateV(data) {
+            console.log("data que viene : ", data);
+            if (this.version.route == data.route) {
+                this.version = data;
+                console.log("nueva version?", this.version);
+            }
+        }
+    },
     template: '\
     <div>\
-        {{version}}\
+        {{version.version}}\
     </div>'
 
 });
@@ -17588,7 +17601,7 @@ window.vm = new Vue({
             kprimas: null,
             lastVersion: null,
             state: window.store.state,
-            repoArr: null,
+            repoArr: {},
             kprimasChannels: null,
             userId: '',
             bus: new Vue()
@@ -17626,7 +17639,6 @@ window.vm = new Vue({
             }
         }).then(function (response) {
             var repos = response.data;
-
             // GET WEBSOCKET KPRIMAS STATE
             var repoArr = {};
             for (var name in repos) {
@@ -17635,7 +17647,6 @@ window.vm = new Vue({
                 };
             }
             this.repoArr = repoArr;
-
             var tags = [];
             for (var name in repos) {
                 //OBTENER LAS VERSIONES CON SOLO 2 PARTES

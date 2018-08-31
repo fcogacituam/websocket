@@ -76,11 +76,11 @@
                             <div  class="td">@{{kprima.Ip}}</div>
 
                             <div  class="td">
-                                <small v-if="kprima.git">
+                                <div v-if="kprima.git">
                                     <div v-for="(repo, name) in kprima.git">
-                                        <h5>@{{name}}</h5>
+                                        <strong>@{{name}}</strong>
                                     </div>
-                                </small>
+                                </div>
 
                                 <small v-else-if="kprimasChannels && kprimasChannels['private-kprima.' + kprima.Id]" style="color:grey">esperando respuesta del K'..</small>
 
@@ -94,7 +94,7 @@
                                 <div v-for="repo in kprima.git">
                                     <div v-for="(rep,index) in repositorios_local">
                                          <div v-if="repo.route.substr(repo.route.lastIndexOf('/') ) === rep.route.substr(rep.route.lastIndexOf('/') )">
-					                            <repo-version v-bind="{repo}"></repo-version>
+					                            <repo-version v-bind="{repo,bus}"></repo-version>
                                         </div>
                                     </div>
                                 </div>

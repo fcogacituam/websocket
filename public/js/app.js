@@ -17478,7 +17478,6 @@ Vue.component("actualizar-kprima", {
                             'route': local.route,
                             'version': local.version,
                             'updating': false,
-                            'class': 'btn-danger',
                             'vActual': kprima.version
 
                         };

@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Repositorio;
 use Illuminate\Http\Request;
-use Symfony\Component\Process\Process;
-use Symfony\Component\Process\Exception\ProcessFailedException;
+
 class RepositorioController extends Controller
 {
 
@@ -15,7 +14,7 @@ class RepositorioController extends Controller
             'route' => "/var/www/html/api/kprima",
         ],
         'objects-nagios' => [
-            'route' => "/usr/local/nagios/etc/repo/generic",
+            'route' => "/usr/local/nagios/etc/objects/repo",
         ],
         'scripts-nagios' => [
             'route' => "/usr/local/nagios/etc/scripts",
@@ -39,20 +38,17 @@ class RepositorioController extends Controller
 
         //CLONE
         $gitUrl = $this->gitUrl;
-	$process =new Process(array('git clone $gitUrl/$repo.git $route 2>&1'));
-	$process->run();
-        //exec("git clone $gitUrl/$repo.git $route 2>&1", $out);
+        exec("git clone $gitUrl/$repo.git $route 2>&1", $out);
 
         //CHECK DIR EXISTS
-       /* if (!file_exists($route)) {
+        if (!file_exists($route)) {
             array_push($out, "error: !path $route");
             return $out;
-        }*/
-	$process2= new Process(array('cd $route','git checkout $version 2>&1'));
-	$process2->run();
-        //exec("cd $route; git checkout $version 2>&1", $out);
+        }
 
-        return $process->getOutpu();
+        exec("cd $route; git checkout $version 2>&1", $out);
+
+        return $out;
     }
 
     public function actualizar(Request $request)
@@ -60,29 +56,17 @@ class RepositorioController extends Controller
         $nombreRepo = $request->repo;
         $version = $request->version;
         $gitUrl = $this->gitUrl;
-	
 
-       // $res = [];
+        $res = [];
         $cd = "cd ../storage/vendor/$nombreRepo";
-	$process =new Process("{$cd} | git fetch {$gitUrl}/{$nombreRepo}.git 2>&1");
-	try{
-		$process->mustRun();
-		echo $process->getOutput();
-	}catch(ProcessFailedException $exception){
-		return $exception->getMessage();
-	}	
 
-	$checkout= "git checkout -f $version";
-	//print($checkout);
-	$process2 =new Process("{$cd};{$checkout}");
-	try{
-                $process2->mustRun();
-                return $process2->getOutput();
-        }catch(ProcessFailedException $exception){
-                return $exception->getMessage();
-        }
+        exec("$cd; git fetch $gitUrl/$nombreRepo.git 2>&1", $out);
+        $res = array_merge($res, $out);
 
-        return $process2->getOutput();
+        exec("$cd; git checkout {$version} 2>&1", $out);
+        $res = array_merge($res, $out);
+
+        return $res;
     }
 
     public function reposVersions(Request $request)

@@ -43,7 +43,11 @@ body.login{
     flex-direction: column;
 }
 #app{
-	.actualizador{padding:40px 0;}
+	.actualizador{
+    padding:40px 0;
+
+    .img{max-height:70px;}
+  }
   .table{
     display: flex;
     flex-direction: column;

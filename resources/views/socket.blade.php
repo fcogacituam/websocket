@@ -13,6 +13,9 @@
     <div id="app" class="actualizador">
 	<div class="container">
 		<div class="row">
+            <div class="fondo">
+                <img src="images/logo_ethalamus.png" alt="">
+            </div>
 			<div class="col-md-12 text-center">
 				<h2><img src="images/actualizador.png" alt=""></h2>
 	        </div>

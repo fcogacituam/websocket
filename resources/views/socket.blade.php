@@ -14,8 +14,8 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12 text-center">
-				<h2>Actualizador</h2>
-	                </div>
+				<h2><img src="images/actualizador.png" alt=""></h2>
+	        </div>
 		</div>
 	</div>
         {{-- <login-ecore v-if="!userId" @hola="setUserId"></login-ecore> --}}

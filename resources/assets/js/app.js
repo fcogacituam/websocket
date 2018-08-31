@@ -88,8 +88,8 @@ console.log("estadoo:",this.estado);
                                         'message': 'Devolver a '+vToUpdate+'',
                                         'route': local.route,
                                         'version':local.version,
-					'updating':false,
-                                                    'vActual':kprima.version,
+					                    'updating':false,
+                                        'vActual':kprima.version,
 
                                     }
 
@@ -99,8 +99,8 @@ console.log("estadoo:",this.estado);
                                         'message': 'Actualizar a '+vToUpdate+'',
                                         'route': local.route,
                                         'version':local.version,
-					'updating':false,
-                                                    'vActual':kprima.version,
+					                    'updating':false,
+                                        'vActual':kprima.version,
 
                                     }
 
@@ -111,7 +111,7 @@ console.log("estadoo:",this.estado);
                                         'message': 'Actualizar a '+vToUpdate+'',
                                         'route':local.route,
                                         'version':local.version,
-					'updating':false,
+					                    'updating':false,
                                         'vActual':kprima.version,
 
                                     }
@@ -121,7 +121,7 @@ console.log("estadoo:",this.estado);
                                         'message': 'Devolver a '+vToUpdate+'',
                                         'route': local.route,
                                         'version':local.version,
-					'updating':false,
+					                    'updating':false,
                                         'vActual':kprima.version,
 
                                     }
@@ -132,8 +132,8 @@ console.log("estadoo:",this.estado);
                                                 estado={
                                                     'message':'Actualizar a '+vToUpdate+'',
                                                     'route':local.route,
-						    'updating':false,
-						    'vActual':kprima.version,
+                                                    'updating':false,
+                                                    'vActual':kprima.version,
                                                     'version':local.version
                                                 }
                                         }else if(parseInt(localArr[2])< parseInt(kprimaArr[2])){
@@ -142,9 +142,8 @@ console.log("estadoo:",this.estado);
                                                     'message':'Devolver a '+vToUpdate+'',
                                                     'route':local.route,
                                                     'version':local.version,
-						    'updating':false,
-						    'class':'btn-danger',
-						    'vActual':kprima.version,
+                                                    'updating':false,
+                                                    'vActual':kprima.version,
 
                                                 }
                                         }else{
@@ -154,9 +153,9 @@ console.log("estadoo:",this.estado);
                                                             'message':'Actualizar '+diff+' commits',
                                                             'route':local.route,
                                                             'class':'actualizar',
-							    'updating':false,
+							                                'updating':false,
                                                             'version':local.version,
-							    'vActual':kprima.version,
+							                                'vActual':kprima.version,
                                                         }
                                                 }else if(parseInt(local.count) < parseInt(kprima.count)){
                                                         //console.log("devolver "+diff+" commits");
@@ -164,16 +163,16 @@ console.log("estadoo:",this.estado);
                                                             'message':'Devolver '+diff+' commits',
                                                             'route':local.route,
                                                             'class':'devolver',
-			                             	    'vActual':kprima.version,
-		    	                                    'updating':false,
+			                             	                'vActual':kprima.version,
+		    	                                            'updating':false,
                                                             'version':local.version
                                                         }
                                                 }else{
                                                         estado={
                                                             'message':'Actualizado',
-							    'updated':true,
+							                                'updated':true,
                                                             'route':local.route,
-							    'updating':false,
+							                                'updating':false,
                                                         }
                                                         
 

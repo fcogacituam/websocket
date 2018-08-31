@@ -37,6 +37,6 @@ class repos extends Command
      */
     public function handle()
     {
-        Log::info('ejecutando el cron :D');
+        
     }
 }

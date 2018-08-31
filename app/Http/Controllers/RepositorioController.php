@@ -13,6 +13,12 @@ class RepositorioController extends Controller
         'api_kprima' => [
             'route' => "/var/www/html/api/kprima",
         ],
+        'objects-nagios' => [
+            'route' => "/usr/local/nagios/etc/objects/repo",
+        ],
+        'scripts-nagios' => [
+            'route' => "/usr/local/nagios/etc/scripts",
+        ],
         'api_monitores'=> [
             'route' => '',
         ],
@@ -48,13 +54,7 @@ class RepositorioController extends Controller
         ],
         'incidentes'=> [
             'route' => '',
-        ],
-        'objects-nagios' => [
-            'route' => "/usr/local/nagios/etc/objects/repo",
-        ],
-        'scripts-nagios' => [
-            'route' => "/usr/local/nagios/etc/scripts",
-        ],
+        ]
     ];
 
     // public function get(Request $request)

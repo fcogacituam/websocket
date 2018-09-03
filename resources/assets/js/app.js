@@ -34,13 +34,11 @@ Vue.component("actualizar-kprima",{
 	watch:{
 		estado: function(val){
 			this.estado=val;
-console.log("estadoo:",this.estado);
        		 },
 	},
 	mounted(){
 		this.bus.$on('kprimaState',this.updateStatus);
        	 	this.versiones(this.repo,this.rep);
-        	console.log("UPDATING VAL:",this.updating);
 	},
 	methods:{
 		prueba:function(kprimaId,version,route){
@@ -68,7 +66,6 @@ console.log("estadoo:",this.estado);
                     			repos: this.rep
                 		}
             		}).then(function(response){
-                		console.log(response.status);
             		});
         	},
 		versiones: function(kprima,local){
@@ -204,7 +201,6 @@ Vue.component("repo-version",{
         version:this.repo
     }},
 	mounted: function(){
-		console.log(this.version);
 		this.bus.$on("updateVersion",this.updateV);
 	},
     methods:{
@@ -212,7 +208,6 @@ Vue.component("repo-version",{
 		console.log("data que viene : ",data);
 		if(this.version.route == data.route){
 			this.version=data;
-			console.log("nueva version?",this.version);
 		}
 	}
     },
@@ -230,15 +225,11 @@ Vue.component("component-kprima", {
 		watch: {
                     kprima: {
                         handler: function (kprima) {
-                            console.log("kprima", kprima);
                         },
                         deep: true
                     }
                 },
 		methods:{
-			  prueba:function(){
-				console.log("funcion desde actualizador-component");
-                        },
 
                     actualizarK: function (kprimaId,version) {
                         //add loading
@@ -300,7 +291,6 @@ window.vm = new Vue({
         },
         state: {
             handler: function (state) {
-                console.log("state", state);
                 //this.$forceUpdate();
             },
             deep: true
@@ -312,7 +302,7 @@ window.vm = new Vue({
         // LISTA DE REPOSITORIOS
         axios.post(apiConfigurador + "repositorio/reposVersions",{},{
 		auth:{
-			username:'kprima.prueba',
+            username:'ecore.prod',
 			password:'5a41ecee873e485d491e4b5231889768'
 		}
 	}
@@ -373,7 +363,7 @@ window.vm = new Vue({
                 }
 	},{
                     auth: {
-                        username: 'kprima.prueba',
+                        username: 'ecore.prod',
                         password: '5a41ecee873e485d491e4b5231889768'
                     }
                 });
@@ -382,7 +372,7 @@ window.vm = new Vue({
         // LISTA COMPLETA DE K' DE LA BASE DE DATOS
         axios.post(apiEcore + "nodo/k_primas",{},{
             auth: {
-                username: 'kprima.prueba',
+                username: 'ecore.prod',
                 password: '5a41ecee873e485d491e4b5231889768'
             }
 	}).then(function (response) {
@@ -405,7 +395,7 @@ window.vm = new Vue({
         // LISTA DE K' EN EL CANAL Kprimas DEL WESOCKET (DATOS INDEPENDIENTES)
         axios.post(apiConfigurador + "socket/kprimasChannels",{},{
 	auth:{
-		username:'kprima.prueba',
+        username:'ecore.prod',
 		password: '5a41ecee873e485d491e4b5231889768'
 	}
 }).then(function (response) {
@@ -414,22 +404,17 @@ window.vm = new Vue({
 
     }, methods: {
 	responseKprima:function(data){
-		console.log("recibí la respuesta!!",data);
 		this.bus.$emit('kprimaState',data);
 	},
         actualizar: function (repositorio, version) {
             var self = this;
             this.$set(self.repositorios_local[repositorio], "loading", true);
-	//console.log("repositorio: ",repositorio);
-	//console.log("version: ",version);
+
             axios.post(apiConfigurador + "repositorio/actualizar", {
                 repo: repositorio,
                 version: version
             }).then(function (result) {
-                // for (var i = 0; i < data.length; i++) {
-                //     $.notify(data[i]);
-                // }
-
+               
                 var data = $.extend(true, self.repositorios_local[repositorio], result.data);
                 data.diff = 0;
                 data.loading = false;
@@ -477,7 +462,6 @@ function sortVersions(arr) {
             versions.push(arr[i]);
         }
     }
-    console.log("sortVersions", versions);
 
     //TODO: CONVERTIR A ECMA5
     //https://stackoverflow.com/questions/40201533/sort-version-dotted-number-strings-in-javascript

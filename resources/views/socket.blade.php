@@ -13,17 +13,14 @@
     <div id="app" class="actualizador">
 	<div class="container">
 		<div class="row">
-            <div class="fondo">
-                <img src="images/logo_ethalamus.png" alt="">
-            </div>
-			<div class="col-md-12 text-center">
-				<h2><img src="images/actualizador.png" alt=""></h2>
+			<div class="col-md-12 logo text-center">
+				<img class="logo-actualizador" src="images/actualizador.png" alt="">
 	        </div>
 		</div>
 	</div>
         {{-- <login-ecore v-if="!userId" @hola="setUserId"></login-ecore> --}}
-        <div class="container">
-            <h2>Versionamiento local: <small>@{{lastVersion}}</small></h2>
+        <div class="container versionamiento">
+            <h2>Versionamiento local </h2>
         <table>
             <tr v-for='(repositorio, name) in repositorios_local'>
                 <td style="padding-right: 10px">
@@ -39,7 +36,7 @@
                     <!-- VERSION INCORRECTA -->
                     <td style="padding-right: 10px">
                         <!-- DIFF VERSION -->
-                        <span v-if="repositorios_local[name].diff" :style="{'color': repositorios_local[name].diff > 0 ? 'green' : 'red'}" :title="repositorios_local[name].count - repositorios_local[name].tags[repositorios_local[name].update]">
+                        <span v-if="repositorios_local[name].diff" :style="{'color': repositorios_local[name].diff > 0 ? '#87e600' : '#f05033'}" :title="repositorios_local[name].count - repositorios_local[name].tags[repositorios_local[name].update]">
                             [@{{repositorios_local[name].diff > 0 ? '+' : ''}}@{{repositorios_local[name].diff}}]
                         </span>
                     </td>
@@ -50,7 +47,7 @@
 
                         <span v-else-if="repositorios_local[name].diff">
                             <!-- UPDATE VERSION -->
-                            <a @click="actualizar(name, repositorios_local[name].update)" href="javascript:void(0)">
+                            <a class="btn update btn-sm" @click="actualizar(name, repositorios_local[name].update)" href="javascript:void(0)">
                                 @{{repositorios_local[name].diff > 0 ? 'devolver' : 'actualizar'}} a
                                 <b>@{{repositorios_local[name].update}}</b>
                             </a>
@@ -68,6 +65,7 @@
 
         <div class="row">
             <div class="col-md-12">
+		<h2>Lista Kprimas</h2>
                 <div class="table">
                     <div class="thead">
                         <div class="tr">
@@ -113,7 +111,7 @@
                                 <div v-for="repo in kprima.git">
                                     <div v-for="(rep,index) in repositorios_local">
                                          <div v-if="repo.route.substr(repo.route.lastIndexOf('/') ) === rep.route.substr(rep.route.lastIndexOf('/') )">
-					                        <actualizar-kprima :title="index" v-bind="{repo,rep,kprima,bus}"></actualizar-kprima>
+					                        <actualizar-kprima  v-bind="{repo,rep,kprima,bus}"></actualizar-kprima>
                                         </div>
                                     </div>
                                 </div>

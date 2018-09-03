@@ -17,17 +17,6 @@ class repos extends Command
      */
 
 
-	private $repos = [
-        'api_kprima' => [
-            'route' => "/var/www/html/api/kprima",
-        ],
-        'objects-nagios' => [
-            'route' => "/usr/local/nagios/etc/repo",
-        ],
-        'scripts-nagios' => [
-            'route' => "/usr/local/nagios/etc/scripts",
-        ]
-    ];
 
 
     protected $signature = 'repos:update';
@@ -56,6 +45,13 @@ class repos extends Command
      */
     public function handle()
     {
+	$repos=["api_kprima",
+            	"objects-nagios",
+            	'scripts-nagios'
+    		];
+
+
+
         $user= env('SSH_USER');
         $pass= env('SSH_PASS');
         $key= env('SSH_KEY');
@@ -74,13 +70,14 @@ class repos extends Command
                 Log::info('RSA Login Failed');
             }
         }
-	foreach(repos as repo){
+	foreach($repos as $repo){
 
-		Log::info(repo->route);
-		Log::info(repo);
+		$path='/var/www/html/ecore/api/websocket/storage/vendor/';
+		Log::info($repo);
+	 $result = $ssh->exec("cd {$path}{$repo};sudo git remote set-url origin https://rydwidefense:Wide.1906\!@github.com/widefense/{$repo};sudo git reset --hard; sudo git pull;");
+        Log::info($result);
+
 	}
-        $result = $ssh->exec("cd /var/www/html/ecore/api/websocket/storage/vendor/api_kprima;sudo git remote set-url origin https://rydwidefense:Wide.1906\!@github.com/widefense/api_kprima;sudo git reset --hard; sudo git pull;");
-	Log::info($result);
 
     }
 }

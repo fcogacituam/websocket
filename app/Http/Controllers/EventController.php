@@ -34,8 +34,10 @@ class EventController extends Controller
         $pathname = $request->pathname;
         $post = $request->input("post", null);
         $jwt = $request->cookie('Authorization');
-
-        return event(new KprimaEvent($id, $pathname, $post, $jwt));
+        $idUser = $request->userId;
+	$version = $request->version;
+	$route= $request->route;
+        return event(new KprimaEvent($id, $pathname, $post, $jwt, $idUser,$version,$route));
     }
 
     public function kprimas(Request $request)
@@ -57,6 +59,7 @@ class EventController extends Controller
         // DATOS DEVUELTOS DESDE K'
         $msg = $request->input("msg", "");
         $state = $request->input("state", "");
+	$ruta= $request->input("ruta","");
 
         if (!$request->has('id')) {
             return "Falta user id";
@@ -64,7 +67,7 @@ class EventController extends Controller
         $id = $request->id;
 
         // return json_encode($request);
-        return event(new UserEvent($msg, $state, $id));
+        return event(new UserEvent($msg, $state, $id,$ruta));
     }
 
     public function clients(Request $request)

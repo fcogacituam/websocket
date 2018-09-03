@@ -7,12 +7,20 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <title>Sockets</title>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 </head>
 <body>
-    <div id="app">
+    <div id="app" class="actualizador">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 logo text-center">
+				<img class="logo-actualizador" src="images/actualizador.png" alt="">
+	        </div>
+		</div>
+	</div>
         {{-- <login-ecore v-if="!userId" @hola="setUserId"></login-ecore> --}}
-        <div class="container">
-            <h2>Versionamiento local: <small>@{{lastVersion}}</small></h2>
+        <div class="container versionamiento">
+            <h2>Versionamiento local </h2>
         <table>
             <tr v-for='(repositorio, name) in repositorios_local'>
                 <td style="padding-right: 10px">
@@ -28,7 +36,7 @@
                     <!-- VERSION INCORRECTA -->
                     <td style="padding-right: 10px">
                         <!-- DIFF VERSION -->
-                        <span v-if="repositorios_local[name].diff" :style="{'color': repositorios_local[name].diff > 0 ? 'green' : 'red'}" :title="repositorios_local[name].count - repositorios_local[name].tags[repositorios_local[name].update]">
+                        <span v-if="repositorios_local[name].diff" :style="{'color': repositorios_local[name].diff > 0 ? '#87e600' : '#f05033'}" :title="repositorios_local[name].count - repositorios_local[name].tags[repositorios_local[name].update]">
                             [@{{repositorios_local[name].diff > 0 ? '+' : ''}}@{{repositorios_local[name].diff}}]
                         </span>
                     </td>
@@ -39,7 +47,7 @@
 
                         <span v-else-if="repositorios_local[name].diff">
                             <!-- UPDATE VERSION -->
-                            <a @click="actualizar(name, repositorios_local[name].update)" href="javascript:void(0)">
+                            <a class="btn update btn-sm" @click="actualizar(name, repositorios_local[name].update)" href="javascript:void(0)">
                                 @{{repositorios_local[name].diff > 0 ? 'devolver' : 'actualizar'}} a
                                 <b>@{{repositorios_local[name].update}}</b>
                             </a>
@@ -57,33 +65,30 @@
 
         <div class="row">
             <div class="col-md-12">
+		<h2>Lista Kprimas</h2>
                 <div class="table">
                     <div class="thead">
                         <div class="tr">
                             <div class="th">Ip</div>
-                            <div class="th">Versiones</div>
+                            <div class="th">Repo</div>
+			    <div class="th">Versión</div>
                             <div class="th">Acción</div>
                         </div>
                     </div>
                     <div class="tbody">
                         {{-- <lista-kprimas v-for="kprima in kprimas" :key="kprima.Id" :kprima="kprima" :kprimas-channels="kprimasChannels"></lista-kprimas> --}}
 
-			<component-kprima v-for="kprima in state.kprimas" v-bind="{kprima, repositorios_local, lastVersion, kprimasChannels}" :key="kprima.Id" inline-template>
+			<component-kprima v-for="kprima in state.kprimas" v-bind="{bus,kprima, repositorios_local, lastVersion, kprimasChannels,kprimas,userId,repositorios_local}" :key="kprima.Id" inline-template>
                         <div :title="clientesList(kprima)" class="tr" >
 
                             <div  class="td">@{{kprima.Ip}}</div>
 
                             <div  class="td">
-                                <small v-if="kprima.git">
+                                <div v-if="kprima.git">
                                     <div v-for="(repo, name) in kprima.git">
-                                        @{{name}}:
-                                        <b class='version'>@{{repo.version.split('-')[0]}}</b>
-                                        <span v-if="-1 != repo.version.indexOf('-')">-@{{repo.version.split('-').slice(1).join('-')}}</span>
-                                        <span v-if="repo.count != repositorios_local[name].count" :style="{'color': repo.count > repositorios_local[name].count ? 'green' : 'red'}">
-                                            [@{{repo.count > repositorios_local[name].count ? '+' : ''}}@{{repo.count - repositorios_local[name].count}}]
-                                        </span>
+                                        <strong>@{{name}}</strong>
                                     </div>
-                                </small>
+                                </div>
 
                                 <small v-else-if="kprimasChannels && kprimasChannels['private-kprima.' + kprima.Id]" style="color:grey">esperando respuesta del K'..</small>
 
@@ -93,16 +98,24 @@
                                 <small v-else style="color:grey">sin información del websocket (@{{kprima.Id}})</small>
                             </div>
 
-                            <!-- LOADING -->
-                            <div v-if="kprima.loading"  class="td">
-                                <i class="fa fa-spinner fa-pulse fa-fw"></i>
+                            <div class="td">
+                                <div v-for="repo in kprima.git">
+                                    <div v-for="(rep,index) in repositorios_local">
+                                         <div v-if="repo.route.substr(repo.route.lastIndexOf('/') ) === rep.route.substr(rep.route.lastIndexOf('/') )">
+					                            <repo-version v-bind="{repo,bus}"></repo-version>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div v-else-if="kprima.git && lastVersion"  class="td"> 
-                                <a @click="actualizarK(kprima.Id)" href="javascript:void(0)">reset a la
-                                    <b>@{{lastVersion}}</b>.*
-                                </a>
+                            <div v-if="kprima.git && lastVersion"  class="td"> 
+                                <div v-for="repo in kprima.git">
+                                    <div v-for="(rep,index) in repositorios_local">
+                                         <div v-if="repo.route.substr(repo.route.lastIndexOf('/') ) === rep.route.substr(rep.route.lastIndexOf('/') )">
+					                        <actualizar-kprima  v-bind="{repo,rep,kprima,bus}"></actualizar-kprima>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div v-else style="display: table-cell"></div>
 
                         </div>
                     </component-kprima>
@@ -111,7 +124,6 @@
             </div>
         </div>
 
-        
 
         
 
@@ -122,5 +134,11 @@
     
 
  <script src="{{ asset('js/app.js')}}"></script>
+<script>
+jQuery(function () {
+  jQuery('[data-toggle="tooltip"]').tooltip()
+})
+
+</script>
 </body>
 </html>

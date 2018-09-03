@@ -21,12 +21,13 @@ class UserEvent implements ShouldBroadcast
     public $msg;
     public $state;
     private $user_id;
-
-    public function __construct($msg, $state, $user_id)
+    public $ruta;
+    public function __construct($msg, $state, $user_id,$ruta)
     {
         $this->msg = $msg;
         $this->state = $state;
         $this->user_id = $user_id;
+	$this->ruta=$ruta;
     }
 
     public function broadcastOn()

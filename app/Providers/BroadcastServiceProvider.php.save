@@ -39,7 +39,6 @@ class BroadcastServiceProvider extends ServiceProvider
              //  return $user;
            // }
        
-
 		return $user;
 	 });
 

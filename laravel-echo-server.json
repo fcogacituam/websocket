@@ -24,9 +24,9 @@
         "port": "6001",
         "protocol": "https",
         "socketio": {"wsEngine":"ws"},
-        "sslCertPath": "/etc/httpd/conf.d/certificados_ecore/ecore_widefense_com.crt",
-        "sslKeyPath": "/etc/httpd/conf.d/certificados_ecore/ecore_widefense_com.key",
-        "sslCertChainPath": "/etc/httpd/conf.d/certificados_ecore/DigiCertCA.crt",
+	"sslCertPath": "/etc/httpd/conf.d/certificados_builder/widefense_com.crt",
+	"sslKeyPath": "/etc/httpd/conf.d/certificados_builder/widefense_com.key",
+	"sslCertChainPath": "/etc/httpd/conf.d/certificados_builder/DigiCertCA.crt",
         "sslPassphrase": "",
         "apiOriginAllow": {
                 "allowCors": true,

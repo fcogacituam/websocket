@@ -29,7 +29,7 @@
                 let passw= this.mutablePass;
                 var self=this;
 
-                axios.post('https://ecore.widefense.com/api/ecore/public/auth/login',{}, {
+                axios.post('https://ecore.builder.widefense.com/api/ecore/public/auth/login',{}, {
                         auth:{
                             username:user,
                             password:passw

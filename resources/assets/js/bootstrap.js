@@ -63,7 +63,7 @@ window.io = require('socket.io-client');
     //COMO FUNCION
 
         //INIT WEBSOCKET
-     var url = "https://ecore.widefense.com/";
+     var url = "https://ecore.builder.widefense.com/";
 
         //https://laravel.com/docs/5.6/broadcasting
         var echo = new Echo({
@@ -118,8 +118,8 @@ window.io = require('socket.io-client');
 
             echo.private('user.' + id)
                 .listen('UserEvent', function (data) {
-                    console.log('UserEvent', data);
-
+                    console.log('UserEvent aqui recibo la respuesta del K:',data);
+			window.vm.responseKprima(data);
                     if (data.msg) {
 
                         //CONVERTIR EN ARRAY SI NO LO ES

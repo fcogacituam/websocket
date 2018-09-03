@@ -14,11 +14,11 @@ class RepositorioController extends Controller
             'route' => "/var/www/html/api/kprima",
         ],
         'objects-nagios' => [
-            'route' => "/usr/local/nagios/etc/objects/repo",
+            'route' => "/usr/local/nagios/etc/repo",
         ],
         'scripts-nagios' => [
             'route' => "/usr/local/nagios/etc/scripts",
-        ],
+        ]
     ];
 
     // public function get(Request $request)
